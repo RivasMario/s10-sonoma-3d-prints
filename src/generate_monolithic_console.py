@@ -7,9 +7,7 @@ Features:
   - Solid 360-degree perimeter walls on both cupholders (No wall-severing slots or razor edges)
   - Dedicated Milwaukee Fastback 6-in-1 (48-22-1505) vertical knife holster with clip relief
   - Dual massive rear open cargo block vaults (60mm x 22mm x 60mm deep each) for glasses, tools, keys, phones, or whatever
-  - Dedicated 8-degree tilted smartphone dock (92mm x 17.5mm x 42mm, fits iPhone 15/16 Pro Max with case)
-      * With active USB-C bottom charging cable pass-through port and forward wire channel
-  - Full-width forward catch-all cargo tray with continuous 45° coin scoop ramp (150mm x 20mm x 18mm)
+  - Massive forward open cargo vault (154mm W x 44mm L x 30mm deep) with continuous 45° coin scoop ramp (Zero cramped slots!)
   - Integrated 110mm x 85mm x 7.5mm seat receiver tongue with retention catch bump
   - Monolithic contoured floor stabilizer base matching transmission tunnel curve
   - Underside engineered weight-relief cavity: Saves ~450g of plastic, self-supporting 45° roof (Zero supports needed!)
@@ -128,32 +126,27 @@ def generate_monolithic_console(include_floor_base=True):
     right_flare = rrect(64.0, 26.0, 5.0).extrude(2.0).translate([58.0, -46.0, -1.0])
     console -= (right_vault + right_flare)
     
-    # 7. Dedicated Smartphone Dock (8-degree rearward tilt)
-    # Centered at X = 0, Y = 65.0mm, Width 92mm, Thickness 17.5mm, Depth 42mm
-    phone_void = rrect(92.0, 17.5, 4.5).extrude(45.0).translate([0, 0, -45.0])
-    phone_void = phone_void.rotate([8.0, 0, 0]).translate([0, 65.0, 0])
-    phone_flare = rrect(96.0, 21.0, 5.0).extrude(2.5).translate([0, 0, -2.0]).rotate([8.0, 0, 0]).translate([0, 65.0, 0])
-    console -= (phone_void + phone_flare)
+    # 7. Massive Forward Open Cargo Vault with Continuous Coin Scoop Ramp
+    # Sunk into the entire front section in front of the cups:
+    # Width = 154.0mm (X = -77 to +77), Length = 44.0mm (Y = 56.5 to 100.5), Depth = 30.0mm
+    # A huge, deep open block to shove wallets, keys, sunglasses cases, phones, cords, or tools
+    FRONT_VAULT_W = 154.0
+    FRONT_VAULT_L = 44.0
+    FRONT_VAULT_D = 30.0
+    FRONT_VAULT_Y = 78.5  # center Y: 78.5 - 22 = 56.5, 78.5 + 22 = 100.5
     
-    # Active Charging Cable Pass-Through Port in bottom of phone dock
-    # Slices through bottom center of dock so USB-C cord can plug in while phone rests upright
-    cable_port = box(-14.0, 14.0, 58.0, 72.0, -56.0, -38.0)
-    cable_channel = box(-7.0, 7.0, 70.0, 85.0, -56.0, -46.0)
-    console -= (cable_port + cable_channel)
-    
-    # 8. Full-Width Forward Catch-All Cargo Tray with Coin Scoop Ramp
-    # Centered at X = 0, Y = 90.0mm, Width 150mm, Length 20mm, Depth 18mm
-    tray_void = rrect(150.0, 20.0, 4.0).extrude(18.0).translate([0, 90.0, -18.0])
-    # Smooth continuous 45° coin scoop ramp across forward wall (Y = 94 to 100)
-    coin_ramp = box(-75.0, 75.0, 94.0, 100.0, -18.0, 1.0)
-    console -= tray_void
+    front_vault = rrect(FRONT_VAULT_W, FRONT_VAULT_L, 6.0).extrude(FRONT_VAULT_D).translate([0, FRONT_VAULT_Y, -FRONT_VAULT_D])
+    front_flare = rrect(FRONT_VAULT_W + 4.0, FRONT_VAULT_L + 4.0, 7.0).extrude(2.0).translate([0, FRONT_VAULT_Y, -1.0])
+    # Smooth continuous 45° coin scoop ramp across forward wall (Y = 94 to 101)
+    coin_ramp = box(-FRONT_VAULT_W/2, FRONT_VAULT_W/2, 94.0, 101.0, -FRONT_VAULT_D, 1.0)
+    console -= (front_vault + front_flare)
     console -= coin_ramp
     
-    # 9. Underside Engineered Weight-Relief & Stash Cavity
+    # 8. Underside Engineered Weight-Relief & Stash Cavity
     if include_floor_base:
-        # A. Large forward weight-relief chamber under phone/tray (self-supporting 45-degree angled roof)
-        # Keeps 25mm structural perimeter rim, saves ~350g filament
-        core_void = rrect(140.0, 46.0, 10.0).extrude(52.0).translate([0, 72.0, TOTAL_FLOOR_Z - 1.0])
+        # Large forward weight-relief chamber under front vault (self-supporting 45-degree angled roof)
+        # Keeps thick structural perimeter runners, saves ~450g filament
+        core_void = rrect(140.0, 40.0, 10.0).extrude(48.0).translate([0, FRONT_VAULT_Y, TOTAL_FLOOR_Z - 1.0])
         console -= core_void
         
         # B. Transmission tunnel crowning curve (320mm radius cylinder cut across X axis)
