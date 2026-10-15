@@ -97,36 +97,49 @@ def render_cupholder_inserts(sleeve_path, caddy_path, stilt_path, out_path):
     print(f"Saved: {out_path}")
 
 def render_1995_megadeck_assembly(deck_path, stilt_path, out_path):
-    print("Rendering 1995 Sonoma Mega-Deck Console Assembly CAD...")
+    print("Rendering 1995 Sonoma Mega-Deck Assembly CAD...")
     m_deck = mesh.Mesh.from_file(deck_path)
     m_stilt = mesh.Mesh.from_file(stilt_path)
-
-    # In generate_1995_sonoma_cupholder_console.py:
-    # Deck top rim is at Z=0, cups go to Z=-90.
-    # Stilt tenon goes from Z=0 to Z=21, drop from Z=0 to Z=-26.
-    # The socket in deck is at Z=-90+6 = -84.
-    # Stilt translates to Z = -84.
+    # Stilt is positioned at [0, 0, -84.0] under mortise
     m_stilt.translate([0, 0, -84.0])
 
-    # Rotate assembly so tongue points back-right, cups & phone tray face front-left
-    for m in [m_deck, m_stilt]:
-        m.rotate([0, 0, 1], np.radians(140))
+    m_deck.rotate([0, 0, 1], np.radians(135))
+    m_stilt.rotate([0, 0, 1], np.radians(135))
 
     v0 = np.vstack([m_deck.v0, m_stilt.v0])
     v1 = np.vstack([m_deck.v1, m_stilt.v1])
     v2 = np.vstack([m_deck.v2, m_stilt.v2])
 
+    i_split = len(m_deck.v0)
     part_id = np.zeros(len(v0), dtype=np.int32)
-    part_id[len(m_deck.v0):] = 1
+    part_id[i_split:] = 1
 
     colors = np.zeros((len(v0), 3), dtype=np.float32)
-    colors[:len(m_deck.v0)] = [60, 66, 76]     # Mega-Deck: Clean Graphite
-    colors[len(m_deck.v0):] = [45, 48, 54]     # Stilt: Textured Matte Black
+    colors[:i_split] = [58, 64, 74] # Deck: Charcoal
+    colors[i_split:] = [38, 42, 48] # Stilt: Darker base
 
     img = render_mesh_studio(
         v0, v1, v2, colors,
-        W=1600, H=950, elev_deg=34, azim_deg=-15, roll_deg=0,
-        zoom_factor=0.90, is_part_id=part_id, crease_deg=35.0
+        W=1600, H=950, elev_deg=32, azim_deg=-15, roll_deg=0,
+        zoom_factor=0.88, is_part_id=part_id, crease_deg=35.0
+    )
+    img.save(out_path)
+    print(f"Saved: {out_path}")
+
+def render_1995_monolithic_console(mono_path, out_path):
+    print("Rendering 1995 Sonoma Monolithic Unibody Console CAD...")
+    m = mesh.Mesh.from_file(mono_path)
+
+    # Rotate so tongue points back-right, cups & front tray face forward-left
+    m.rotate([0, 0, 1], np.radians(135))
+
+    v0, v1, v2 = m.v0, m.v1, m.v2
+    colors = np.full((len(v0), 3), [58, 64, 74], dtype=np.float32) # Sleek OEM Matte Charcoal
+
+    img = render_mesh_studio(
+        v0, v1, v2, colors,
+        W=1600, H=950, elev_deg=32, azim_deg=-15, roll_deg=0,
+        zoom_factor=0.88, crease_deg=35.0
     )
     img.save(out_path)
     print(f"Saved: {out_path}")
@@ -145,11 +158,14 @@ def main():
     caddy_stl = os.path.join(stls, "cupholder", "sonoma_cupholder_fastback_caddy.stl")
     stilt_stl = os.path.join(stls, "cupholder", "sonoma_glide_stilt_52mm.stl")
 
+    mono_stl = os.path.join(stls, "cupholder", "sonoma_1995_monolithic_console.stl")
     megadeck_stl = os.path.join(stls, "cupholder", "sonoma_cupholder_1995_megadeck.stl")
     stilt_26_stl = os.path.join(stls, "cupholder", "sonoma_cupholder_1995_stilt_26mm.stl")
 
     render_ashtray_inserts(usb_stl, combo_stl, deep_stl, os.path.join(imgs, "cad_render_1995_ashtray.png"))
     render_cupholder_inserts(sleeve_stl, caddy_stl, stilt_stl, os.path.join(imgs, "cad_render_1995_cupholder.png"))
+    if os.path.exists(mono_stl):
+        render_1995_monolithic_console(mono_stl, os.path.join(imgs, "cad_render_1995_monolithic.png"))
     if os.path.exists(megadeck_stl) and os.path.exists(stilt_26_stl):
         render_1995_megadeck_assembly(megadeck_stl, stilt_26_stl, os.path.join(imgs, "cad_render_1995_megadeck.png"))
 

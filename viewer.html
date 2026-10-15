@@ -111,9 +111,10 @@
       <label for="modelSelect" style="font-size: 12px; color: #8b949e; font-weight: 600;">MODEL:</label>
       <select id="modelSelect">
         <optgroup label="1995 Sonoma Bench Seat Cupholder Solutions">
-          <option value="sonoma_1995_megadeck_assembly" selected>★ 1995 Mega-Deck Full Assembly (Console + Stilt Foot)</option>
-          <option value="sonoma_1995_megadeck">★ 1995 Mega-Deck Console Only (Dual 90mm Cups + Phone + Fastback)</option>
-          <option value="sonoma_1995_stilt_26mm">1995 Mega-Deck 26mm Stabilizer Stilt Foot</option>
+          <option value="sonoma_1995_monolithic" selected>★ 1995 Sonoma Monolithic Console (Single-Piece Unibody, Zero Separate Pieces)</option>
+          <option value="sonoma_1995_megadeck_assembly">★ 1995 Mega-Deck 2-Piece Assembly (Console Deck + 25mm Stilt Foot)</option>
+          <option value="sonoma_1995_megadeck">1995 Mega-Deck Console Deck Only (Dual Cups + Phone + Fastback)</option>
+          <option value="sonoma_1995_stilt_26mm">1995 Mega-Deck 25mm Stabilizer Stilt Foot</option>
           <option value="sonoma_cupholder_sleeve">OEM Well Drop-in: 30/40oz Tumbler Sleeve (+50mm Lip, Mug Handle)</option>
           <option value="sonoma_cupholder_fastback">OEM Well Drop-in: Fastback 6-in-1 Caddy + Phone Slot</option>
           <option value="sonoma_glide_stilt_52mm">Full Replacement Deck: 52mm Calibrated Low-Profile Floor Stilt</option>
@@ -330,9 +331,11 @@
         loadSingle('stls/ashtray/sonoma_1995_ashtray_combo_power.stl', materialDeck);
       }
       // 1995 Sonoma Bench Seat Cupholder Solutions
-      else if (selection === 'sonoma_1995_megadeck_assembly') {
+      else if (selection === 'sonoma_1995_monolithic') {
+        loadSingle('stls/cupholder/sonoma_1995_monolithic_console.stl', materialDeck);
+      } else if (selection === 'sonoma_1995_megadeck_assembly') {
         loadPair('stls/cupholder/sonoma_cupholder_1995_megadeck.stl', materialDeck, 0, null,
-                 'stls/cupholder/sonoma_cupholder_1995_stilt_26mm.stl', materialStilt, 0, [0, 0, -84.0]);
+                 'stls/cupholder/sonoma_cupholder_1995_stilt_26mm.stl', materialStilt, 0, [0, 0, -85.0]);
       } else if (selection === 'sonoma_1995_megadeck') {
         loadSingle('stls/cupholder/sonoma_cupholder_1995_megadeck.stl', materialDeck);
       } else if (selection === 'sonoma_1995_stilt_26mm') {

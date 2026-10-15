@@ -139,31 +139,36 @@ Replaces the unused factory cigarette ash bin with modern USB-C charging power o
 Located in [`stls/cupholder/`](stls/cupholder/)
 
 <p align="center">
-  <img src="images/cad_render_1995_megadeck.png" width="95%" alt="1995 Sonoma Mega-Deck Console Assembly CAD" />
+  <img src="images/cad_render_1995_monolithic.png" width="95%" alt="1995 Sonoma Monolithic Unibody Console CAD" />
 </p>
 <p align="center">
-  <img src="images/cad_render_1995_cupholder.png" width="95%" alt="1995 Sonoma Bench Cupholder Sleeves and 52mm Stilt CAD" />
+  <img src="images/cad_render_1995_megadeck.png" width="49%" alt="1995 Sonoma Mega-Deck 2-Piece Assembly CAD" />
+  <img src="images/cad_render_1995_cupholder.png" width="49%" alt="1995 Sonoma Bench Cupholder Sleeves and 52mm Stilt CAD" />
 </p>
 
 Calibrated directly against real photos of the **1995 GMC Sonoma** dark blue interior and verified using a **Milwaukee Fastback 6-in-1 (`48-22-1505`)** utility knife (117mm / 4.6" closed) as a physical scale:
 
-* **Real Floor Drop Clearance:** The distance from the seat receiver tongue down to the rubber transmission tunnel floor mat is only **50mm to 60mm (~2.0" to 2.4")**. The bottom of full-depth 90mm cups sits just ~25mm above the floor mat, making the support stilt leg extremely short, rigid, and rock-solid!
+* **Real Floor Drop Clearance:** The distance from the seat receiver tongue down to the rubber transmission tunnel floor mat is only **50mm to 60mm (~2.0" to 2.4")**. The bottom of full-depth 82mm cups sits just ~25mm above the floor mat, making the support stilt leg extremely short, rigid, and rock-solid!
 
-#### 🚀 1. The Full Replacement Console: 1995 Sonoma "Mega-Deck" Pro Edition
-Replaces the stock GM blue cupholder console entirely, plugging directly into the bench seat receiver slot:
+#### 🚀 1. The Monolithic Unibody Console (Single-Piece Indestructible Print — Recommended)
+Replaces the stock GM blue cupholder console entirely as a **100% single, solid automotive unibody**:
 
+* **`sonoma_1995_monolithic_console.stl`**:
+  * **Zero Floating Parts & Zero Assembly:** Everything—the console deck, dual stepped cupholders, Milwaukee Fastback knife holster, smartphone dock, catch-all tray, seat receiver tongue, and transmission tunnel glide foot—is fused into a continuous solid mass with thick structural walls (≥5mm throughout).
+  * **Dual 82mm-Deep Stepped Cupholders:** Over **2.3x deeper** than the stock 35mm GM wells! Complete 360° circular solid perimeter walls with a stepped bore (86mm / 3.38" top flare, 70mm / 2.75" lower pocket). Holds standard 12oz soda cans and water bottles firmly without rattle, while easily accommodating 30oz/40oz tumblers (Yeti, Stanley, Hydro Flask).
+  * **Dedicated Milwaukee Fastback 6-in-1 Knife Holster:** Precision vertical slot (38mm × 22mm × 55mm deep) with an integrated pocket clip relief channel, keeping your primary EDC blade upright and instantly accessible.
+  * **Dedicated 8° Tilted Smartphone Dock:** Wide forward slot (92mm × 17.5mm × 42mm deep) holds modern large phones (iPhone 15/16 Pro Max, Galaxy Ultra with cases) tilted slightly back toward the driver for effortless glanceability and navigation.
+  * **Forward Catch-All Cargo Tray:** Recessed forward tray (110mm × 22mm × 18mm deep) with a smooth 45° coin scoop ramp so change, screws, or keys slide effortlessly up into your hand.
+  * **Integrated Transmission Tunnel Glide Base:** Extends straight down to $Z = -110\text{mm}$ with a 320mm radius contoured arch matching the transmission tunnel carpet, complete with dual 40mm recessed pockets for anti-slip rubber or felt pads.
+  * **Integrated Seat Receiver Tongue:** Heavy-duty 110mm W × 85mm L × 7.5mm T tongue with a positive retention catch bump that locks firmly into the factory seat frame slot.
+
+#### 🧩 2. The Modular 2-Piece Edition (For Smaller Print Beds):
 * **`sonoma_cupholder_1995_megadeck.stl`**:
-  * **Dual Massive 90mm-Deep Stepped Cupholders:** Over **2.5x deeper** than the stock 35mm GM wells! Features a stepped bore (3.6" top flare, 3.2" mid bore, 2.75" lower pocket) that firmly locks everything from standard 12oz soda cans to 30oz/40oz Stanleys, Hydro Flasks, and large Yetis.
-  * **Dual Mug Handle Notches:** Wide 38mm outboard handle clearance channels so coffee travel mugs drop straight in.
-  * **Dedicated Milwaukee Fastback 6-in-1 Knife Holster:** Precision vertical slot (40.5mm × 23mm × 55mm deep) with blade button notch and pocket clip relief channel, so your knife is always at your fingertips instead of cluttering your cup wells.
-  * **Dedicated Smartphone / Powerbank Dock:** Wide forward slot (88mm × 16.5mm) holds modern large phones (iPhone 15/16 Pro Max, Galaxy Ultra with cases) standing upright.
-  * **Catch-All Utility Cargo Tray:** Recessed forward tray (94mm × 26mm × 22mm deep) for keys, coins, toll passes, or AirPods.
-  * **Calibrated Seat Tongue:** Heavy-duty 110mm W × 95mm L × 7.5mm T tongue with a positive retention catch bump that locks firmly into the factory seat frame slot.
-* **`sonoma_cupholder_1995_stilt_26mm.stl` (Stabilizer Floor Foot)**:
-  * Low-profile compression leg that press-fits into the mortise socket beneath the Mega-Deck.
-  * Bridges the 26mm gap from the bottom of the cups down to the transmission tunnel hump, featuring a 300mm curved glide foot and a 38mm recessed pocket for a felt or rubber pad to eliminate any vibration or flex.
+  * The same full-feature console deck, stopping at $Z = -85\text{mm}$ with an underside mortise socket for printers with restricted vertical build volume.
+* **`sonoma_cupholder_1995_stilt_26mm.stl` (25mm Low-Profile Stabilizer Foot)**:
+  * Bridges the 25mm gap from the bottom of the deck down to the transmission tunnel hump, with a precision tenon that keys firmly into the underside socket.
 
-#### 🛠️ 2. OEM Dual-Well Drop-In Inserts (Zero Disassembly Option):
+#### 🛠️ 3. OEM Dual-Well Drop-In Inserts (Zero Disassembly Option):
 * **`sonoma_cupholder_tumbler_sleeve.stl` (30/40oz Stanley & Yeti Riser)**:
   * Drops directly into either factory blue cup well.
   * Features a 35mm lower seating collar that locks into the OEM well, rising 50mm above the console with a **stepped 3.25" / 3.62" bore** and a wide outward **mug handle slot**.
