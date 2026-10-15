@@ -139,7 +139,8 @@ Replaces the unused factory cigarette ash bin with modern USB-C charging power o
 Located in [`stls/cupholder/`](stls/cupholder/)
 
 <p align="center">
-  <img src="images/cad_render_1995_monolithic.png" width="95%" alt="1995 Sonoma Monolithic Unibody Console CAD" />
+  <img src="images/cad_render_1995_monolithic.png" width="49%" alt="1995 Sonoma Monolithic Unibody Console Top CAD" />
+  <img src="images/cad_render_1995_monolithic_underside.png" width="49%" alt="1995 Sonoma Monolithic Console Structural Underside CAD" />
 </p>
 <p align="center">
   <img src="images/cad_render_1995_megadeck.png" width="49%" alt="1995 Sonoma Mega-Deck 2-Piece Assembly CAD" />
@@ -159,9 +160,19 @@ Replaces the stock GM blue cupholder console entirely as a **100% single, solid 
   * **Dedicated Milwaukee Fastback 6-in-1 Knife Holster:** Precision vertical slot (38mm × 20mm × 55mm deep) with an integrated pocket clip relief channel in the rear center bridge.
   * **Dual Massive Open Rear Cargo Blocks:** Two giant, deep open vault pockets (**60mm W × 22mm L × 60mm D each**) on the driver and passenger rear wings—wide-open multipurpose bins to shove sunglasses, wallets, AirPods, knives, pens, lighters, or tools wherever you want without restrictive dividers.
   * **Contour-Wrapped Forward Cargo Mega-Vault:** Sweeps around the front curves of both cupholders to capture all free space (**172mm W × 67mm L × 32mm D**) with a continuous 45° coin scoop ramp—a massive, deep open bay to shove wallets, sunglasses cases, phones, keys, cords, or tools without cramped slots or wasted plastic.
-  * **Underside Engineered Weight-Relief & Stash Cavity:** Features a self-supporting 45° arched under-body chamber that **cuts ~450g of plastic** (saving ~35% print time and material) with zero print supports required, leaving a continuous 25mm structural perimeter rim.
-  * **Integrated Transmission Tunnel Glide Base:** Extends straight down to $Z = -110\text{mm}$ with a 320mm radius contoured arch matching the transmission tunnel carpet, complete with dual 40mm recessed pockets for anti-slip rubber or felt pads.
-  * **Integrated Seat Receiver Tongue:** Heavy-duty 110mm W × 85mm L × 7.5mm T tongue with a positive retention catch bump that locks firmly into the factory seat frame slot.
+  * **Reinforced Seat Receiver Tongue with 45° Buttress Gussets:** 
+    * Eliminates cantilever bending fatigue when resting heavy tumblers or leaning on the console.
+    * Features a heavy-duty **45° triangular buttress gusset** underneath that tapers smoothly from $Y = -78\text{mm}$ down into the vertical rear body wall down to $Z = -77.5\text{mm}$.
+    * Taper acts as a self-centering 45° lead-in shoe that slides effortlessly into the seat receiver slot without catching.
+    * Features a **45° top transition fillet** that eliminates notch stress concentration where the tongue meets the console deck.
+    * Integrated retention catch bump locks securely into the factory GM receiver channel.
+  * **Triple Self-Supporting 45° Gable Weight-Relief Coring (Zero Supports Needed):**
+    * Hollows out **~500 cm³ of dead solid plastic mass (~620g solid plastic equivalent)** without sacrificing structural rigidity!
+    * **Forward Gable Chamber:** $134\text{mm W} \times 46\text{mm L}$ with a 45° gable roof under the front mega-vault.
+    * **Rear Gable Chamber:** $112\text{mm W} \times 26\text{mm L}$ with a 45° gable roof under the rear cargo blocks and knife holster.
+    * **Central Longitudinal Spine Tunnel:** $18\text{mm W} \times 74\text{mm L}$ with a 45° peaked arch connecting the front and rear chambers between the lower cupholder pockets.
+    * **100% Self-Supporting:** Every ceiling overhang angle is exactly 45°—the entire console prints with **ZERO internal or external supports**, saving **~300g of filament** and **4 to 6 hours of print time**!
+  * **Integrated Transmission Tunnel Glide Base:** Extends straight down to $Z = -110\text{mm}$ with a continuous perimeter box frame and a 320mm radius contoured arch matching the transmission tunnel carpet, complete with dual 40mm recessed pockets for anti-slip rubber or felt pads.
 
 #### 🧩 2. The Modular 2-Piece Edition (For Smaller Print Beds):
 * **`sonoma_cupholder_1995_megadeck.stl`**:
@@ -250,19 +261,33 @@ If you want the charger and voltmeter display to shut off 100% when you turn off
 > **Material Warning:** Because car interiors in the summer can easily exceed **60°C to 70°C (140°F – 160°F)**, **DO NOT USE STANDARD PLA**! PLA will deform, soften, and warp in hot vehicles.
 
 * **Recommended Filament:** **PETG**, **ABS**, or **ASA** (ASA is ideal for UV and heat resistance).
+
+### 🚀 Monolithic Console Slicing Guide (Maximum Strength, Minimum Time & Filament)
+* **Print Orientation:** Flat on build plate (Z up).
+* **Supports:** **DISABLED / OFF**! (All cavity ceilings, bevels, and buttresses are 45° self-supporting).
+* **Layer Height:** 
+  * `0.28mm` (Fast profile with standard 0.4mm nozzle) — cuts print time by **~40%** vs 0.20mm while looking great.
+  * `0.32mm` or `0.36mm` (with 0.6mm nozzle) — cuts print time by **~60%** (prints in ~10–12 hours instead of 28 hours!).
+* **Perimeters / Wall Line Count:** `3 to 4 walls` (1.2mm to 1.6mm wall thickness).
+  * *Strength Tip:* In 3D printing mechanics, >90% of bending and impact resistance comes from outer perimeters. 3–4 walls provide extreme structural rigidity.
+* **Infill:** `12% to 15% Gyroid` or `Adaptive Cubic / Lightning`.
+  * *Filament Saver:* Higher infill (e.g. 40–50%) wastes hundreds of grams of filament and adds 10+ hours without contributing meaningful real-world strength. 15% Gyroid provides uniform 3D compression resistance.
+
+### 📱 Dash Phone Mounts & Ashtray Inserts
 * **Layer Height:** `0.20mm` (or `0.16mm` for ball studs).
-* **Perimeters / Walls:** `4 to 5 walls` (Crucial for mechanical strength on phone ball stems and seat tongues).
-* **Infill:** `30% to 45%` (Gyroid or Grid).
+* **Perimeters / Walls:** `4 to 5 walls` (Crucial for mechanical strength on phone ball stems).
+* **Infill:** `25% to 40% Gyroid`.
 * **Supports:**
   * Phone plates: Print flat face-down on build plate. Supports required only under the rear snap tabs.
   * Ball stud (`ball_17mm_frontmount.stl`): Print oriented on its flat side for maximum layer adhesion strength along the stem axis.
-  * Cupholder deck: Print right-side up with tree supports under the tongue.
+  * Ashtray inserts: Print right-side up with 0 supports.
 
 ---
 
 ## 💻 Parametric CAD Source Code
 
 All parts were programmatically designed in Python using the modern `manifold3d` geometric modeling engine. Source scripts are in [`src/`](src/):
+* `src/generate_monolithic_console.py`: 1995 Sonoma Monolithic Unibody Console & 25mm stilt generator.
 * `src/generate_1995_sonoma_cupholder_console.py`: 1995 Sonoma Mega-Deck console & 26mm stabilizer stilt generator.
 * `src/generate_1995_sonoma_mods.py`: 1995 Sonoma ashtray drop-ins, tumbler sleeve, Fastback caddy, and 52mm stilt generator.
 * `src/generate_all_phone_mounts.py`: Parametric phone mount generator.

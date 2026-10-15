@@ -144,6 +144,25 @@ def render_1995_monolithic_console(mono_path, out_path):
     img.save(out_path)
     print(f"Saved: {out_path}")
 
+def render_1995_monolithic_underside(mono_path, out_path):
+    print("Rendering 1995 Sonoma Monolithic Console Underside Structural CAD...")
+    m = mesh.Mesh.from_file(mono_path)
+
+    # Invert Z to view bottom coring chambers, tunnel arch, and tongue buttress ribs
+    m.rotate([1, 0, 0], np.radians(180))
+    m.rotate([0, 0, 1], np.radians(-45))
+
+    v0, v1, v2 = m.v0, m.v1, m.v2
+    colors = np.full((len(v0), 3), [68, 76, 88], dtype=np.float32)
+
+    img = render_mesh_studio(
+        v0, v1, v2, colors,
+        W=1600, H=950, elev_deg=35, azim_deg=-20, roll_deg=0,
+        zoom_factor=0.88, crease_deg=35.0
+    )
+    img.save(out_path)
+    print(f"Saved: {out_path}")
+
 def main():
     base = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
     stls = os.path.join(base, "stls")
@@ -166,6 +185,7 @@ def main():
     render_cupholder_inserts(sleeve_stl, caddy_stl, stilt_stl, os.path.join(imgs, "cad_render_1995_cupholder.png"))
     if os.path.exists(mono_stl):
         render_1995_monolithic_console(mono_stl, os.path.join(imgs, "cad_render_1995_monolithic.png"))
+        render_1995_monolithic_underside(mono_stl, os.path.join(imgs, "cad_render_1995_monolithic_underside.png"))
     if os.path.exists(megadeck_stl) and os.path.exists(stilt_26_stl):
         render_1995_megadeck_assembly(megadeck_stl, stilt_26_stl, os.path.join(imgs, "cad_render_1995_megadeck.png"))
 
