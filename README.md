@@ -108,27 +108,80 @@ Located in [`stls/ashtray/`](stls/ashtray/)
 Replaces the unused factory cigarette ash bin with modern USB-C charging power or dedicated daily-carry storage:
 
 <p align="center">
-  <img src="images/cad_render_ashtray_mods.png" width="90%" alt="Chevy S10 Ashtray Power Panel and Deep Pocket Conversions" />
+  <img src="images/cad_render_1995_ashtray.png" width="95%" alt="1995 GMC Sonoma Ashtray Drop-in Inserts CAD" />
+</p>
+<p align="center">
+  <img src="images/cad_render_ashtray_mods.png" width="95%" alt="Chevy S10 Center Stack Ashtray Conversions" />
 </p>
 
 #### Dash Architecture by Model Year:
-* **1994–1997 Models (e.g. 1995 GMC Sonoma)**: 
+* **1994–1997 Models (e.g. 1995 GMC Sonoma Lower Dash Pull-Out Drawer)**: 
   * The factory pull-out drawer is located on the lower dashboard to the right of the cigarette lighter.
-  * **Drop-In Bucket Replacement Strategy:** The factory slide-out drawer mechanism and OEM exterior textured faceplate are retained so the dash looks 100% stock when closed. The inner metal cigarette bucket unclips and lifts out, allowing a custom 3D printed organizer pocket or USB-C fast-charging pod to drop directly into the sliding drawer frame!
-* **1998–2004 Models**:
-  * Located in the center stack directly below the climate controls. Compatible with both drop-in bin inserts and flush ashtray delete pods (GMC Envoy style).
+  * **Drop-In Bucket Replacement Strategy:** The factory slide-out drawer mechanism and OEM exterior textured faceplate are retained 100% stock when closed. The inner metal cigarette bucket unclips and lifts out, allowing a custom 3D printed organizer pocket or USB-C fast-charging pod to drop directly into the sliding drawer frame!
+  * **`sonoma_1995_ashtray_usb_power.stl` (Flush USB-C Fast Charger Pod)**:
+    * Replaces the inner metal bucket with a flush top deck fitted with a standard **28.8mm (1-1/8") round mounting hole**.
+    * Fits universal automotive/marine dual USB-C Power Delivery (45W/65W) + QC3.0 chargers with LED voltmeters.
+    * Chamfered rear wire pass-through channel allows clean cable exit without pinching when sliding the drawer open and closed.
+  * **`sonoma_1995_ashtray_edc_pocket.stl` (Deep Everyday Carry Organizer)**:
+    * Dual-compartment organizer: deep flat-bottom cargo vault for keys/AirPods/toll badges + forward curved ramp pocket for sliding out coins/screws with your thumb.
+  * **`sonoma_1995_ashtray_combo_power.stl` (2-in-1 USB-C Power + Drop Pocket)**:
+    * Combines a driver-side 28.8mm USB-C socket with a passenger-side open utility drop pocket.
 
-#### Included Conversion Modules:
-* **`S10_ashtray_usb_power_panel.stl` (Flush USB-C Fast-Charging Faceplate)**:
-  * Features a standard **28.8mm (1-1/8") circular mounting hole** compatible with universal marine/automotive USB-C Power Delivery (45W/65W) + QuickCharge 3.0 sockets with built-in digital LED voltmeters.
-  * Designed with rear wire clearance channels.
-* **`S10_ashtray_deep_pocket.stl` (Deep Drop-In Organizer Pocket)**:
-  * Drops directly into the drawer cavity to replace the metal cigarette cup.
-  * Multi-compartment design with an internal partition for coins, house keys, toll cards, and AirPods.
-* **`S10_ashtray_combo_power_pocket.stl` (2-in-1 Power + Pocket Hybrid)**:
-  * The best of both worlds: holds a 28.8mm round USB-C fast-charger socket on the driver's side, and an open drop-pocket on the passenger side!
+* **1998–2004 Models (Center Stack Below HVAC)**:
+  * Located in the center dash stack. Compatible with both drop-in bin inserts and flush delete pods:
+  * **`S10_ashtray_usb_power_panel.stl`**: Center-stack 28.8mm USB-C panel.
+  * **`S10_ashtray_deep_pocket.stl`**: Multi-compartment coin/key drop pocket.
+  * **`S10_ashtray_combo_power_pocket.stl`**: 2-in-1 hybrid power and storage bin.
 
 ---
+
+### 5. 1995 Sonoma Bench Seat Cupholder Upgrades
+Located in [`stls/cupholder/`](stls/cupholder/)
+
+<p align="center">
+  <img src="images/cad_render_1995_cupholder.png" width="95%" alt="1995 Sonoma Bench Cupholder Sleeves and 52mm Stilt CAD" />
+</p>
+
+Calibrated directly against real photos of the **1995 GMC Sonoma** dark blue interior and verified using a **Milwaukee Fastback 6-in-1 (`48-22-1505`)** utility knife (117mm / 4.6" closed) as a physical scale:
+
+* **Real Floor Drop Clearance:** The distance from the seat receiver tongue down to the rubber transmission tunnel floor mat is only **50mm to 60mm (~2.0" to 2.4")** (gap under factory blue wells to carpet is ~38–40mm).
+* **OEM Dual Well Drop-In Solutions (Zero Disassembly):**
+  * **`sonoma_cupholder_tumbler_sleeve.stl` (30/40oz Stanley & Yeti Riser)**:
+    * Drops directly into either factory blue cup well.
+    * Features a 35mm lower seating collar that locks into the OEM well, rising 50mm above the console with a **stepped 3.25" / 3.62" bore** and a wide outward **mug handle slot**.
+    * Prevents tall tumblers, insulated water bottles, and large travel mugs from tipping over during acceleration or braking.
+  * **`sonoma_cupholder_fastback_caddy.stl` (Milwaukee Fastback + Phone Caddy)**:
+    * Drops into one of the blue wells to convert it into a specialized EDC workstation.
+    * Features a precision **vertical pocket custom-molded for the Milwaukee 48-22-1505 Fastback knife** (blade lock notch and wire clip clearance) plus a wide smartphone / battery bank slot.
+* **Full Replacement Deck Option:**
+  * **`sonoma_glide_stilt_52mm.stl`**:
+    * Calibrated low-profile compression stilt leg designed specifically for the 50–60mm transmission tunnel drop height.
+    * Slides into `sonoma_cupholder_deck.stl` via dovetail key, featuring a 300mm curved transmission tunnel glide foot and a 38mm felt pad recess.
+
+---
+
+### 6. 💡 Dashboard & Glove Box LED Bulb Upgrade Guide
+
+The factory incandescent miniature wedge bulbs in the lower dash ashtray and the passenger glove box drawer often burn out or emit a dim yellow glow. Both can be easily upgraded to high-efficiency, bright LEDs.
+
+#### 📐 Bulb Specifications:
+* **Lower Dash Ashtray Light:** **#161 or #194 (T10 / W5W miniature wedge base)** (12V, push-in wedge).
+* **Passenger Glove Box Drawer Light:** **#194 (T10 / W5W miniature wedge base)** (12V, push-in wedge).
+* **Recommended Replacement:** High-quality CANBus-friendly **T10 / 194 LED wedge bulbs** (available in Warm White 3000K for an OEM look, Cool White 6000K for modern clarity, or Dark Blue to complement the factory Sonoma blue interior).
+
+#### 🔧 Step-by-Step Replacement:
+1. **Ashtray Night-Light:**
+   * Slide the ashtray drawer out. Press down on the top spring release tab and pull the inner bucket out.
+   * Look directly into the upper ceiling of the inner dash cavity. You will see a small twist-lock plastic socket.
+   * Twist the socket **1/4 turn counterclockwise** to unlock and pull it down.
+   * Pull the old glass #161/#194 bulb straight out of the wedge socket. Push the new LED bulb straight into the socket.
+   * **Polarity Check:** Turn on your parking lights. If the LED doesn't illuminate, pull it out, **flip it 180 degrees**, and reinsert (LED diodes are polarity-sensitive).
+   * Twist the socket clockwise 1/4 turn back into the housing ceiling.
+2. **Passenger Glove Box Drawer Light:**
+   * Open the glove box door. Locate the striker/light assembly on the upper frame.
+   * Gently squeeze the plastic diffuser lens tabs to release the lens cover.
+   * Pull the old #194 wedge bulb straight out and push the new LED in.
+   * Verify illumination when opening the glove box door (flip 180° if needed), then snap the lens cover back into place.
 
 ## ⚡ Step-by-Step Ashtray & Cigarette Lighter Wiring Guide
 
@@ -189,10 +242,13 @@ If you want the charger and voltmeter display to shut off 100% when you turn off
 ## 💻 Parametric CAD Source Code
 
 All parts were programmatically designed in Python using the modern `manifold3d` geometric modeling engine. Source scripts are in [`src/`](src/):
+* `src/generate_1995_sonoma_mods.py`: 1995 Sonoma ashtray drop-ins, tumbler sleeve, Fastback caddy, and 52mm stilt generator.
 * `src/generate_all_phone_mounts.py`: Parametric phone mount generator.
-* `src/generate_sonoma_cupholder.py`: Bench cupholder and stilt generator.
+* `src/generate_sonoma_cupholder.py`: Bench cupholder and original stilt generator.
 * `src/generate_cubby_mods.py`: Modular magnetic dash cubby and accessories generator.
 * `src/generate_ashtray_mods.py`: Ashtray power panel and deep pocket conversion generator.
+* `src/render_1995_sonoma.py`: Studio CAD rendering script for 1995 Sonoma models.
+* `src/render_smooth_cad.py`: Phong studio CAD rendering pipeline.
 * `src/export_symmetrical_mounts.py`: Symmetrical plate exports.
 
 You can modify cup diameters, stilt drop heights, or ball tilt angles directly in the Python scripts!
