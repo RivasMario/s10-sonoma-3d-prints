@@ -139,24 +139,39 @@ Replaces the unused factory cigarette ash bin with modern USB-C charging power o
 Located in [`stls/cupholder/`](stls/cupholder/)
 
 <p align="center">
+  <img src="images/cad_render_1995_megadeck.png" width="95%" alt="1995 Sonoma Mega-Deck Console Assembly CAD" />
+</p>
+<p align="center">
   <img src="images/cad_render_1995_cupholder.png" width="95%" alt="1995 Sonoma Bench Cupholder Sleeves and 52mm Stilt CAD" />
 </p>
 
 Calibrated directly against real photos of the **1995 GMC Sonoma** dark blue interior and verified using a **Milwaukee Fastback 6-in-1 (`48-22-1505`)** utility knife (117mm / 4.6" closed) as a physical scale:
 
-* **Real Floor Drop Clearance:** The distance from the seat receiver tongue down to the rubber transmission tunnel floor mat is only **50mm to 60mm (~2.0" to 2.4")** (gap under factory blue wells to carpet is ~38–40mm).
-* **OEM Dual Well Drop-In Solutions (Zero Disassembly):**
-  * **`sonoma_cupholder_tumbler_sleeve.stl` (30/40oz Stanley & Yeti Riser)**:
-    * Drops directly into either factory blue cup well.
-    * Features a 35mm lower seating collar that locks into the OEM well, rising 50mm above the console with a **stepped 3.25" / 3.62" bore** and a wide outward **mug handle slot**.
-    * Prevents tall tumblers, insulated water bottles, and large travel mugs from tipping over during acceleration or braking.
-  * **`sonoma_cupholder_fastback_caddy.stl` (Milwaukee Fastback + Phone Caddy)**:
-    * Drops into one of the blue wells to convert it into a specialized EDC workstation.
-    * Features a precision **vertical pocket custom-molded for the Milwaukee 48-22-1505 Fastback knife** (blade lock notch and wire clip clearance) plus a wide smartphone / battery bank slot.
-* **Full Replacement Deck Option:**
-  * **`sonoma_glide_stilt_52mm.stl`**:
-    * Calibrated low-profile compression stilt leg designed specifically for the 50–60mm transmission tunnel drop height.
-    * Slides into `sonoma_cupholder_deck.stl` via dovetail key, featuring a 300mm curved transmission tunnel glide foot and a 38mm felt pad recess.
+* **Real Floor Drop Clearance:** The distance from the seat receiver tongue down to the rubber transmission tunnel floor mat is only **50mm to 60mm (~2.0" to 2.4")**. The bottom of full-depth 90mm cups sits just ~25mm above the floor mat, making the support stilt leg extremely short, rigid, and rock-solid!
+
+#### 🚀 1. The Full Replacement Console: 1995 Sonoma "Mega-Deck" Pro Edition
+Replaces the stock GM blue cupholder console entirely, plugging directly into the bench seat receiver slot:
+
+* **`sonoma_cupholder_1995_megadeck.stl`**:
+  * **Dual Massive 90mm-Deep Stepped Cupholders:** Over **2.5x deeper** than the stock 35mm GM wells! Features a stepped bore (3.6" top flare, 3.2" mid bore, 2.75" lower pocket) that firmly locks everything from standard 12oz soda cans to 30oz/40oz Stanleys, Hydro Flasks, and large Yetis.
+  * **Dual Mug Handle Notches:** Wide 38mm outboard handle clearance channels so coffee travel mugs drop straight in.
+  * **Dedicated Milwaukee Fastback 6-in-1 Knife Holster:** Precision vertical slot (40.5mm × 23mm × 55mm deep) with blade button notch and pocket clip relief channel, so your knife is always at your fingertips instead of cluttering your cup wells.
+  * **Dedicated Smartphone / Powerbank Dock:** Wide forward slot (88mm × 16.5mm) holds modern large phones (iPhone 15/16 Pro Max, Galaxy Ultra with cases) standing upright.
+  * **Catch-All Utility Cargo Tray:** Recessed forward tray (94mm × 26mm × 22mm deep) for keys, coins, toll passes, or AirPods.
+  * **Calibrated Seat Tongue:** Heavy-duty 110mm W × 95mm L × 7.5mm T tongue with a positive retention catch bump that locks firmly into the factory seat frame slot.
+* **`sonoma_cupholder_1995_stilt_26mm.stl` (Stabilizer Floor Foot)**:
+  * Low-profile compression leg that press-fits into the mortise socket beneath the Mega-Deck.
+  * Bridges the 26mm gap from the bottom of the cups down to the transmission tunnel hump, featuring a 300mm curved glide foot and a 38mm recessed pocket for a felt or rubber pad to eliminate any vibration or flex.
+
+#### 🛠️ 2. OEM Dual-Well Drop-In Inserts (Zero Disassembly Option):
+* **`sonoma_cupholder_tumbler_sleeve.stl` (30/40oz Stanley & Yeti Riser)**:
+  * Drops directly into either factory blue cup well.
+  * Features a 35mm lower seating collar that locks into the OEM well, rising 50mm above the console with a **stepped 3.25" / 3.62" bore** and a wide outward **mug handle slot**.
+* **`sonoma_cupholder_fastback_caddy.stl` (Milwaukee Fastback + Phone Caddy)**:
+  * Drops into one of the blue wells to convert it into a specialized EDC workstation.
+  * Features a precision **vertical pocket custom-molded for the Milwaukee 48-22-1505 Fastback knife** plus a smartphone / battery bank slot.
+* **`sonoma_glide_stilt_52mm.stl`**:
+  * Calibrated 52mm stilt leg for the original flat-deck cupholder.
 
 ---
 
@@ -242,6 +257,7 @@ If you want the charger and voltmeter display to shut off 100% when you turn off
 ## 💻 Parametric CAD Source Code
 
 All parts were programmatically designed in Python using the modern `manifold3d` geometric modeling engine. Source scripts are in [`src/`](src/):
+* `src/generate_1995_sonoma_cupholder_console.py`: 1995 Sonoma Mega-Deck console & 26mm stabilizer stilt generator.
 * `src/generate_1995_sonoma_mods.py`: 1995 Sonoma ashtray drop-ins, tumbler sleeve, Fastback caddy, and 52mm stilt generator.
 * `src/generate_all_phone_mounts.py`: Parametric phone mount generator.
 * `src/generate_sonoma_cupholder.py`: Bench cupholder and original stilt generator.
