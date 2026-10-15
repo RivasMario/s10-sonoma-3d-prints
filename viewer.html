@@ -110,21 +110,21 @@
     <div class="controls">
       <label for="modelSelect" style="font-size: 12px; color: #8b949e; font-weight: 600;">MODEL:</label>
       <select id="modelSelect">
-        <optgroup label="1995 Sonoma Lower Dash Ashtray Drop-in Inserts">
-          <option value="sonoma_1995_ashtray_usb">★ 1995 Sonoma Ashtray: USB-C PD Fast Charger Pod (28.8mm Socket)</option>
-          <option value="sonoma_1995_ashtray_pocket">★ 1995 Sonoma Ashtray: Deep EDC Organizer Pocket (Coins/Keys)</option>
-          <option value="sonoma_1995_ashtray_combo">★ 1995 Sonoma Ashtray: 2-in-1 Combo (Left USB-C + Right Pocket)</option>
-        </optgroup>
         <optgroup label="1995 Sonoma Bench Seat Cupholder Solutions">
-          <option value="sonoma_1995_megadeck_assembly">★ 1995 Mega-Deck Full Assembly (Console + Stilt Foot)</option>
+          <option value="sonoma_1995_megadeck_assembly" selected>★ 1995 Mega-Deck Full Assembly (Console + Stilt Foot)</option>
           <option value="sonoma_1995_megadeck">★ 1995 Mega-Deck Console Only (Dual 90mm Cups + Phone + Fastback)</option>
           <option value="sonoma_1995_stilt_26mm">1995 Mega-Deck 26mm Stabilizer Stilt Foot</option>
           <option value="sonoma_cupholder_sleeve">OEM Well Drop-in: 30/40oz Tumbler Sleeve (+50mm Lip, Mug Handle)</option>
           <option value="sonoma_cupholder_fastback">OEM Well Drop-in: Fastback 6-in-1 Caddy + Phone Slot</option>
           <option value="sonoma_glide_stilt_52mm">Full Replacement Deck: 52mm Calibrated Low-Profile Floor Stilt</option>
         </optgroup>
+        <optgroup label="1995 Sonoma Lower Dash Ashtray Drop-in Inserts">
+          <option value="sonoma_1995_ashtray_usb">★ 1995 Sonoma Ashtray: USB-C PD Fast Charger Pod (28.8mm Socket)</option>
+          <option value="sonoma_1995_ashtray_pocket">★ 1995 Sonoma Ashtray: Deep EDC Organizer Pocket (Coins/Keys)</option>
+          <option value="sonoma_1995_ashtray_combo">★ 1995 Sonoma Ashtray: 2-in-1 Combo (Left USB-C + Right Pocket)</option>
+        </optgroup>
         <optgroup label="Modular Magnetic Deep Glasses Cubby System">
-          <option value="cubby_mag_assembly_ball" selected>Assembly: Deep Magnetic Dock + 17mm Ball Mount</option>
+          <option value="cubby_mag_assembly_ball">Assembly: Deep Magnetic Dock + 17mm Ball Mount</option>
           <option value="cubby_mag_assembly_stealth">Assembly: Deep Magnetic Dock + Stealth Cover (Flush Stash)</option>
           <option value="cubby_mag_assembly_magsafe">Assembly: Deep Magnetic Dock + MagSafe Charger (15° Driver Tilt)</option>
           <option value="cubby_mag_dock">Deep Magnetic Dock (140mm Deep Glasses Spec)</option>
@@ -277,6 +277,12 @@
         currentGroup.add(mesh);
         fitCameraToGroup(currentGroup);
         loadingEl.style.display = 'none';
+      }, undefined, function (err) {
+        console.error("Error loading STL:", err);
+        loadingEl.style.display = 'block';
+        loadingEl.innerHTML = `<span style="color:#f85149; font-weight:700;">⚠️ Error loading: ${url}</span><br>` +
+          `<span style="color:#8b949e; font-size:12px;">If opening via <code>file:///</code>, browser security blocks local file requests.<br>` +
+          `👉 Open <a href="http://localhost:8766/viewer.html" style="color:#58a6ff; font-weight:bold;">http://localhost:8766/viewer.html</a> or drag &amp; drop any STL file directly into this window!</span>`;
       });
     }
 
@@ -297,7 +303,17 @@
 
           fitCameraToGroup(currentGroup);
           loadingEl.style.display = 'none';
+        }, undefined, function (err2) {
+          console.warn("Could not load second part:", err2);
+          fitCameraToGroup(currentGroup);
+          loadingEl.style.display = 'none';
         });
+      }, undefined, function (err1) {
+        console.error("Error loading STL:", err1);
+        loadingEl.style.display = 'block';
+        loadingEl.innerHTML = `<span style="color:#f85149; font-weight:700;">⚠️ Error loading: ${url1}</span><br>` +
+          `<span style="color:#8b949e; font-size:12px;">If opening via <code>file:///</code>, browser security blocks local file requests.<br>` +
+          `👉 Open <a href="http://localhost:8766/viewer.html" style="color:#58a6ff; font-weight:bold;">http://localhost:8766/viewer.html</a> or drag &amp; drop any STL file directly into this window!</span>`;
       });
     }
 
@@ -380,8 +396,45 @@
       }
     }
 
-    // Initial load
-    loadModel('cubby_mag_assembly_ball');
+    // Initial load from whatever option is currently selected
+    loadModel(document.getElementById('modelSelect').value);
+
+    // Drag & Drop STL support (works offline without web server even on file:// protocol)
+    window.addEventListener('dragover', (e) => e.preventDefault());
+    window.addEventListener('drop', (e) => {
+      e.preventDefault();
+      if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        const file = e.dataTransfer.files[0];
+        if (file.name.toLowerCase().endsWith('.stl')) {
+          clearCurrentModels();
+          loadingEl.style.display = 'block';
+          loadingEl.textContent = `Loading ${file.name}...`;
+          const reader = new FileReader();
+          reader.onload = function (evt) {
+            try {
+              const geom = loader.parse(evt.target.result);
+              geom.computeVertexNormals();
+              const mesh = new THREE.Mesh(geom, materialDeck);
+              currentGroup.add(mesh);
+              fitCameraToGroup(currentGroup);
+              loadingEl.style.display = 'none';
+            } catch (err) {
+              console.error(err);
+              loadingEl.innerHTML = `<span style="color:#f85149;">Failed to parse STL: ${file.name}</span>`;
+            }
+          };
+          reader.readAsArrayBuffer(file);
+        }
+      }
+    });
+
+    // Protocol check notice for file://
+    if (window.location.protocol === 'file:') {
+      const banner = document.createElement('div');
+      banner.style.cssText = 'position:fixed; top:55px; left:0; right:0; background:#9e6a03; color:#fff; text-align:center; padding:6px 12px; font-size:12px; z-index:9999; box-shadow:0 2px 8px rgba(0,0,0,0.4);';
+      banner.innerHTML = '⚡ <b>Note:</b> You are viewing via <code>file:///</code>. If models don\'t appear, your browser is blocking local file fetching. Open <b><a href="http://localhost:8766/viewer.html" target="_blank" style="color:#fff; text-decoration:underline;">http://localhost:8766/viewer.html</a></b> or drag & drop any STL file from the <code>stls/</code> folder!';
+      document.body.appendChild(banner);
+    }
 
     // UI Listeners
     document.getElementById('modelSelect').addEventListener('change', (e) => {
