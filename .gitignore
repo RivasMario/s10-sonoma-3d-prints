@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+venv/
+
+# OS / Slicers
+.DS_Store
+Thumbs.db
+*.gcode
+*.3mf.deps
+.idea/
+.vscode/
