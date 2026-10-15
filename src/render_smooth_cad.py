@@ -225,12 +225,106 @@ def render_smooth_cupholder(deck_path, stilt_path, out_path):
     img.save(out_path)
     print(f"Saved: {out_path}")
 
-def render_smooth_kit_showcase(deck_path, stilt_path, phone_path, cubby_path, out_path):
+def render_smooth_magnetic_cubby(dock_path, stealth_path, magsafe_path, ball_path, out_path):
+    print("Rendering Smooth Modular Magnetic Cubby Ecosystem CAD...")
+    dock = mesh.Mesh.from_file(dock_path)
+    stealth = mesh.Mesh.from_file(stealth_path)
+    magsafe = mesh.Mesh.from_file(magsafe_path)
+    ball = mesh.Mesh.from_file(ball_path)
+
+    dock.rotate([0, 1, 0], np.radians(180))
+    dock.rotate([1, 0, 0], np.radians(70))
+    dock.rotate([0, 0, 1], np.radians(-25))
+
+    for p in [stealth, magsafe, ball]:
+        p.rotate([1, 0, 0], np.radians(-110))
+        p.rotate([0, 0, 1], np.radians(-10))
+
+    parts = [dock, stealth, magsafe, ball]
+    xs = [-130.0, -42.0, 40.0, 122.0]
+    for p, target_x in zip(parts, xs):
+        c = np.mean(np.vstack([p.v0, p.v1, p.v2]), axis=0)
+        p.translate([-c[0] + target_x, -c[1], -c[2]])
+
+    v0 = np.vstack([dock.v0, stealth.v0, magsafe.v0, ball.v0])
+    v1 = np.vstack([dock.v1, stealth.v1, magsafe.v1, ball.v1])
+    v2 = np.vstack([dock.v2, stealth.v2, magsafe.v2, ball.v2])
+
+    part_id = np.zeros(len(v0), dtype=np.int32)
+    i1 = len(dock.v0)
+    i2 = i1 + len(stealth.v0)
+    i3 = i2 + len(magsafe.v0)
+    part_id[i1:i2] = 1
+    part_id[i2:i3] = 2
+    part_id[i3:] = 3
+
+    colors = np.zeros((len(v0), 3), dtype=np.float32)
+    colors[:i1] = [52, 56, 64]      # Dock: Matte Anthracite
+    colors[i1:i2] = [38, 40, 46]    # Stealth Cover: Gunmetal Stealth
+    colors[i2:i3] = [45, 95, 145]   # MagSafe: Tech Blue
+    colors[i3:] = [55, 115, 95]     # Ball: Forest Sage
+
+    img = render_mesh_studio(
+        v0, v1, v2, colors,
+        W=1600, H=700, elev_deg=18, azim_deg=0, roll_deg=0,
+        zoom_factor=1.12, is_part_id=part_id, crease_deg=35.0
+    )
+    img.save(out_path)
+    print(f"Saved: {out_path}")
+
+def render_smooth_cubby_slide(dock_path, cartridge_path, combo_path, out_path):
+    print("Rendering Smooth Slide & Combo Cubby CAD...")
+    slide_dock = mesh.Mesh.from_file(dock_path)
+    cartridge = mesh.Mesh.from_file(cartridge_path)
+    combo = mesh.Mesh.from_file(combo_path)
+
+    slide_dock.rotate([0, 1, 0], np.radians(180))
+    slide_dock.rotate([1, 0, 0], np.radians(70))
+    slide_dock.rotate([0, 0, 1], np.radians(-25))
+
+    cartridge.rotate([1, 0, 0], np.radians(-110))
+    cartridge.rotate([0, 0, 1], np.radians(-20))
+
+    combo.rotate([0, 1, 0], np.radians(180))
+    combo.rotate([1, 0, 0], np.radians(70))
+    combo.rotate([0, 0, 1], np.radians(-25))
+
+    parts = [slide_dock, cartridge, combo]
+    xs = [-95.0, -10.0, 95.0]
+    for p, target_x in zip(parts, xs):
+        c = np.mean(np.vstack([p.v0, p.v1, p.v2]), axis=0)
+        p.translate([-c[0] + target_x, -c[1], -c[2]])
+
+    v0 = np.vstack([slide_dock.v0, cartridge.v0, combo.v0])
+    v1 = np.vstack([slide_dock.v1, cartridge.v1, combo.v1])
+    v2 = np.vstack([slide_dock.v2, cartridge.v2, combo.v2])
+
+    part_id = np.zeros(len(v0), dtype=np.int32)
+    i1 = len(slide_dock.v0)
+    i2 = i1 + len(cartridge.v0)
+    part_id[i1:i2] = 1
+    part_id[i2:] = 2
+
+    colors = np.zeros((len(v0), 3), dtype=np.float32)
+    colors[:i1] = [52, 56, 64]      # Slide Dock: Matte Anthracite
+    colors[i1:i2] = [45, 95, 145]   # Cartridge: Tech Blue
+    colors[i2:] = [48, 110, 85]     # 2-in-1 Combo: Slate Green
+
+    img = render_mesh_studio(
+        v0, v1, v2, colors,
+        W=1600, H=800, elev_deg=18, azim_deg=0, roll_deg=0,
+        zoom_factor=0.98, is_part_id=part_id, crease_deg=35.0
+    )
+    img.save(out_path)
+    print(f"Saved: {out_path}")
+
+def render_smooth_kit_showcase(deck_path, stilt_path, phone_path, cubby_path, stealth_path, out_path):
     print("Rendering Smooth Complete Kit CAD Showcase...")
     deck = mesh.Mesh.from_file(deck_path)
     stilt = mesh.Mesh.from_file(stilt_path)
     phone = mesh.Mesh.from_file(phone_path)
     cubby = mesh.Mesh.from_file(cubby_path)
+    stealth = mesh.Mesh.from_file(stealth_path)
 
     stilt.translate([-85.0 / 2, -60.0 / 2, 0])
     deck.translate([0, 0, 290.2])
@@ -240,27 +334,39 @@ def render_smooth_kit_showcase(deck_path, stilt_path, phone_path, cubby_path, ou
     phone.translate(-phone.min_)
     phone.translate([130.0, -20.0, 80.0])
 
-    # Upright cubby
+    # Cubby dock
+    cubby.rotate([0, 1, 0], np.radians(180))
+    cubby.rotate([1, 0, 0], np.radians(70))
+    cubby.rotate([0, 0, 1], np.radians(-25))
     cubby.translate(-cubby.min_)
-    cubby.translate([140.0, 70.0, 60.0])
+    cubby.translate([135.0, 80.0, 60.0])
 
-    v0 = np.vstack([deck.v0, stilt.v0, phone.v0, cubby.v0])
-    v1 = np.vstack([deck.v1, stilt.v1, phone.v1, cubby.v1])
-    v2 = np.vstack([deck.v2, stilt.v2, phone.v2, cubby.v2])
+    # Stealth cover hovering next to cubby
+    stealth.rotate([1, 0, 0], np.radians(-110))
+    stealth.rotate([0, 0, 1], np.radians(-10))
+    stealth.translate(-stealth.min_)
+    stealth.translate([145.0, 140.0, 120.0])
+
+    v0 = np.vstack([deck.v0, stilt.v0, phone.v0, cubby.v0, stealth.v0])
+    v1 = np.vstack([deck.v1, stilt.v1, phone.v1, cubby.v1, stealth.v1])
+    v2 = np.vstack([deck.v2, stilt.v2, phone.v2, cubby.v2, stealth.v2])
 
     part_id = np.zeros(len(v0), dtype=np.int32)
-    idx1 = len(deck.v0)
-    idx2 = idx1 + len(stilt.v0)
-    idx3 = idx2 + len(phone.v0)
-    part_id[idx1:idx2] = 1
-    part_id[idx2:idx3] = 2
-    part_id[idx3:] = 3
+    i1 = len(deck.v0)
+    i2 = i1 + len(stilt.v0)
+    i3 = i2 + len(phone.v0)
+    i4 = i3 + len(cubby.v0)
+    part_id[i1:i2] = 1
+    part_id[i2:i3] = 2
+    part_id[i3:i4] = 3
+    part_id[i4:] = 4
 
     colors = np.zeros((len(v0), 3), dtype=np.float32)
-    colors[:idx1] = [56, 60, 68]       # Deck: Matte Anthracite
-    colors[idx1:idx2] = [40, 42, 46]   # Stilt: Textured Black
-    colors[idx2:idx3] = [48, 95, 145]  # Phone Mount: Steel Blue
-    colors[idx3:] = [48, 110, 85]      # Cubby: Slate Green
+    colors[:i1] = [56, 60, 68]       # Deck: Matte Anthracite
+    colors[i1:i2] = [40, 42, 46]   # Stilt: Textured Black
+    colors[i2:i3] = [48, 95, 145]  # Phone Mount: Steel Blue
+    colors[i3:i4] = [52, 56, 64]   # Cubby Dock: Matte Anthracite
+    colors[i4:] = [38, 40, 46]     # Stealth Cover: Gunmetal Stealth
 
     img = render_mesh_studio(
         v0, v1, v2, colors,
@@ -271,7 +377,7 @@ def render_smooth_kit_showcase(deck_path, stilt_path, phone_path, cubby_path, ou
     print(f"Saved: {out_path}")
 
 def main():
-    base = r"C:\Users\v-mariorivas\s10-sonoma-3d-prints"
+    base = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
     stls = os.path.join(base, "stls")
     imgs = os.path.join(base, "images")
     os.makedirs(imgs, exist_ok=True)
@@ -279,11 +385,22 @@ def main():
     deck_stl = os.path.join(stls, "cupholder", "sonoma_cupholder_deck.stl")
     stilt_stl = os.path.join(stls, "cupholder", "sonoma_glide_stilt.stl")
     phone_stl = os.path.join(stls, "phone_mount", "sonoma_plate_monolithic_ball.stl")
-    cubby_stl = os.path.join(stls, "dash_cubby", "S10_glasses_cubby_angled.stl")
+    cubby_mag_stl = os.path.join(stls, "dash_cubby", "S10_cubby_magnetic_dock.stl")
+    cubby_stealth_stl = os.path.join(stls, "dash_cubby", "S10_cubby_mag_stealth_cover.stl")
+    cubby_magsafe_stl = os.path.join(stls, "dash_cubby", "S10_cubby_mag_magsafe_plate.stl")
+    cubby_ball_stl = os.path.join(stls, "dash_cubby", "S10_cubby_mag_ball_plate.stl")
+    cubby_slide_stl = os.path.join(stls, "dash_cubby", "S10_cubby_slide_dock.stl")
+    slide_mount_stl = os.path.join(stls, "dash_cubby", "S10_slide_phone_mount.stl")
+    combo_dock_stl = os.path.join(stls, "dash_cubby", "S10_cubby_integrated_phone_dock.stl")
 
     render_smooth_phone_mount(phone_stl, os.path.join(imgs, "cad_render_phone_mount.png"))
     render_smooth_cupholder(deck_stl, stilt_stl, os.path.join(imgs, "cad_render_cupholder_assembly.png"))
-    render_smooth_kit_showcase(deck_stl, stilt_stl, phone_stl, cubby_stl, os.path.join(imgs, "cad_render_kit_showcase.png"))
+    render_smooth_magnetic_cubby(cubby_mag_stl, cubby_stealth_stl, cubby_magsafe_stl, cubby_ball_stl,
+                                 os.path.join(imgs, "cad_render_cubby_magnetic.png"))
+    render_smooth_cubby_slide(cubby_slide_stl, slide_mount_stl, combo_dock_stl,
+                              os.path.join(imgs, "cad_render_cubby_slide.png"))
+    render_smooth_kit_showcase(deck_stl, stilt_stl, phone_stl, cubby_mag_stl, cubby_stealth_stl,
+                               os.path.join(imgs, "cad_render_kit_showcase.png"))
 
 if __name__ == "__main__":
     main()

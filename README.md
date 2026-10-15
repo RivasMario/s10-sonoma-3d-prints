@@ -12,6 +12,18 @@ A complete collection of custom, functional 3D printable upgrades designed speci
   <img src="images/cad_render_cupholder_assembly.png" width="49%" alt="Bench Seat Cupholder CAD Assembly" />
   <img src="images/cad_render_phone_mount.png" width="49%" alt="Dashboard Phone Mount Front and Rear CAD Views" />
 </p>
+<p align="center">
+  <img src="images/cad_render_cubby_magnetic.png" width="49%" alt="Modular Magnetic Dash Cubby Ecosystem" />
+  <img src="images/cad_render_cubby_slide.png" width="49%" alt="Slide Cartridge and 2-in-1 Combo Cubby" />
+</p>
+
+---
+
+## 🌐 Interactive 3D STL Web Inspector
+
+Spin, pan, zoom, and inspect every model and assembly in your browser with smooth studio lighting and wireframe toggles:
+* Open [`viewer.html`](viewer.html) locally or visit `http://localhost:8766/viewer.html` if the local server is running.
+* **100% Offline & Private:** Built with self-contained local Three.js bundles in `js/` (zero CDNs or external network dependencies).
 
 ---
 
@@ -59,13 +71,39 @@ Solves the infamous lack of functional cupholders in 90s GM bench seat trucks:
 
 ---
 
-### 3. Dash Cubby Organizers
+### 3. Modular Dash Cubby Ecosystem
 Located in [`stls/dash_cubby/`](stls/dash_cubby/)
 
-Replaces open factory dash dash pockets with functional storage:
+Upgrades the factory dash cavity (57.6mm width × 42.2mm height × 95mm depth) into a versatile modular ecosystem:
+
+#### 🧲 Option A: Modular Magnetic System (Swappable Faceplates & Stealth Stash)
+* **`S10_cubby_magnetic_dock.stl`**: Deep 95mm storage cavity with 4 corner neodymium magnet pockets and an 18mm × 10mm rear wire pass-through port.
+* **`S10_cubby_mag_stealth_cover.stl`**: Flush OEM-style stealth cover plate with a bottom finger lift notch. Completely conceals the cubby into a secret stash compartment. The 4 magnet pockets on the rear are covered by a 0.3mm solid front skin for an undetectable factory look.
+* **`S10_cubby_mag_magsafe_plate.stl`**: Magnetic snap-on faceplate holding a 56mm Apple MagSafe / Qi2 magnetic wireless charging puck tilted 15° up toward the driver, with an internal USB-C wire pass-through.
+* **`S10_cubby_mag_ball_plate.stl`**: Magnetic snap-on faceplate with a rigid 17mm ball mount stud on a reinforced keel.
+
+#### 🗄️ Option B: Push-In Dual-Rail Slide Cartridge
+* **`S10_cubby_slide_dock.stl`**: Dash cubby featuring internal upper dual-rail tracks while leaving the bottom half open for glasses, wallet, or coins.
+* **`S10_slide_phone_mount.stl`**: Push-in slide cartridge module with runner grooves and a 17mm ball stud that docks into the upper tracks.
+
+#### 📱 Option C: Monolithic 2-in-1 Phone Dock + Sunglasses Cubby
+* **`S10_cubby_integrated_phone_dock.stl`**: One-piece drop-in unit with an upper phone holster (fits modern smartphones up to 84mm wide × 15mm thick with cases) tilted 18° toward the driver with a bottom USB-C charging slot, plus a dedicated lower sunglasses tray.
+
+#### 🕶️ Option D: Classic Dash Cubby Trays
 * **`S10_glasses_cubby_angled.stl`**: Angled sunglasses/phone tray.
-* **`S10_glasses_cubby_deep.stl`**: Deep storage cubby.
-* **`S10_dash_cubby.stl`**: OEM profile replacement insert.
+* **`S10_glasses_cubby_deep.stl`**: Full-depth open storage cubby.
+* **`S10_dash_cubby.stl`**: OEM replacement insert.
+
+---
+
+## 🔩 Hardware Required (Optional Depending on Module)
+
+* **For Magnetic Cubby Faceplates:**
+  * 4x to 8x standard **6mm diameter × 3mm thick round neodymium disc magnets** (Grade N50 or N52 recommended for maximum holding power). Press-fit with a dab of superglue / CA glue.
+* **For Metal Ball Phone Mount:**
+  * 1x 17mm metal ball stud with 1/4"-20 threaded shank and matching 1/4"-20 hex nut.
+* **For 2-Piece Serviced Mount:**
+  * 2x M3 × 16mm socket head cap screws and 2x M3 hex nuts.
 
 ---
 

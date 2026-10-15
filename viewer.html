@@ -110,13 +110,32 @@
     <div class="controls">
       <label for="modelSelect" style="font-size: 12px; color: #8b949e; font-weight: 600;">MODEL:</label>
       <select id="modelSelect">
-        <option value="phone_monolithic">1. Phone Mount (17mm Ball Plate)</option>
-        <option value="cupholder_assembly">2. Cupholder Full Assembly (Deck + Stilt)</option>
-        <option value="cupholder_deck">3. Cupholder Deck Only</option>
-        <option value="cupholder_stilt">4. Floor Glide Stilt Leg Only</option>
-        <option value="phone_frontmount_ball">5. Front-Mount 17mm Ball Stud</option>
-        <option value="phone_metal_ball">6. Phone Plate (1/4"-20 Metal Ball Nut Recess)</option>
-        <option value="dash_cubby">7. Dash Cubby (Sunglasses Tray)</option>
+        <optgroup label="Modular Magnetic Dash Cubby Ecosystem">
+          <option value="cubby_mag_assembly_stealth">★ Assembly: Magnetic Dock + Stealth Cover (Flush Stash)</option>
+          <option value="cubby_mag_assembly_magsafe">★ Assembly: Magnetic Dock + MagSafe Charger (15° Driver Tilt)</option>
+          <option value="cubby_mag_assembly_ball">★ Assembly: Magnetic Dock + 17mm Ball Mount</option>
+          <option value="cubby_mag_dock">Magnetic Dock (Base Cavity + 4x Magnet Pockets)</option>
+          <option value="cubby_mag_stealth">Magnetic Stealth Flush Cover Plate</option>
+          <option value="cubby_mag_magsafe">Magnetic MagSafe Charging Plate</option>
+          <option value="cubby_mag_ball">Magnetic 17mm Ball Mount Plate</option>
+        </optgroup>
+        <optgroup label="Slide Cartridge &amp; Integrated Cubby">
+          <option value="cubby_slide_assembly">★ Assembly: Slide Dock + Push-in Cartridge</option>
+          <option value="cubby_slide_dock">Slide Dock (Upper Dual-Rails + Lower Storage)</option>
+          <option value="cubby_slide_cartridge">Push-in Slide Phone Mount Cartridge (17mm Ball)</option>
+          <option value="cubby_integrated">2-in-1 Phone Cradle + Sunglasses Cubby (Monolithic)</option>
+          <option value="dash_cubby">OEM Angled Sunglasses Box (Original)</option>
+        </optgroup>
+        <optgroup label="Cupholder System">
+          <option value="cupholder_assembly">Cupholder Full Assembly (Deck + Stilt)</option>
+          <option value="cupholder_deck">Cupholder Deck Only</option>
+          <option value="cupholder_stilt">Floor Glide Stilt Leg Only</option>
+        </optgroup>
+        <optgroup label="Original Dash Phone Mounts">
+          <option value="phone_monolithic">Phone Mount (17mm Ball Plate)</option>
+          <option value="phone_metal_ball">Phone Plate (1/4"-20 Metal Ball Nut Recess)</option>
+          <option value="phone_frontmount_ball">Front-Mount 17mm Ball Stud Only</option>
+        </optgroup>
       </select>
       <button id="btnReset">Reset View</button>
       <button id="btnAutoRotate">Auto-Spin: ON</button>
@@ -201,6 +220,14 @@
       side: THREE.DoubleSide
     });
 
+    const materialStealth = new THREE.MeshPhysicalMaterial({
+      color: 0x1f2329,
+      roughness: 0.4,
+      metalness: 0.2,
+      clearcoat: 0.15,
+      side: THREE.DoubleSide
+    });
+
     // 5. Model Loader
     const loader = new THREE.STLLoader();
     const currentGroup = new THREE.Group();
@@ -228,82 +255,95 @@
       groundGrid.position.z = box.min.z - 2;
     }
 
+    function loadSingle(url, material, rotX) {
+      loader.load(url, function (geometry) {
+        geometry.computeVertexNormals();
+        const mesh = new THREE.Mesh(geometry, material);
+        if (rotX) mesh.rotation.x = rotX;
+        currentGroup.add(mesh);
+        fitCameraToGroup(currentGroup);
+        loadingEl.style.display = 'none';
+      });
+    }
+
+    function loadPair(url1, mat1, rotX1, pos1, url2, mat2, rotX2, pos2) {
+      loader.load(url1, function (geom1) {
+        geom1.computeVertexNormals();
+        const mesh1 = new THREE.Mesh(geom1, mat1);
+        if (rotX1) mesh1.rotation.x = rotX1;
+        if (pos1) mesh1.position.set(...pos1);
+        currentGroup.add(mesh1);
+
+        loader.load(url2, function (geom2) {
+          geom2.computeVertexNormals();
+          const mesh2 = new THREE.Mesh(geom2, mat2);
+          if (rotX2) mesh2.rotation.x = rotX2;
+          if (pos2) mesh2.position.set(...pos2);
+          currentGroup.add(mesh2);
+
+          fitCameraToGroup(currentGroup);
+          loadingEl.style.display = 'none';
+        });
+      });
+    }
+
     function loadModel(selection) {
       clearCurrentModels();
       loadingEl.style.display = 'block';
 
-      if (selection === 'phone_monolithic') {
-        loader.load('stls/phone_mount/sonoma_plate_monolithic_ball.stl', function (geometry) {
-          geometry.computeVertexNormals();
-          const mesh = new THREE.Mesh(geometry, materialDeck);
-          mesh.rotation.x = -Math.PI / 2;
-          currentGroup.add(mesh);
-          fitCameraToGroup(currentGroup);
-          loadingEl.style.display = 'none';
-        });
-      } else if (selection === 'cupholder_assembly') {
-        loader.load('stls/cupholder/sonoma_cupholder_deck.stl', function (deckGeom) {
-          deckGeom.computeVertexNormals();
-          const deckMesh = new THREE.Mesh(deckGeom, materialDeck);
-          deckMesh.position.set(0, 0, 290.2);
-          currentGroup.add(deckMesh);
-
-          loader.load('stls/cupholder/sonoma_glide_stilt.stl', function (stiltGeom) {
-            stiltGeom.computeVertexNormals();
-            const stiltMesh = new THREE.Mesh(stiltGeom, materialStilt);
-            stiltMesh.position.set(-85.0 / 2, -60.0 / 2, 0);
-            currentGroup.add(stiltMesh);
-
-            fitCameraToGroup(currentGroup);
-            loadingEl.style.display = 'none';
-          });
-        });
-      } else if (selection === 'cupholder_deck') {
-        loader.load('stls/cupholder/sonoma_cupholder_deck.stl', function (geometry) {
-          geometry.computeVertexNormals();
-          const mesh = new THREE.Mesh(geometry, materialDeck);
-          currentGroup.add(mesh);
-          fitCameraToGroup(currentGroup);
-          loadingEl.style.display = 'none';
-        });
-      } else if (selection === 'cupholder_stilt') {
-        loader.load('stls/cupholder/sonoma_glide_stilt.stl', function (geometry) {
-          geometry.computeVertexNormals();
-          const mesh = new THREE.Mesh(geometry, materialStilt);
-          currentGroup.add(mesh);
-          fitCameraToGroup(currentGroup);
-          loadingEl.style.display = 'none';
-        });
-      } else if (selection === 'phone_frontmount_ball') {
-        loader.load('stls/phone_mount/ball_17mm_frontmount.stl', function (geometry) {
-          geometry.computeVertexNormals();
-          const mesh = new THREE.Mesh(geometry, materialAccent);
-          currentGroup.add(mesh);
-          fitCameraToGroup(currentGroup);
-          loadingEl.style.display = 'none';
-        });
-      } else if (selection === 'phone_metal_ball') {
-        loader.load('stls/phone_mount/sonoma_plate_metal_ball.stl', function (geometry) {
-          geometry.computeVertexNormals();
-          const mesh = new THREE.Mesh(geometry, materialDeck);
-          mesh.rotation.x = -Math.PI / 2;
-          currentGroup.add(mesh);
-          fitCameraToGroup(currentGroup);
-          loadingEl.style.display = 'none';
-        });
+      // Modular Magnetic Cubby Ecosystem
+      if (selection === 'cubby_mag_assembly_stealth') {
+        loadPair('stls/dash_cubby/S10_cubby_magnetic_dock.stl', materialDeck, 0, null,
+                 'stls/dash_cubby/S10_cubby_mag_stealth_cover.stl', materialStealth, 0, null);
+      } else if (selection === 'cubby_mag_assembly_magsafe') {
+        loadPair('stls/dash_cubby/S10_cubby_magnetic_dock.stl', materialDeck, 0, null,
+                 'stls/dash_cubby/S10_cubby_mag_magsafe_plate.stl', materialAccent, 0, null);
+      } else if (selection === 'cubby_mag_assembly_ball') {
+        loadPair('stls/dash_cubby/S10_cubby_magnetic_dock.stl', materialDeck, 0, null,
+                 'stls/dash_cubby/S10_cubby_mag_ball_plate.stl', materialAccent, 0, null);
+      } else if (selection === 'cubby_mag_dock') {
+        loadSingle('stls/dash_cubby/S10_cubby_magnetic_dock.stl', materialDeck);
+      } else if (selection === 'cubby_mag_stealth') {
+        loadSingle('stls/dash_cubby/S10_cubby_mag_stealth_cover.stl', materialStealth);
+      } else if (selection === 'cubby_mag_magsafe') {
+        loadSingle('stls/dash_cubby/S10_cubby_mag_magsafe_plate.stl', materialAccent);
+      } else if (selection === 'cubby_mag_ball') {
+        loadSingle('stls/dash_cubby/S10_cubby_mag_ball_plate.stl', materialAccent);
+      }
+      // Slide Cartridge & Integrated Cubby
+      else if (selection === 'cubby_slide_assembly') {
+        loadPair('stls/dash_cubby/S10_cubby_slide_dock.stl', materialDeck, 0, null,
+                 'stls/dash_cubby/S10_slide_phone_mount.stl', materialAccent, 0, null);
+      } else if (selection === 'cubby_slide_dock') {
+        loadSingle('stls/dash_cubby/S10_cubby_slide_dock.stl', materialDeck);
+      } else if (selection === 'cubby_slide_cartridge') {
+        loadSingle('stls/dash_cubby/S10_slide_phone_mount.stl', materialAccent);
+      } else if (selection === 'cubby_integrated') {
+        loadSingle('stls/dash_cubby/S10_cubby_integrated_phone_dock.stl', materialDeck);
       } else if (selection === 'dash_cubby') {
-        loader.load('stls/dash_cubby/S10_glasses_cubby_angled.stl', function (geometry) {
-          geometry.computeVertexNormals();
-          const mesh = new THREE.Mesh(geometry, materialAccent);
-          currentGroup.add(mesh);
-          fitCameraToGroup(currentGroup);
-          loadingEl.style.display = 'none';
-        });
+        loadSingle('stls/dash_cubby/S10_glasses_cubby_angled.stl', materialDeck);
+      }
+      // Cupholder System
+      else if (selection === 'cupholder_assembly') {
+        loadPair('stls/cupholder/sonoma_cupholder_deck.stl', materialDeck, 0, [0, 0, 290.2],
+                 'stls/cupholder/sonoma_glide_stilt.stl', materialStilt, 0, [-85.0 / 2, -60.0 / 2, 0]);
+      } else if (selection === 'cupholder_deck') {
+        loadSingle('stls/cupholder/sonoma_cupholder_deck.stl', materialDeck);
+      } else if (selection === 'cupholder_stilt') {
+        loadSingle('stls/cupholder/sonoma_glide_stilt.stl', materialStilt);
+      }
+      // Original Phone Mounts
+      else if (selection === 'phone_monolithic') {
+        loadSingle('stls/phone_mount/sonoma_plate_monolithic_ball.stl', materialDeck, -Math.PI / 2);
+      } else if (selection === 'phone_metal_ball') {
+        loadSingle('stls/phone_mount/sonoma_plate_metal_ball.stl', materialDeck, -Math.PI / 2);
+      } else if (selection === 'phone_frontmount_ball') {
+        loadSingle('stls/phone_mount/ball_17mm_frontmount.stl', materialAccent);
       }
     }
 
     // Initial load
-    loadModel('phone_monolithic');
+    loadModel('cubby_mag_assembly_stealth');
 
     // UI Listeners
     document.getElementById('modelSelect').addEventListener('change', (e) => {
@@ -327,6 +367,7 @@
       materialDeck.wireframe = wireframeMode;
       materialStilt.wireframe = wireframeMode;
       materialAccent.wireframe = wireframeMode;
+      materialStealth.wireframe = wireframeMode;
       btnWireframe.style.background = wireframeMode ? '#1f382a' : '#24292f';
     });
 
