@@ -6,11 +6,7 @@ Features:
   - Dual 82mm-deep stepped cupholders (86mm / 3.38" top bore, 70mm / 2.75" lower pocket)
   - Solid 360-degree perimeter walls on both cupholders (No wall-severing slots or razor edges)
   - Dedicated Milwaukee Fastback 6-in-1 (48-22-1505) vertical knife holster with clip relief
-  - Driver-side rear: Deep vertical sunglasses / glasses vault (58mm x 20mm x 60mm)
-  - Passenger-side rear: EDC Trio station:
-      * AirPods / key fob cubby (30mm x 20mm x 38mm)
-      * ChapStick / lighter slot (18mm x 18mm x 42mm)
-      * Vertical tire pressure gauge / pen / stylus port (13.5mm dia x 52mm)
+  - Dual massive rear open cargo block vaults (60mm x 22mm x 60mm deep each) for glasses, tools, keys, phones, or whatever
   - Dedicated 8-degree tilted smartphone dock (92mm x 17.5mm x 42mm, fits iPhone 15/16 Pro Max with case)
       * With active USB-C bottom charging cable pass-through port and forward wire channel
   - Full-width forward catch-all cargo tray with continuous 45° coin scoop ramp (150mm x 20mm x 18mm)
@@ -118,28 +114,19 @@ def generate_monolithic_console(include_floor_base=True):
     clip_channel = box(-7.0, 7.0, -32.5, -30.0, -42.0, 2.0)
     console -= (fastback_void + fastback_flare + clip_channel)
     
-    # 5. Driver-Side Rear Wing: Deep Sunglasses / Eyeglasses Vault
-    # Located at X = -57.0mm, Y = -46.0mm, Depth = 60.0mm
-    # Fits standard folded sunglasses or eyeglasses vertically
-    sunglasses_void = rrect(56.0, 20.0, 4.0).extrude(60.0).translate([-57.0, -46.0, -60.0])
-    sunglasses_flare = rrect(60.0, 24.0, 5.0).extrude(2.0).translate([-57.0, -46.0, -1.0])
-    console -= (sunglasses_void + sunglasses_flare)
+    # 5. Driver-Side Rear Wing: Large Open Cargo Block Vault
+    # Located at X = -58.0mm, Y = -46.0mm, Width = 60mm, Length = 22mm, Depth = 60.0mm
+    # Big open box to shove sunglasses, wallets, tools, keys, or whatever
+    left_vault = rrect(60.0, 22.0, 4.0).extrude(60.0).translate([-58.0, -46.0, -60.0])
+    left_flare = rrect(64.0, 26.0, 5.0).extrude(2.0).translate([-58.0, -46.0, -1.0])
+    console -= (left_vault + left_flare)
     
-    # 6. Passenger-Side Rear Wing: EDC Trio Station
-    # a) AirPods / Key Fob Cubby (X = +38.0mm, Y = -46.0mm, Depth = 38.0mm)
-    airpods_void = rrect(30.0, 20.0, 4.0).extrude(38.0).translate([38.0, -46.0, -38.0])
-    airpods_flare = rrect(34.0, 24.0, 5.0).extrude(2.0).translate([38.0, -46.0, -1.0])
-    console -= (airpods_void + airpods_flare)
-    
-    # b) ChapStick / Lighter / Pocket Tool Slot (X = +65.0mm, Y = -46.0mm, Depth = 42.0mm)
-    chapstick_void = rrect(18.0, 18.0, 3.5).extrude(42.0).translate([65.0, -46.0, -42.0])
-    chapstick_flare = rrect(22.0, 22.0, 4.0).extrude(2.0).translate([65.0, -46.0, -1.0])
-    console -= (chapstick_void + chapstick_flare)
-    
-    # c) Vertical Tire Pressure Gauge / Pen / Stylus Port (X = +82.0mm, Y = -46.0mm, Depth = 52.0mm)
-    pen_void = cyl(13.5, -52.0, 1.0, 82.0, -46.0)
-    pen_flare = cone(17.5, 13.5, -2.0, 1.0, 82.0, -46.0)
-    console -= (pen_void + pen_flare)
+    # 6. Passenger-Side Rear Wing: Large Open Cargo Block Vault
+    # Located at X = +58.0mm, Y = -46.0mm, Width = 60mm, Length = 22mm, Depth = 60.0mm
+    # Big open box to shove whatever you want (AirPods, knives, pens, lighters, change, tools)
+    right_vault = rrect(60.0, 22.0, 4.0).extrude(60.0).translate([58.0, -46.0, -60.0])
+    right_flare = rrect(64.0, 26.0, 5.0).extrude(2.0).translate([58.0, -46.0, -1.0])
+    console -= (right_vault + right_flare)
     
     # 7. Dedicated Smartphone Dock (8-degree rearward tilt)
     # Centered at X = 0, Y = 65.0mm, Width 92mm, Thickness 17.5mm, Depth 42mm
