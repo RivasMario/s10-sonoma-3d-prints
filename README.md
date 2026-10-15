@@ -71,27 +71,31 @@ Solves the infamous lack of functional cupholders in 90s GM bench seat trucks:
 
 ---
 
-### 3. Modular Dash Cubby Ecosystem
+### 3. Modular Magnetic Deep Glasses Cubby Ecosystem
 Located in [`stls/dash_cubby/`](stls/dash_cubby/)
 
-Upgrades the factory dash cavity (57.6mm width × 42.2mm height × 95mm depth) into a versatile modular ecosystem:
+Upgrades the factory dash cavity into a deep, modular sunglasses vault with swappable magnetic faceplates:
 
-#### 🧲 Option A: Modular Magnetic System (Swappable Faceplates & Stealth Stash)
-* **`S10_cubby_magnetic_dock.stl`**: Deep 95mm storage cavity with 4 corner neodymium magnet pockets and an 18mm × 10mm rear wire pass-through port.
-* **`S10_cubby_mag_stealth_cover.stl`**: Flush OEM-style stealth cover plate with a bottom finger lift notch. Completely conceals the cubby into a secret stash compartment. The 4 magnet pockets on the rear are covered by a 0.3mm solid front skin for an undetectable factory look.
-* **`S10_cubby_mag_magsafe_plate.stl`**: Magnetic snap-on faceplate holding a 56mm Apple MagSafe / Qi2 magnetic wireless charging puck tilted 15° up toward the driver, with an internal USB-C wire pass-through.
-* **`S10_cubby_mag_ball_plate.stl`**: Magnetic snap-on faceplate with a rigid 17mm ball mount stud on a reinforced keel.
+* **`S10_cubby_magnetic_dock.stl` (140mm Deep Glasses Spec — Recommended)**:
+  * Engineered with a **136.5mm internal cavity depth** (140mm total outer depth).
+  * **The Sweet Spot for Glasses:** Comfortably swallows full-sized folded sunglasses (Ray-Bans, Oakleys, aviators) end-to-end, while stopping 7mm shy of the internal dashboard firewall/climate ducting so it never bottoms out behind the dash.
+  * Features 4 corner boss pads with 6.3mm × 3.2mm pockets for **6mm × 3mm round neodymium disc magnets**, plus an 18mm × 10mm rear cable pass-through port.
+* **`S10_cubby_magnetic_dock_147mm.stl` (147.2mm Ultra-Deep Spec)**:
+  * Maximum theoretical depth matching the original `S10_glasses_cubby_deep.stl` for trucks with full rear cavity clearance.
+* **`S10_cubby_mag_ball_plate.stl` (Magnetic 17mm Ball Mount Plate)**:
+  * Snaps firmly onto the magnetic dock with 4 matching neodymium magnets.
+  * Features a rigid 17mm ball mount stud on a reinforced keel, tilted 15° upward toward the driver.
+  * Allows popping off in one second with the bottom finger notch to access your sunglasses, then snapping right back on!
+* **`S10_cubby_mag_stealth_cover.stl` (Flush OEM Stealth Stash Lid)**:
+  * Completely conceals the deep cubby behind a factory-looking blank bezel with a bottom finger-lift notch.
+  * 4 rear magnet pockets are hidden behind a 0.3mm solid front skin, creating an undetectable secret stash vault.
+  * Inset anti-rattle locating rim keys securely into the cubby opening to prevent any vibration while driving.
+* **`S10_cubby_mag_magsafe_plate.stl` (Magnetic 15° MagSafe Fast-Charger)**:
+  * Holds standard 56mm Apple MagSafe / Qi2 wireless charging pucks tilted 15° toward the driver, with an internal USB-C wiring channel.
 
-#### 🗄️ Option B: Push-In Dual-Rail Slide Cartridge
-* **`S10_cubby_slide_dock.stl`**: Dash cubby featuring internal upper dual-rail tracks while leaving the bottom half open for glasses, wallet, or coins.
-* **`S10_slide_phone_mount.stl`**: Push-in slide cartridge module with runner grooves and a 17mm ball stud that docks into the upper tracks.
-
-#### 📱 Option C: Monolithic 2-in-1 Phone Dock + Sunglasses Cubby
-* **`S10_cubby_integrated_phone_dock.stl`**: One-piece drop-in unit with an upper phone holster (fits modern smartphones up to 84mm wide × 15mm thick with cases) tilted 18° toward the driver with a bottom USB-C charging slot, plus a dedicated lower sunglasses tray.
-
-#### 🕶️ Option D: Classic Dash Cubby Trays
-* **`S10_glasses_cubby_angled.stl`**: Angled sunglasses/phone tray.
-* **`S10_glasses_cubby_deep.stl`**: Full-depth open storage cubby.
+#### 🕶️ Classic Open Dash Trays
+* **`S10_glasses_cubby_deep.stl`**: Original open full-depth sunglasses box (147mm).
+* **`S10_glasses_cubby_angled.stl`**: Original angled sunglasses tray.
 * **`S10_dash_cubby.stl`**: OEM replacement insert.
 
 ---

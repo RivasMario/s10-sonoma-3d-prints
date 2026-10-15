@@ -110,31 +110,27 @@
     <div class="controls">
       <label for="modelSelect" style="font-size: 12px; color: #8b949e; font-weight: 600;">MODEL:</label>
       <select id="modelSelect">
-        <optgroup label="Modular Magnetic Dash Cubby Ecosystem">
-          <option value="cubby_mag_assembly_stealth">★ Assembly: Magnetic Dock + Stealth Cover (Flush Stash)</option>
-          <option value="cubby_mag_assembly_magsafe">★ Assembly: Magnetic Dock + MagSafe Charger (15° Driver Tilt)</option>
-          <option value="cubby_mag_assembly_ball">★ Assembly: Magnetic Dock + 17mm Ball Mount</option>
-          <option value="cubby_mag_dock">Magnetic Dock (Base Cavity + 4x Magnet Pockets)</option>
+        <optgroup label="Modular Magnetic Deep Glasses Cubby System">
+          <option value="cubby_mag_assembly_ball" selected>★ Assembly: Deep Magnetic Dock + 17mm Ball Mount</option>
+          <option value="cubby_mag_assembly_stealth">★ Assembly: Deep Magnetic Dock + Stealth Cover (Flush Stash)</option>
+          <option value="cubby_mag_assembly_magsafe">★ Assembly: Deep Magnetic Dock + MagSafe Charger (15° Driver Tilt)</option>
+          <option value="cubby_mag_dock">Deep Magnetic Dock (140mm Deep Glasses Spec)</option>
+          <option value="cubby_mag_ball">Magnetic 17mm Ball Mount Plate</option>
           <option value="cubby_mag_stealth">Magnetic Stealth Flush Cover Plate</option>
           <option value="cubby_mag_magsafe">Magnetic MagSafe Charging Plate</option>
-          <option value="cubby_mag_ball">Magnetic 17mm Ball Mount Plate</option>
-        </optgroup>
-        <optgroup label="Slide Cartridge &amp; Integrated Cubby">
-          <option value="cubby_slide_assembly">★ Assembly: Slide Dock + Push-in Cartridge</option>
-          <option value="cubby_slide_dock">Slide Dock (Upper Dual-Rails + Lower Storage)</option>
-          <option value="cubby_slide_cartridge">Push-in Slide Phone Mount Cartridge (17mm Ball)</option>
-          <option value="cubby_integrated">2-in-1 Phone Cradle + Sunglasses Cubby (Monolithic)</option>
-          <option value="dash_cubby">OEM Angled Sunglasses Box (Original)</option>
+          <option value="cubby_mag_dock_147">Deep Magnetic Dock (147mm Max Depth Spec)</option>
         </optgroup>
         <optgroup label="Cupholder System">
           <option value="cupholder_assembly">Cupholder Full Assembly (Deck + Stilt)</option>
           <option value="cupholder_deck">Cupholder Deck Only</option>
           <option value="cupholder_stilt">Floor Glide Stilt Leg Only</option>
         </optgroup>
-        <optgroup label="Original Dash Phone Mounts">
-          <option value="phone_monolithic">Phone Mount (17mm Ball Plate)</option>
+        <optgroup label="Original Dash Phone Mounts &amp; Classic Trays">
+          <option value="phone_monolithic">Phone Mount (17mm Ball Plate - Monolithic)</option>
           <option value="phone_metal_ball">Phone Plate (1/4"-20 Metal Ball Nut Recess)</option>
           <option value="phone_frontmount_ball">Front-Mount 17mm Ball Stud Only</option>
+          <option value="cubby_deep_classic">OEM Deep Sunglasses Cubby (Original Box)</option>
+          <option value="dash_cubby">OEM Angled Sunglasses Box (Original)</option>
         </optgroup>
       </select>
       <button id="btnReset">Reset View</button>
@@ -291,35 +287,28 @@
       clearCurrentModels();
       loadingEl.style.display = 'block';
 
-      // Modular Magnetic Cubby Ecosystem
-      if (selection === 'cubby_mag_assembly_stealth') {
+      // Modular Magnetic Deep Glasses Cubby System
+      if (selection === 'cubby_mag_assembly_ball') {
+        loadPair('stls/dash_cubby/S10_cubby_magnetic_dock.stl', materialDeck, 0, null,
+                 'stls/dash_cubby/S10_cubby_mag_ball_plate.stl', materialAccent, 0, null);
+      } else if (selection === 'cubby_mag_assembly_stealth') {
         loadPair('stls/dash_cubby/S10_cubby_magnetic_dock.stl', materialDeck, 0, null,
                  'stls/dash_cubby/S10_cubby_mag_stealth_cover.stl', materialStealth, 0, null);
       } else if (selection === 'cubby_mag_assembly_magsafe') {
         loadPair('stls/dash_cubby/S10_cubby_magnetic_dock.stl', materialDeck, 0, null,
                  'stls/dash_cubby/S10_cubby_mag_magsafe_plate.stl', materialAccent, 0, null);
-      } else if (selection === 'cubby_mag_assembly_ball') {
-        loadPair('stls/dash_cubby/S10_cubby_magnetic_dock.stl', materialDeck, 0, null,
-                 'stls/dash_cubby/S10_cubby_mag_ball_plate.stl', materialAccent, 0, null);
       } else if (selection === 'cubby_mag_dock') {
         loadSingle('stls/dash_cubby/S10_cubby_magnetic_dock.stl', materialDeck);
+      } else if (selection === 'cubby_mag_dock_147') {
+        loadSingle('stls/dash_cubby/S10_cubby_magnetic_dock_147mm.stl', materialDeck);
+      } else if (selection === 'cubby_mag_ball') {
+        loadSingle('stls/dash_cubby/S10_cubby_mag_ball_plate.stl', materialAccent);
       } else if (selection === 'cubby_mag_stealth') {
         loadSingle('stls/dash_cubby/S10_cubby_mag_stealth_cover.stl', materialStealth);
       } else if (selection === 'cubby_mag_magsafe') {
         loadSingle('stls/dash_cubby/S10_cubby_mag_magsafe_plate.stl', materialAccent);
-      } else if (selection === 'cubby_mag_ball') {
-        loadSingle('stls/dash_cubby/S10_cubby_mag_ball_plate.stl', materialAccent);
-      }
-      // Slide Cartridge & Integrated Cubby
-      else if (selection === 'cubby_slide_assembly') {
-        loadPair('stls/dash_cubby/S10_cubby_slide_dock.stl', materialDeck, 0, null,
-                 'stls/dash_cubby/S10_slide_phone_mount.stl', materialAccent, 0, null);
-      } else if (selection === 'cubby_slide_dock') {
-        loadSingle('stls/dash_cubby/S10_cubby_slide_dock.stl', materialDeck);
-      } else if (selection === 'cubby_slide_cartridge') {
-        loadSingle('stls/dash_cubby/S10_slide_phone_mount.stl', materialAccent);
-      } else if (selection === 'cubby_integrated') {
-        loadSingle('stls/dash_cubby/S10_cubby_integrated_phone_dock.stl', materialDeck);
+      } else if (selection === 'cubby_deep_classic') {
+        loadSingle('stls/dash_cubby/S10_glasses_cubby_deep.stl', materialDeck);
       } else if (selection === 'dash_cubby') {
         loadSingle('stls/dash_cubby/S10_glasses_cubby_angled.stl', materialDeck);
       }
@@ -343,7 +332,7 @@
     }
 
     // Initial load
-    loadModel('cubby_mag_assembly_stealth');
+    loadModel('cubby_mag_assembly_ball');
 
     // UI Listeners
     document.getElementById('modelSelect').addEventListener('change', (e) => {

@@ -24,7 +24,7 @@ CUBBY_W = 57.6   # mm total width
 CUBBY_H = 42.2   # mm total height
 WALL_T  = 3.0    # mm wall thickness
 FLOOR_T = 3.5    # mm floor thickness
-DEPTH   = 95.0   # mm cavity depth into dash
+DEPTH   = 140.0  # mm cavity depth into dash (Deep Glasses Spec: 136.5mm internal cavity fits full folded sunglasses while clearing rear dash ductwork)
 
 # 6mm x 3mm Round Neodymium Magnet Pockets (with 0.2mm press-fit tolerance)
 MAG_D = 6.3      # mm pocket diameter
@@ -54,22 +54,22 @@ def get_base_plate(base_dir):
                          tri_verts=np.asarray(tm.faces, dtype=np.uint32)))
 
 # ----------------- 1. Magnetic Core Cubby -----------------
-def generate_magnetic_dock(base_plate):
+def generate_magnetic_dock(base_plate, depth=DEPTH):
     # Base plate has OEM flange & retention tabs (0 to 24mm depth)
     dock = base_plate
     
     # Outer box extension to full depth
-    outer_box = rrect(CUBBY_W - 0.8, CUBBY_H - 0.8, 3.5).extrude(DEPTH).translate([0, 0, 0])
+    outer_box = rrect(CUBBY_W - 0.8, CUBBY_H - 0.8, 3.5).extrude(depth).translate([0, 0, 0])
     dock += outer_box
     
     # Hollow interior cavity cutting completely through front face
     cavity_w = CUBBY_W - 2 * WALL_T
     cavity_h = CUBBY_H - 2 * WALL_T
-    cavity = rrect(cavity_w, cavity_h, 3.0).extrude(DEPTH - FLOOR_T + 5.0).translate([0, 0, -5.0])
+    cavity = rrect(cavity_w, cavity_h, 3.0).extrude(depth - FLOOR_T + 5.0).translate([0, 0, -5.0])
     dock -= cavity
     
     # Rear wire pass-through port (for USB-C / 12V harness)
-    wire_port = rrect(18.0, 10.0, 3.0).extrude(FLOOR_T + 4.0).translate([0, 0, DEPTH - FLOOR_T - 1.0])
+    wire_port = rrect(18.0, 10.0, 3.0).extrude(FLOOR_T + 4.0).translate([0, 0, depth - FLOOR_T - 1.0])
     dock -= wire_port
     
     # 4 Corner Neodymium Magnet Bosses & Pockets (Front rim)
@@ -263,9 +263,13 @@ def main():
     print("Loading base OEM plate mesh...")
     base_plate = get_base_plate(base_dir)
     
-    print("1. Generating S10_cubby_magnetic_dock.stl...")
-    dock = generate_magnetic_dock(base_plate)
-    to_tm(dock).export(os.path.join(out_dir, "S10_cubby_magnetic_dock.stl"))
+    print("1a. Generating S10_cubby_magnetic_dock.stl (140mm Deep Glasses Spec)...")
+    dock_140 = generate_magnetic_dock(base_plate, depth=140.0)
+    to_tm(dock_140).export(os.path.join(out_dir, "S10_cubby_magnetic_dock.stl"))
+    
+    print("1b. Generating S10_cubby_magnetic_dock_147mm.stl (147.2mm Max Depth Spec)...")
+    dock_147 = generate_magnetic_dock(base_plate, depth=147.2)
+    to_tm(dock_147).export(os.path.join(out_dir, "S10_cubby_magnetic_dock_147mm.stl"))
     
     print("2. Generating S10_cubby_mag_stealth_cover.stl...")
     stealth = generate_stealth_cover()
