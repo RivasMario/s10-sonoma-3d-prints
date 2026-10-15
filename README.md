@@ -154,11 +154,17 @@ Calibrated directly against real photos of the **1995 GMC Sonoma** dark blue int
 Replaces the stock GM blue cupholder console entirely as a **100% single, solid automotive unibody**:
 
 * **`sonoma_1995_monolithic_console.stl`**:
-  * **Zero Floating Parts & Zero Assembly:** Everything—the console deck, dual stepped cupholders, Milwaukee Fastback knife holster, smartphone dock, catch-all tray, seat receiver tongue, and transmission tunnel glide foot—is fused into a continuous solid mass with thick structural walls (≥5mm throughout).
+  * **100% Space Utilization & Zero Waste:** Every cubic centimeter of available real estate has been converted into functional storage, eliminating solid plastic dead weight.
   * **Dual 82mm-Deep Stepped Cupholders:** Over **2.3x deeper** than the stock 35mm GM wells! Complete 360° circular solid perimeter walls with a stepped bore (86mm / 3.38" top flare, 70mm / 2.75" lower pocket). Holds standard 12oz soda cans and water bottles firmly without rattle, while easily accommodating 30oz/40oz tumblers (Yeti, Stanley, Hydro Flask).
-  * **Dedicated Milwaukee Fastback 6-in-1 Knife Holster:** Precision vertical slot (38mm × 22mm × 55mm deep) with an integrated pocket clip relief channel, keeping your primary EDC blade upright and instantly accessible.
-  * **Dedicated 8° Tilted Smartphone Dock:** Wide forward slot (92mm × 17.5mm × 42mm deep) holds modern large phones (iPhone 15/16 Pro Max, Galaxy Ultra with cases) tilted slightly back toward the driver for effortless glanceability and navigation.
-  * **Forward Catch-All Cargo Tray:** Recessed forward tray (110mm × 22mm × 18mm deep) with a smooth 45° coin scoop ramp so change, screws, or keys slide effortlessly up into your hand.
+  * **Dedicated Milwaukee Fastback 6-in-1 Knife Holster:** Precision vertical slot (38mm × 20mm × 55mm deep) with an integrated pocket clip relief channel in the rear center bridge.
+  * **Driver-Side Rear: Sunglasses / Eyeglasses Vault:** Deep vertical pocket (56mm × 20mm × 60mm deep) perfectly sized for folded sunglasses, eyeglasses, or wallet.
+  * **Passenger-Side Rear: EDC Trio Station:**
+    * *AirPods / Key Fob Cubby:* 30mm × 20mm × 38mm deep pocket.
+    * *ChapStick / Lighter / Pocket Tool Slot:* 18mm × 18mm × 42mm deep slot.
+    * *Vertical Pen / Tire Pressure Gauge Port:* 13.5mm diameter × 52mm deep cylindrical port for pens, Sharpies, or pencil tire gauges.
+  * **Dedicated 8° Tilted Smartphone Dock with Active Charging:** Wide forward slot (92mm × 17.5mm × 42mm deep) holds modern large phones tilted back toward the driver. Includes a **bottom USB-C charging cable pass-through port** and forward wire routing channel so your phone charges while sitting upright in the dock!
+  * **Full-Width Forward Catch-All Cargo Tray:** Expanded 150mm wide × 20mm long × 18mm deep forward tray with a continuous 45° coin scoop ramp so change, screws, or keys slide effortlessly up into your hand.
+  * **Underside Engineered Weight-Relief & Stash Cavity:** Features a self-supporting 45° arched under-body chamber that **cuts ~450g of plastic** (saving ~35% print time and material) with zero print supports required, leaving a continuous 25mm structural perimeter rim.
   * **Integrated Transmission Tunnel Glide Base:** Extends straight down to $Z = -110\text{mm}$ with a 320mm radius contoured arch matching the transmission tunnel carpet, complete with dual 40mm recessed pockets for anti-slip rubber or felt pads.
   * **Integrated Seat Receiver Tongue:** Heavy-duty 110mm W × 85mm L × 7.5mm T tongue with a positive retention catch bump that locks firmly into the factory seat frame slot.
 
