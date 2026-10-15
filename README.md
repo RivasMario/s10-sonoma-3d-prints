@@ -5,6 +5,11 @@
 
 A complete collection of custom, functional 3D printable upgrades designed specifically for **1994–2004 Chevrolet S10, GMC Sonoma, S10 Blazer, GMC Jimmy, and Oldsmobile Bravada** trucks and SUVs.
 
+<p align="center">
+  <img src="images/render_phone_mount_truck.jpg" width="48%" alt="Dashboard Phone Mount installed in Chevy S10" />
+  <img src="images/render_cupholder_truck.jpg" width="48%" alt="Bench Seat Cupholder installed in Chevy S10" />
+</p>
+
 ---
 
 ## 🚗 Vehicle Compatibility
