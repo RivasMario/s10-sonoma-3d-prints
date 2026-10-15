@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S10 / Sonoma 3D Printable Accessories - Interactive 3D Viewer</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #141619;
+      color: #e0e5eb;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      background: #1b1e23;
+      border-bottom: 1px solid #2a3038;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+    }
+    .title-group h1 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.2px;
+    }
+    .title-group p {
+      font-size: 12px;
+      color: #8b949e;
+      margin-top: 2px;
+    }
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    select, button {
+      background: #24292f;
+      color: #f0f6fc;
+      border: 1px solid #30363d;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.15s ease;
+    }
+    select:hover, button:hover {
+      background: #30363d;
+      border-color: #8b949e;
+    }
+    select:focus, button:focus {
+      outline: none;
+      border-color: #58a6ff;
+    }
+    #viewport {
+      flex: 1;
+      width: 100%;
+      height: calc(100vh - 65px);
+      position: relative;
+    }
+    #loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(20, 24, 30, 0.85);
+      border: 1px solid #30363d;
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #58a6ff;
+      display: none;
+      pointer-events: none;
+    }
+    .hint-bar {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(27, 30, 35, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid #30363d;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #8b949e;
+      pointer-events: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .hint-bar span { color: #f0f6fc; font-weight: 600; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+  <header>
+    <div class="title-group">
+      <h1>S10 / Sonoma 3D Printable Accessories</h1>
+      <p>Interactive 3D STL Inspector (Spin, Pan, Zoom)</p>
+    </div>
+    <div class="controls">
+      <label for="modelSelect" style="font-size: 12px; color: #8b949e; font-weight: 600;">MODEL:</label>
+      <select id="modelSelect">
+        <option value="phone_monolithic">1. Phone Mount (17mm Ball Plate)</option>
+        <option value="cupholder_assembly">2. Cupholder Full Assembly (Deck + Stilt)</option>
+        <option value="cupholder_deck">3. Cupholder Deck Only</option>
+        <option value="cupholder_stilt">4. Floor Glide Stilt Leg Only</option>
+        <option value="phone_frontmount_ball">5. Front-Mount 17mm Ball Stud</option>
+        <option value="phone_metal_ball">6. Phone Plate (1/4"-20 Metal Ball Nut Recess)</option>
+        <option value="dash_cubby">7. Dash Cubby (Sunglasses Tray)</option>
+      </select>
+      <button id="btnReset">Reset View</button>
+      <button id="btnAutoRotate">Auto-Spin: ON</button>
+      <button id="btnWireframe">Wireframe</button>
+    </div>
+  </header>
+
+  <div id="viewport">
+    <div id="loading">Loading 3D Model...</div>
+    <div class="hint-bar">
+      <span>Left Click + Drag</span> to Spin &bull; <span>Right Click + Drag</span> to Pan &bull; <span>Scroll</span> to Zoom
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById('viewport');
+    const loadingEl = document.getElementById('loading');
+
+    // 1. Scene, Camera, Renderer
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x181a1f);
+
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 1, 3000);
+    camera.position.set(0, -220, 160);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    container.appendChild(renderer.domElement);
+
+    // 2. Controls
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 2.0;
+
+    // 3. Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.55);
+    scene.add(ambientLight);
+
+    const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.85);
+    dirLight1.position.set(200, 300, 400);
+    dirLight1.castShadow = true;
+    scene.add(dirLight1);
+
+    const dirLight2 = new THREE.DirectionalLight(0x88aacc, 0.4);
+    dirLight2.position.set(-300, -200, 200);
+    scene.add(dirLight2);
+
+    const groundGrid = new THREE.GridHelper(600, 40, 0x30363d, 0x1f2328);
+    groundGrid.rotation.x = Math.PI / 2;
+    groundGrid.position.z = -120;
+    scene.add(groundGrid);
+
+    // 4. Materials
+    let wireframeMode = false;
+    const materialDeck = new THREE.MeshPhysicalMaterial({
+      color: 0x343842,
+      roughness: 0.35,
+      metalness: 0.1,
+      clearcoat: 0.2,
+      clearcoatRoughness: 0.3,
+      side: THREE.DoubleSide
+    });
+
+    const materialStilt = new THREE.MeshPhysicalMaterial({
+      color: 0x22252a,
+      roughness: 0.45,
+      metalness: 0.1,
+      side: THREE.DoubleSide
+    });
+
+    const materialAccent = new THREE.MeshPhysicalMaterial({
+      color: 0x2e6aa0,
+      roughness: 0.3,
+      metalness: 0.1,
+      clearcoat: 0.3,
+      side: THREE.DoubleSide
+    });
+
+    // 5. Model Loader
+    const loader = new THREE.STLLoader();
+    const currentGroup = new THREE.Group();
+    scene.add(currentGroup);
+
+    function clearCurrentModels() {
+      while (currentGroup.children.length > 0) {
+        const obj = currentGroup.children[0];
+        if (obj.geometry) obj.geometry.dispose();
+        currentGroup.remove(obj);
+      }
+    }
+
+    function fitCameraToGroup(group) {
+      const box = new THREE.Box3().setFromObject(group);
+      const center = box.getCenter(new THREE.Vector3());
+      const size = box.getSize(new THREE.Vector3());
+      const maxDim = Math.max(size.x, size.y, size.z);
+      
+      controls.target.copy(center);
+      camera.position.set(center.x, center.y - maxDim * 1.8, center.z + maxDim * 1.1);
+      camera.lookAt(center);
+      controls.update();
+
+      groundGrid.position.z = box.min.z - 2;
+    }
+
+    function loadModel(selection) {
+      clearCurrentModels();
+      loadingEl.style.display = 'block';
+
+      if (selection === 'phone_monolithic') {
+        loader.load('stls/phone_mount/sonoma_plate_monolithic_ball.stl', function (geometry) {
+          geometry.computeVertexNormals();
+          const mesh = new THREE.Mesh(geometry, materialDeck);
+          mesh.rotation.x = -Math.PI / 2;
+          currentGroup.add(mesh);
+          fitCameraToGroup(currentGroup);
+          loadingEl.style.display = 'none';
+        });
+      } else if (selection === 'cupholder_assembly') {
+        loader.load('stls/cupholder/sonoma_cupholder_deck.stl', function (deckGeom) {
+          deckGeom.computeVertexNormals();
+          const deckMesh = new THREE.Mesh(deckGeom, materialDeck);
+          deckMesh.position.set(0, 0, 290.2);
+          currentGroup.add(deckMesh);
+
+          loader.load('stls/cupholder/sonoma_glide_stilt.stl', function (stiltGeom) {
+            stiltGeom.computeVertexNormals();
+            const stiltMesh = new THREE.Mesh(stiltGeom, materialStilt);
+            stiltMesh.position.set(-85.0 / 2, -60.0 / 2, 0);
+            currentGroup.add(stiltMesh);
+
+            fitCameraToGroup(currentGroup);
+            loadingEl.style.display = 'none';
+          });
+        });
+      } else if (selection === 'cupholder_deck') {
+        loader.load('stls/cupholder/sonoma_cupholder_deck.stl', function (geometry) {
+          geometry.computeVertexNormals();
+          const mesh = new THREE.Mesh(geometry, materialDeck);
+          currentGroup.add(mesh);
+          fitCameraToGroup(currentGroup);
+          loadingEl.style.display = 'none';
+        });
+      } else if (selection === 'cupholder_stilt') {
+        loader.load('stls/cupholder/sonoma_glide_stilt.stl', function (geometry) {
+          geometry.computeVertexNormals();
+          const mesh = new THREE.Mesh(geometry, materialStilt);
+          currentGroup.add(mesh);
+          fitCameraToGroup(currentGroup);
+          loadingEl.style.display = 'none';
+        });
+      } else if (selection === 'phone_frontmount_ball') {
+        loader.load('stls/phone_mount/ball_17mm_frontmount.stl', function (geometry) {
+          geometry.computeVertexNormals();
+          const mesh = new THREE.Mesh(geometry, materialAccent);
+          currentGroup.add(mesh);
+          fitCameraToGroup(currentGroup);
+          loadingEl.style.display = 'none';
+        });
+      } else if (selection === 'phone_metal_ball') {
+        loader.load('stls/phone_mount/sonoma_plate_metal_ball.stl', function (geometry) {
+          geometry.computeVertexNormals();
+          const mesh = new THREE.Mesh(geometry, materialDeck);
+          mesh.rotation.x = -Math.PI / 2;
+          currentGroup.add(mesh);
+          fitCameraToGroup(currentGroup);
+          loadingEl.style.display = 'none';
+        });
+      } else if (selection === 'dash_cubby') {
+        loader.load('stls/dash_cubby/S10_glasses_cubby_angled.stl', function (geometry) {
+          geometry.computeVertexNormals();
+          const mesh = new THREE.Mesh(geometry, materialAccent);
+          currentGroup.add(mesh);
+          fitCameraToGroup(currentGroup);
+          loadingEl.style.display = 'none';
+        });
+      }
+    }
+
+    // Initial load
+    loadModel('phone_monolithic');
+
+    // UI Listeners
+    document.getElementById('modelSelect').addEventListener('change', (e) => {
+      loadModel(e.target.value);
+    });
+
+    document.getElementById('btnReset').addEventListener('click', () => {
+      fitCameraToGroup(currentGroup);
+    });
+
+    const btnAutoRotate = document.getElementById('btnAutoRotate');
+    btnAutoRotate.addEventListener('click', () => {
+      controls.autoRotate = !controls.autoRotate;
+      btnAutoRotate.textContent = `Auto-Spin: ${controls.autoRotate ? 'ON' : 'OFF'}`;
+      btnAutoRotate.style.background = controls.autoRotate ? '#24292f' : '#3d1f1f';
+    });
+
+    const btnWireframe = document.getElementById('btnWireframe');
+    btnWireframe.addEventListener('click', () => {
+      wireframeMode = !wireframeMode;
+      materialDeck.wireframe = wireframeMode;
+      materialStilt.wireframe = wireframeMode;
+      materialAccent.wireframe = wireframeMode;
+      btnWireframe.style.background = wireframeMode ? '#1f382a' : '#24292f';
+    });
+
+    window.addEventListener('resize', () => {
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    });
+
+    // 6. Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>
