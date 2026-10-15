@@ -125,6 +125,11 @@
           <option value="cupholder_deck">Cupholder Deck Only</option>
           <option value="cupholder_stilt">Floor Glide Stilt Leg Only</option>
         </optgroup>
+        <optgroup label="Center Ashtray Conversions (Power &amp; Storage)">
+          <option value="ashtray_usb">Ashtray: USB-C Fast-Charging Power Panel (28.5mm Socket)</option>
+          <option value="ashtray_pocket">Ashtray: Deep Organizer Drop Pocket (Keys/Coins/AirPods)</option>
+          <option value="ashtray_combo">Ashtray: 2-in-1 Combo (USB-C Power + Drop Pocket)</option>
+        </optgroup>
         <optgroup label="Original Dash Phone Mounts &amp; Classic Trays">
           <option value="phone_monolithic">Phone Mount (17mm Ball Plate - Monolithic)</option>
           <option value="phone_metal_ball">Phone Plate (1/4"-20 Metal Ball Nut Recess)</option>
@@ -311,6 +316,14 @@
         loadSingle('stls/dash_cubby/S10_glasses_cubby_deep.stl', materialDeck);
       } else if (selection === 'dash_cubby') {
         loadSingle('stls/dash_cubby/S10_glasses_cubby_angled.stl', materialDeck);
+      }
+      // Ashtray Conversions
+      else if (selection === 'ashtray_usb') {
+        loadSingle('stls/ashtray/S10_ashtray_usb_power_panel.stl', materialDeck);
+      } else if (selection === 'ashtray_pocket') {
+        loadSingle('stls/ashtray/S10_ashtray_deep_pocket.stl', materialDeck);
+      } else if (selection === 'ashtray_combo') {
+        loadSingle('stls/ashtray/S10_ashtray_combo_power_pocket.stl', materialDeck);
       }
       // Cupholder System
       else if (selection === 'cupholder_assembly') {

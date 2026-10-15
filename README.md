@@ -100,6 +100,55 @@ Upgrades the factory dash cavity into a deep, modular sunglasses vault with swap
 
 ---
 
+### 4. Center Console Ashtray Conversions (Power & Storage)
+Located in [`stls/ashtray/`](stls/ashtray/)
+
+Replaces the factory metal cigarette ash bin (below the climate controls) with modern USB-C charging power or dedicated daily-carry storage:
+
+<p align="center">
+  <img src="images/cad_render_ashtray_mods.png" width="90%" alt="Chevy S10 Ashtray Power Panel and Deep Pocket Conversions" />
+</p>
+
+* **`S10_ashtray_usb_power_panel.stl` (Flush USB-C Fast-Charging Faceplate)**:
+  * Features a standard **28.8mm (1-1/8") circular mounting hole** compatible with universal marine/automotive USB-C Power Delivery (45W/65W) + QuickCharge 3.0 sockets with built-in digital LED voltmeters.
+  * Clips into the factory slide-out drawer tracks with rear wire clearance.
+* **`S10_ashtray_deep_pocket.stl` (Deep Drop-In Organizer Pocket)**:
+  * Drops directly into the drawer cavity to replace the metal cigarette cup.
+  * 75mm depth with an internal center partition for coins, house keys, toll cards, and AirPods.
+* **`S10_ashtray_combo_power_pocket.stl` (2-in-1 Power + Pocket Hybrid)**:
+  * The best of both worlds: holds a 28.8mm round USB-C fast-charger socket on the driver's side, and an open drop-pocket on the passenger side!
+
+---
+
+## ⚡ Step-by-Step Ashtray & Cigarette Lighter Wiring Guide
+
+Because the factory 12V cigarette lighter is located right next to the ashtray, you have clean, direct access to power without running wires through the firewall.
+
+### 🔍 GM Factory Wire Identification:
+When you pull the lower dash trim / center bezel forward to access the back of the lighter socket, you will see two or three factory wires:
+1. **ORANGE (12–14 AWG thick wire)**: **Constant 12V+ Battery Power** (Hot at all times, even with key out of the ignition). Protected by the 20A / 25A `CIG` or `AUX PWR` fuse in the driver's side fuse panel.
+2. **BLACK (16–18 AWG wire)**: **Chassis Ground (12V-)**. *(Note: On some S10s, the lighter grounds directly through its outer metal collar or metal dash bracket; in that case, ground your new USB charger to any metal bolt on the dash frame).*
+3. **GRAY (18 AWG thin wire, if equipped)**: **Dash Illumination (12V+)**. Only powers the tiny factory light bulb when headlights or parking lights are turned ON. *(Do NOT use this wire to power your USB charger—it cannot support the amperage and will blow the instrument cluster fuse).*
+
+---
+
+### 🛠️ Wiring Options: Constant Power vs. Ignition-Switched
+
+#### Method A: Tapping the Factory Cigarette Lighter (Constant 12V Power — Easiest)
+* **How it works:** Connect the USB socket's `(+)` terminal to the factory **ORANGE** wire using an insulated T-Tap or solder-and-heat-shrink splice. Connect `(-)` to the **BLACK** wire (or a ring terminal to a nearby dash bolt).
+* **Advantage:** Your phone or MagSafe charger charges even when the truck is parked and the key is in your pocket (great for camping, road trips, or quick errands).
+* **Important Precaution:** If you buy a USB socket with an always-on LED voltmeter, it will draw a tiny "vampire" standby current (approx 15–25mA). While negligible for a daily driver, if the truck sits parked for 3–4 weeks, it can slowly discharge the battery. **Recommendation:** Buy a USB socket that has an integrated **touch on/off switch** on the front lens so you can turn the display off when parked!
+
+#### Method B: Ignition-Switched 12V (Turns ON/OFF with the Key — Recommended for Voltmeter Sockets)
+If you want the charger and voltmeter display to shut off 100% when you turn off the truck:
+1. Open the driver's side dash fuse box (accessible with the driver door open).
+2. Use a standard **Add-a-Circuit / Add-a-Fuse tap** (ATO or Mini fuse depending on your year) into an ignition-switched fuse slot (such as `WPR` Windshield Wipers or `RADIO`).
+3. Insert the original fuse into the bottom slot of the tap, and a **10A fuse** into the top slot for your new USB charger.
+4. Route a single 16 AWG power wire from the tap, behind the knee bolster, and into the center ashtray cavity. Connect to the `(+)` terminal of the USB socket.
+5. Connect the `(-)` terminal to any clean metal screw or bolt on the inner dash frame.
+
+---
+
 ## 🔩 Hardware Required (Optional Depending on Module)
 
 * **For Magnetic Cubby Faceplates:**

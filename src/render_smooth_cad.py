@@ -376,6 +376,46 @@ def render_smooth_kit_showcase(deck_path, stilt_path, phone_path, cubby_path, st
     img.save(out_path)
     print(f"Saved: {out_path}")
 
+def render_smooth_ashtray_mods(usb_path, deep_path, combo_path, out_path):
+    print("Rendering Smooth Ashtray Mods CAD...")
+    usb_p = mesh.Mesh.from_file(usb_path)
+    deep_p = mesh.Mesh.from_file(deep_path)
+    combo_p = mesh.Mesh.from_file(combo_path)
+
+    # Orientation: face upright and tilt back 20 deg
+    for p in [usb_p, deep_p, combo_p]:
+        p.rotate([1, 0, 0], np.radians(-110))
+        p.rotate([0, 0, 1], np.radians(-10))
+
+    parts = [usb_p, combo_p, deep_p]
+    xs = [-105.0, 0.0, 105.0]
+    for p, target_x in zip(parts, xs):
+        c = np.mean(np.vstack([p.v0, p.v1, p.v2]), axis=0)
+        p.translate([-c[0] + target_x, -c[1], -c[2]])
+
+    v0 = np.vstack([usb_p.v0, combo_p.v0, deep_p.v0])
+    v1 = np.vstack([usb_p.v1, combo_p.v1, deep_p.v1])
+    v2 = np.vstack([usb_p.v2, combo_p.v2, deep_p.v2])
+
+    part_id = np.zeros(len(v0), dtype=np.int32)
+    i1 = len(usb_p.v0)
+    i2 = i1 + len(combo_p.v0)
+    part_id[i1:i2] = 1
+    part_id[i2:] = 2
+
+    colors = np.zeros((len(v0), 3), dtype=np.float32)
+    colors[:i1] = [45, 95, 145]    # USB Panel: Tech Blue
+    colors[i1:i2] = [48, 110, 85]  # Combo: Slate Green
+    colors[i2:] = [52, 56, 64]     # Deep Pocket: Anthracite
+
+    img = render_mesh_studio(
+        v0, v1, v2, colors,
+        W=1600, H=800, elev_deg=18, azim_deg=0, roll_deg=0,
+        zoom_factor=1.05, is_part_id=part_id, crease_deg=35.0
+    )
+    img.save(out_path)
+    print(f"Saved: {out_path}")
+
 def main():
     base = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
     stls = os.path.join(base, "stls")
@@ -389,16 +429,17 @@ def main():
     cubby_stealth_stl = os.path.join(stls, "dash_cubby", "S10_cubby_mag_stealth_cover.stl")
     cubby_magsafe_stl = os.path.join(stls, "dash_cubby", "S10_cubby_mag_magsafe_plate.stl")
     cubby_ball_stl = os.path.join(stls, "dash_cubby", "S10_cubby_mag_ball_plate.stl")
-    cubby_slide_stl = os.path.join(stls, "dash_cubby", "S10_cubby_slide_dock.stl")
-    slide_mount_stl = os.path.join(stls, "dash_cubby", "S10_slide_phone_mount.stl")
-    combo_dock_stl = os.path.join(stls, "dash_cubby", "S10_cubby_integrated_phone_dock.stl")
+    
+    ashtray_usb_stl = os.path.join(stls, "ashtray", "S10_ashtray_usb_power_panel.stl")
+    ashtray_deep_stl = os.path.join(stls, "ashtray", "S10_ashtray_deep_pocket.stl")
+    ashtray_combo_stl = os.path.join(stls, "ashtray", "S10_ashtray_combo_power_pocket.stl")
 
     render_smooth_phone_mount(phone_stl, os.path.join(imgs, "cad_render_phone_mount.png"))
     render_smooth_cupholder(deck_stl, stilt_stl, os.path.join(imgs, "cad_render_cupholder_assembly.png"))
     render_smooth_magnetic_cubby(cubby_mag_stl, cubby_stealth_stl, cubby_magsafe_stl, cubby_ball_stl,
                                  os.path.join(imgs, "cad_render_cubby_magnetic.png"))
-    render_smooth_cubby_slide(cubby_slide_stl, slide_mount_stl, combo_dock_stl,
-                              os.path.join(imgs, "cad_render_cubby_slide.png"))
+    render_smooth_ashtray_mods(ashtray_usb_stl, ashtray_deep_stl, ashtray_combo_stl,
+                               os.path.join(imgs, "cad_render_ashtray_mods.png"))
     render_smooth_kit_showcase(deck_stl, stilt_stl, phone_stl, cubby_mag_stl, cubby_stealth_stl,
                                os.path.join(imgs, "cad_render_kit_showcase.png"))
 
