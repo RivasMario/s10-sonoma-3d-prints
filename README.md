@@ -3,7 +3,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![3D Print Ready](https://img.shields.io/badge/Format-STL%20%7C%20CAD-orange.svg)]()
 
-A complete collection of custom, functional 3D printable upgrades designed specifically for **1994–2004 Chevrolet S10, GMC Sonoma, S10 Blazer, GMC Jimmy, and Oldsmobile Bravada** trucks and SUVs.
+A complete collection of custom, functional 3D printable upgrades designed specifically for **1994–2004 Chevrolet S10, GMC Sonoma, S10 Blazer, GMC Jimmy, and Oldsmobile Bravada** trucks and SUVs. 
+
+Engineered and field-tested on a **1995 GMC Sonoma** (former City of Wenatchee municipal fleet truck) with factory 60/40 split bench seats.
 
 <p align="center">
   <img src="images/cad_render_kit_showcase.png" width="100%" alt="Chevy S10 / GMC Sonoma 3D Printed Accessories Kit" />
@@ -100,21 +102,29 @@ Upgrades the factory dash cavity into a deep, modular sunglasses vault with swap
 
 ---
 
-### 4. Center Console Ashtray Conversions (Power & Storage)
+### 4. Ashtray Conversions (Power & Storage)
 Located in [`stls/ashtray/`](stls/ashtray/)
 
-Replaces the factory metal cigarette ash bin (below the climate controls) with modern USB-C charging power or dedicated daily-carry storage:
+Replaces the unused factory cigarette ash bin with modern USB-C charging power or dedicated daily-carry storage:
 
 <p align="center">
   <img src="images/cad_render_ashtray_mods.png" width="90%" alt="Chevy S10 Ashtray Power Panel and Deep Pocket Conversions" />
 </p>
 
+#### Dash Architecture by Model Year:
+* **1994–1997 Models (e.g. 1995 GMC Sonoma)**: 
+  * The factory pull-out drawer is located on the lower dashboard to the right of the cigarette lighter.
+  * **Drop-In Bucket Replacement Strategy:** The factory slide-out drawer mechanism and OEM exterior textured faceplate are retained so the dash looks 100% stock when closed. The inner metal cigarette bucket unclips and lifts out, allowing a custom 3D printed organizer pocket or USB-C fast-charging pod to drop directly into the sliding drawer frame!
+* **1998–2004 Models**:
+  * Located in the center stack directly below the climate controls. Compatible with both drop-in bin inserts and flush ashtray delete pods (GMC Envoy style).
+
+#### Included Conversion Modules:
 * **`S10_ashtray_usb_power_panel.stl` (Flush USB-C Fast-Charging Faceplate)**:
   * Features a standard **28.8mm (1-1/8") circular mounting hole** compatible with universal marine/automotive USB-C Power Delivery (45W/65W) + QuickCharge 3.0 sockets with built-in digital LED voltmeters.
-  * Clips into the factory slide-out drawer tracks with rear wire clearance.
+  * Designed with rear wire clearance channels.
 * **`S10_ashtray_deep_pocket.stl` (Deep Drop-In Organizer Pocket)**:
   * Drops directly into the drawer cavity to replace the metal cigarette cup.
-  * 75mm depth with an internal center partition for coins, house keys, toll cards, and AirPods.
+  * Multi-compartment design with an internal partition for coins, house keys, toll cards, and AirPods.
 * **`S10_ashtray_combo_power_pocket.stl` (2-in-1 Power + Pocket Hybrid)**:
   * The best of both worlds: holds a 28.8mm round USB-C fast-charger socket on the driver's side, and an open drop-pocket on the passenger side!
 
@@ -181,6 +191,8 @@ If you want the charger and voltmeter display to shut off 100% when you turn off
 All parts were programmatically designed in Python using the modern `manifold3d` geometric modeling engine. Source scripts are in [`src/`](src/):
 * `src/generate_all_phone_mounts.py`: Parametric phone mount generator.
 * `src/generate_sonoma_cupholder.py`: Bench cupholder and stilt generator.
+* `src/generate_cubby_mods.py`: Modular magnetic dash cubby and accessories generator.
+* `src/generate_ashtray_mods.py`: Ashtray power panel and deep pocket conversion generator.
 * `src/export_symmetrical_mounts.py`: Symmetrical plate exports.
 
 You can modify cup diameters, stilt drop heights, or ball tilt angles directly in the Python scripts!
