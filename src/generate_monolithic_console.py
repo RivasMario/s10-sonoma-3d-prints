@@ -126,27 +126,35 @@ def generate_monolithic_console(include_floor_base=True):
     right_flare = rrect(64.0, 26.0, 5.0).extrude(2.0).translate([58.0, -46.0, -1.0])
     console -= (right_vault + right_flare)
     
-    # 7. Massive Forward Open Cargo Vault with Continuous Coin Scoop Ramp
-    # Sunk into the entire front section in front of the cups:
-    # Width = 154.0mm (X = -77 to +77), Length = 44.0mm (Y = 56.5 to 100.5), Depth = 30.0mm
-    # A huge, deep open block to shove wallets, keys, sunglasses cases, phones, cords, or tools
-    FRONT_VAULT_W = 154.0
-    FRONT_VAULT_L = 44.0
-    FRONT_VAULT_D = 30.0
-    FRONT_VAULT_Y = 78.5  # center Y: 78.5 - 22 = 56.5, 78.5 + 22 = 100.5
-    
-    front_vault = rrect(FRONT_VAULT_W, FRONT_VAULT_L, 6.0).extrude(FRONT_VAULT_D).translate([0, FRONT_VAULT_Y, -FRONT_VAULT_D])
-    front_flare = rrect(FRONT_VAULT_W + 4.0, FRONT_VAULT_L + 4.0, 7.0).extrude(2.0).translate([0, FRONT_VAULT_Y, -1.0])
-    # Smooth continuous 45° coin scoop ramp across forward wall (Y = 94 to 101)
-    coin_ramp = box(-FRONT_VAULT_W/2, FRONT_VAULT_W/2, 94.0, 101.0, -FRONT_VAULT_D, 1.0)
-    console -= (front_vault + front_flare)
+    # 7. Contour-Wrapped Forward Cargo Mega-Vault with Continuous Coin Scoop Ramp
+    # Captures 100% of all free meat across the front, between cups, and around the cupholders:
+    # Spans 172mm wide (X = -86 to +86), from Y = 34.0 to 101.0 (67mm long), 32.0mm deep
+    FRONT_W = 172.0
+    Y_START = 34.0
+    Y_END = 101.0
+    FRONT_L = Y_END - Y_START
+    CENTER_Y = (Y_START + Y_END) / 2.0
+    FRONT_D = 32.0
+
+    front_block = rrect(FRONT_W, FRONT_L, 6.0).extrude(FRONT_D).translate([0, CENTER_Y, -FRONT_D])
+    front_flare = rrect(FRONT_W + 4.0, FRONT_L + 4.0, 7.0).extrude(2.0).translate([0, CENTER_Y, -1.0])
+
+    # Cupholder clearance collars (protects cups with a uniform 4.5mm solid wall)
+    cup_l_collar = cyl(CUP_TOP_D + 9.0, -FRONT_D - 5.0, 5.0, -CUP_SPACING_X/2, CUP_CENTER_Y)
+    cup_r_collar = cyl(CUP_TOP_D + 9.0, -FRONT_D - 5.0, 5.0, +CUP_SPACING_X/2, CUP_CENTER_Y)
+
+    # Smooth continuous 45° coin scoop ramp across forward wall (Y = 94 to 101.5)
+    coin_ramp = box(-FRONT_W/2, FRONT_W/2, 94.0, 101.5, -FRONT_D, 1.0)
+
+    front_vault = (front_block + front_flare) - cup_l_collar - cup_r_collar
+    console -= front_vault
     console -= coin_ramp
     
     # 8. Underside Engineered Weight-Relief & Stash Cavity
     if include_floor_base:
         # Large forward weight-relief chamber under front vault (self-supporting 45-degree angled roof)
         # Keeps thick structural perimeter runners, saves ~450g filament
-        core_void = rrect(140.0, 40.0, 10.0).extrude(48.0).translate([0, FRONT_VAULT_Y, TOTAL_FLOOR_Z - 1.0])
+        core_void = rrect(140.0, 40.0, 10.0).extrude(45.0).translate([0, CENTER_Y, TOTAL_FLOOR_Z - 1.0])
         console -= core_void
         
         # B. Transmission tunnel crowning curve (320mm radius cylinder cut across X axis)
