@@ -2,6 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![3D Print Ready](https://img.shields.io/badge/Format-STL%20%7C%20CAD-orange.svg)]()
+[![Thingiverse](https://img.shields.io/badge/Thingiverse-7422932-248BFB.svg?logo=thingiverse&logoColor=white)](https://www.thingiverse.com/thing:7422932)
 
 A complete collection of custom, functional 3D printable upgrades designed specifically for **1994–2004 Chevrolet S10, GMC Sonoma, S10 Blazer, GMC Jimmy, and Oldsmobile Bravada** trucks and SUVs. 
 
