@@ -212,25 +212,31 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
         console = console - arch_cutout - pad_l - pad_r
         
         if add_anti_warp_tabs:
-            # 4 Sacrificial Anti-Warp Corner Discs ("Mouse Ears", 28mm diam x 0.45mm / 2 layers)
-            # Anchors extreme corners flat to build plate against ASA cooling contraction
-            PAD_R = 14.0
-            PAD_H = 0.45
+            # 8-Point Heavy-Duty ASA Anti-Warp Adhesion Grid (30mm diam x 0.60mm / 3 solid layers at 0.20mm)
+            # Engineered specifically for ASA high-shrinkage thermal contraction:
+            # Pins all 4 extreme corners, mid-span runners, and rear tongue kickstand flat to build plate.
+            # Snaps off cleanly by hand after cooling without leaving blemishes.
+            PAD_R = 15.0
+            PAD_H = 0.60
             mouse_ears = Manifold()
-            for mx in (-BODY_W/2 + 6.0, BODY_W/2 - 6.0):
-                for my in (BODY_REAR_Y + 6.0, BODY_FRONT_Y - 6.0):
+            # 6 perimeter anchors on main console runners (Front, Mid, Rear on both sides)
+            for mx in (-BODY_W/2 + 5.0, BODY_W/2 - 5.0):
+                for my in (BODY_REAR_Y + 5.0, BODY_CENTER_Y, BODY_FRONT_Y - 5.0):
                     mouse_ears += cyl(PAD_R*2, TOTAL_FLOOR_Z, TOTAL_FLOOR_Z + PAD_H, mx, my)
-            console += mouse_ears
             
             # Sacrificial Rear Tongue Support Kickstand Truss
             # Anchors the cantilevered tongue (Z=-59.5) to the print bed (Z=-110.0)
             # 1.2mm wall with 3 breakaway micro-tabs (0.35mm air gap)
             truss_wall = box(-30.0, 30.0, tongue_end_y + 2.0, tongue_end_y + 3.4, TOTAL_FLOOR_Z, tongue_z_bot - 0.35)
             truss_foot = box(-34.0, 34.0, tongue_end_y, tongue_end_y + 12.0, TOTAL_FLOOR_Z, TOTAL_FLOOR_Z + 1.2)
+            # 2 dedicated anchor discs on kickstand foot
+            for kx in (-24.0, 24.0):
+                mouse_ears += cyl(PAD_R*1.6, TOTAL_FLOOR_Z, TOTAL_FLOOR_Z + PAD_H, kx, tongue_end_y + 6.0)
+                
             tabs = Manifold()
             for tx in (-20.0, 0.0, 20.0):
                 tabs += box(tx - 1.5, tx + 1.5, tongue_end_y + 2.2, tongue_end_y + 3.2, tongue_z_bot - 0.4, tongue_z_bot + 0.1)
-            console += (truss_wall + truss_foot + tabs)
+            console += (truss_wall + truss_foot + tabs + mouse_ears)
     else:
         # Mortise socket for the modular stilt leg with 45° entry mouth lead-in chamfer
         SOCKET_W = 40.0
@@ -300,9 +306,9 @@ def generate_modular_25mm_stilt(add_anti_warp_tabs=True):
     stilt = (tenon + collar + foot) - arch_cutout - felt_pocket
     
     if add_anti_warp_tabs:
-        # Anti-warp corner discs on foot base
-        PAD_R = 11.0
-        PAD_H = 0.45
+        # Anti-warp corner discs on foot base (3 solid layers at 0.20mm)
+        PAD_R = 12.0
+        PAD_H = 0.60
         stilt_ears = Manifold()
         for mx in (-FOOT_W/2 + 5.0, FOOT_W/2 - 5.0):
             for my in (BODY_CENTER_Y - FOOT_L/2 + 5.0, BODY_CENTER_Y + FOOT_L/2 - 5.0):
