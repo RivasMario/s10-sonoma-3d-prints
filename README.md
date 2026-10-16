@@ -173,13 +173,24 @@ Replaces the stock GM blue cupholder console entirely as a **100% single, solid 
     * **Rear Gable Chamber:** $112\text{mm W} \times 26\text{mm L}$ with a 45° gable roof under the rear cargo blocks and knife holster.
     * **Central Longitudinal Spine Tunnel:** $18\text{mm W} \times 74\text{mm L}$ with a 45° peaked arch connecting the front and rear chambers between the lower cupholder pockets.
     * **100% Self-Supporting:** Every ceiling overhang angle is exactly 45°—the entire console prints with **ZERO internal or external supports**, saving **~300g of filament** and **4 to 6 hours of print time**!
-  * **Integrated Transmission Tunnel Glide Base:** Extends straight down to $Z = -110\text{mm}$ with a continuous perimeter box frame and a 320mm radius contoured arch matching the transmission tunnel carpet, complete with dual 40mm recessed pockets for anti-slip rubber or felt pads.
+  * **Integrated Transmission Tunnel Glide Base & Anti-Warp Bed Architecture:**
+    * **Longitudinal Transmission Tunnel Arch:** Rotated and calibrated along the Y-axis (front-to-back) to follow the real chassis tunnel hump.
+    * **Eliminated 9° Feather Edge:** Arch cutout is bounded ($|X| \le 46\text{mm}$) with a distinct $1.2\text{mm}$ vertical landing shoulder, completely eliminating the razor-thin feather edge that caused cooling warping and bed peeling on earlier remixes.
+    * **Broad Flat Bed Landing Runners:** 52mm-wide continuous flat contact runners on both driver and passenger sides, providing massive bed adhesion surface area.
+    * **Integrated Sacrificial Corner "Mouse Ears":** 4 built-in $28\text{mm} \times 0.45\text{mm}$ (2-layer) breakaway adhesion discs on the extreme base corners to pin the console against thermal contraction during ASA cooling. Snaps off cleanly by hand after printing.
+    * **Breakaway Tongue Support Kickstand Truss:** Includes an engineered $1.2\text{mm}$ sacrificial kickstand wall with a $0.35\text{mm}$ breakaway air gap and 3 micro-tabs supporting the $85\text{mm}$ cantilevered tongue all the way to the build plate ($Z = -110\text{mm}$). Ensures the tongue never sags or vibrates during long prints and snaps off effortlessly by hand.
+    * **Dual Recessed Felt Pockets:** Two 40mm circular pockets centered on the flat runners ($X = \pm 68\text{mm}$) for anti-slip rubber or felt pads.
 
-#### 🧩 2. The Modular 2-Piece Edition (For Smaller Print Beds):
+#### 🧩 2. The Modular 2-Piece Edition (Zero-Rattle & Anti-Binding Calibrated Fit):
 * **`sonoma_cupholder_1995_megadeck.stl`**:
   * The same full-feature console deck, stopping at $Z = -85\text{mm}$ with an underside mortise socket for printers with restricted vertical build volume.
+  * **Self-Centering Socket Mouth:** Features a $1.2\text{mm}$ $45^\circ$ lead-in chamfer around the socket entrance for smooth tenon engagement.
 * **`sonoma_cupholder_1995_stilt_26mm.stl` (25mm Low-Profile Stabilizer Foot)**:
-  * Bridges the 25mm gap from the bottom of the deck down to the transmission tunnel hump, with a precision tenon that keys firmly into the underside socket.
+  * **Calibrated 0.20mm Sliding Tolerance:** Sized with exact $0.20\text{mm}$ per-side clearance based on real-world community testing.
+  * **Corner Seam Relief:** Tenon corners engineered with a generous $5.5\text{mm}$ radius (vs socket's $4.0\text{mm}$ radius), giving $>0.6\text{mm}$ clearance at all four corners to guarantee that 3D printer corner zits or layer seams never cause binding.
+  * **45° Lead-in Insertion Chamfer:** $2.5\text{mm}$ lead-in taper at the tenon tip for effortless, self-aligning insertion without catching.
+  * **4 Tapered Anti-Rattle Crush Ribs:** Vertical ribs along the center of each face tapering from $0.0\text{mm}$ at the top to $+0.35\text{mm}$ interference at the base collar. Slides in freely for the first 75% of travel, then wedges firmly into the socket during the final $4\text{mm}$ for $100\%$ rock-solid lockup with **ZERO rattle** and **ZERO sanding needed**!
+  * **Foot Anti-Warp Anchor Discs:** 4 built-in $22\text{mm} \times 0.45\text{mm}$ breakaway mouse ears on the stilt foot corners.
 
 #### 🛠️ 3. OEM Dual-Well Drop-In Inserts (Zero Disassembly Option):
 * **`sonoma_cupholder_tumbler_sleeve.stl` (30/40oz Stanley & Yeti Riser)**:
