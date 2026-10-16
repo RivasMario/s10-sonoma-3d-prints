@@ -83,6 +83,22 @@ def gable_void_y(w, l, z_base, z_shoulder, cy=0, cx=0):
     cs = CrossSection([pts])
     return cs.extrude(l).rotate([90, 0, 0]).translate([cx, cy + l/2, z_base])
 
+def contoured_hull_cs(w_front=202.0, w_rear=144.0, y_front=105.0, y_rear=-60.0, y_taper=0.0, r_corner=12.0):
+    """
+    Generates a contoured trapezoidal cross-section matching OEM 60/40 bench seat bolsters.
+    Wider in front across cupholders, tapering inward towards the rear seat frame.
+    """
+    pts = [
+        [-w_rear/2, y_rear],
+        [w_rear/2, y_rear],
+        [w_front/2, y_taper],
+        [w_front/2, y_front],
+        [-w_front/2, y_front],
+        [-w_front/2, y_taper]
+    ]
+    cs = CrossSection([pts])
+    return cs.offset(-r_corner, JoinType.Round, 2.0, 32).offset(r_corner, JoinType.Round, 2.0, 32)
+
 
 def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True):
     """
@@ -95,9 +111,11 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
     # +Y: Forward (towards dashboard), -Y: Rearward (towards seat cushion)
     # Z=0: Top rim, -Z: Extends downward towards transmission tunnel floor
     
-    BODY_W = 196.0          # mm outer console width (fits between seat bolsters)
+    BODY_W_FRONT = 202.0    # mm outer console front width (fills wide bolster opening)
+    BODY_W_REAR = 144.0     # mm outer console rear width (nests between tapered seat bolsters)
     BODY_FRONT_Y = 105.0    # mm forward reach of console
     BODY_REAR_Y = -60.0     # mm rearward reach of console body (tongue extends further)
+    BODY_TAPER_Y = 0.0      # mm where taper begins behind cupholders
     BODY_L = BODY_FRONT_Y - BODY_REAR_Y  # 165.0 mm
     BODY_CENTER_Y = (BODY_FRONT_Y + BODY_REAR_Y) / 2.0 # 22.5 mm
     
@@ -111,8 +129,8 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
     
     TOTAL_FLOOR_Z = -110.0 if include_floor_base else -85.0
     
-    # 1. Solid Unibody Outer Mass
-    top_cs = rrect(BODY_W, BODY_L, 16.0).translate([0, BODY_CENTER_Y])
+    # 1. Contoured Trapezoidal Hull Matching 60/40 Bench Seat Bolsters
+    top_cs = contoured_hull_cs(BODY_W_FRONT, BODY_W_REAR, BODY_FRONT_Y, BODY_REAR_Y, BODY_TAPER_Y, r_corner=12.0)
     main_solid = top_cs.extrude(abs(TOTAL_FLOOR_Z)).translate([0, 0, TOTAL_FLOOR_Z])
     console = main_solid
     
@@ -156,14 +174,14 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
     clip_channel = box(-7.0, 7.0, -32.5, -30.0, -42.0, 2.0)
     console -= (fastback_void + fastback_flare + clip_channel)
     
-    # 5. Driver-Side Rear Wing: Large Open Cargo Block Vault
-    left_vault = rrect(60.0, 22.0, 4.0).extrude(60.0).translate([-58.0, -46.0, -60.0])
-    left_flare = rrect(64.0, 26.0, 5.0).extrude(2.0).translate([-58.0, -46.0, -1.0])
+    # 5. Driver-Side Rear Wing: Open Cargo Block Vault (Contoured to 144mm Taper)
+    left_vault = rrect(42.0, 22.0, 4.0).extrude(60.0).translate([-47.0, -45.0, -60.0])
+    left_flare = rrect(46.0, 26.0, 5.0).extrude(2.0).translate([-47.0, -45.0, -1.0])
     console -= (left_vault + left_flare)
     
-    # 6. Passenger-Side Rear Wing: Large Open Cargo Block Vault
-    right_vault = rrect(60.0, 22.0, 4.0).extrude(60.0).translate([58.0, -46.0, -60.0])
-    right_flare = rrect(64.0, 26.0, 5.0).extrude(2.0).translate([58.0, -46.0, -1.0])
+    # 6. Passenger-Side Rear Wing: Open Cargo Block Vault (Contoured to 144mm Taper)
+    right_vault = rrect(42.0, 22.0, 4.0).extrude(60.0).translate([47.0, -45.0, -60.0])
+    right_flare = rrect(46.0, 26.0, 5.0).extrude(2.0).translate([47.0, -45.0, -1.0])
     console -= (right_vault + right_flare)
     
     # 7. Contour-Wrapped Forward Cargo Mega-Vault with Continuous Coin Scoop Ramp
@@ -191,7 +209,7 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
         v_front = gable_void_x(134.0, 46.0, TOTAL_FLOOR_Z - 1.0, -63.0, cy=71.0)
         
         # B. Rear gable chamber under rear vaults & bridge (45° roof along X)
-        v_rear = gable_void_x(112.0, 26.0, TOTAL_FLOOR_Z - 1.0, -80.0, cy=-40.0)
+        v_rear = gable_void_x(92.0, 26.0, TOTAL_FLOOR_Z - 1.0, -80.0, cy=-40.0)
         
         # C. Central longitudinal arched spine between cupholder lower pockets (45° roof along Y)
         v_tunnel = gable_void_y(18.0, 74.0, TOTAL_FLOOR_Z - 1.0, -63.0, cy=11.0)
@@ -202,8 +220,8 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
         # Longitudinal arch aligned along Y axis (front to back) matching truck transmission tunnel hump
         # Arch cutout bounded (|X| <= 46.0mm) with 1.2mm vertical landing shoulder to eliminate 9° feather edge
         R_CURVE = 320.0
-        curve_cyl = cyl(R_CURVE*2, -BODY_L, BODY_L, 0, 0).rotate([90, 0, 0]).translate([0, 0, TOTAL_FLOOR_Z - R_CURVE + 4.0])
-        arch_box = box(-46.0, 46.0, -BODY_L, BODY_L, TOTAL_FLOOR_Z - 2.0, TOTAL_FLOOR_Z + 10.0)
+        curve_cyl = cyl(R_CURVE*2, -BODY_L*2, BODY_L*2, 0, 0).rotate([90, 0, 0]).translate([0, 0, TOTAL_FLOOR_Z - R_CURVE + 4.0])
+        arch_box = box(-46.0, 46.0, -BODY_L*2, BODY_L*2, TOTAL_FLOOR_Z - 2.0, TOTAL_FLOOR_Z + 10.0)
         arch_cutout = curve_cyl ^ arch_box
         
         # Two 40mm recessed felt/rubber pad pockets on flat side runners (X = -68.0 and +68.0)
@@ -219,10 +237,12 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
             PAD_R = 15.0
             PAD_H = 0.60
             mouse_ears = Manifold()
-            # 6 perimeter anchors on main console runners (Front, Mid, Rear on both sides)
-            for mx in (-BODY_W/2 + 5.0, BODY_W/2 - 5.0):
-                for my in (BODY_REAR_Y + 5.0, BODY_CENTER_Y, BODY_FRONT_Y - 5.0):
+            # 6 perimeter anchors on contoured main console runners (Front, Mid, Rear)
+            for mx in (-BODY_W_FRONT/2 + 5.0, BODY_W_FRONT/2 - 5.0):
+                for my in (BODY_CENTER_Y, BODY_FRONT_Y - 5.0):
                     mouse_ears += cyl(PAD_R*2, TOTAL_FLOOR_Z, TOTAL_FLOOR_Z + PAD_H, mx, my)
+            for mx in (-BODY_W_REAR/2 + 5.0, BODY_W_REAR/2 - 5.0):
+                mouse_ears += cyl(PAD_R*2, TOTAL_FLOOR_Z, TOTAL_FLOOR_Z + PAD_H, mx, BODY_REAR_Y + 5.0)
             
             # Sacrificial Rear Tongue Support Kickstand Truss
             # Anchors the cantilevered tongue (Z=-59.5) to the print bed (Z=-110.0)
