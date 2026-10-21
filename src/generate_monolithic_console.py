@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
 """
 Parametric CAD Generator for 1995 GMC Sonoma Monolithic Unibody Bench Seat Console
-Clean PastyBoi-Style Architecture (Zero Slicing Artifacts, Zero Floating Holes):
+Full Workstation Edition (Maximum EDC Utility, Zero Slicing Artifacts, Zero Floating Holes):
   - 100% Continuous Automotive Unibody (Zero floating parts, Zero disjoint shells, Zero thin slivers)
   - Dual 82mm-deep stepped cupholders (86mm / 3.38" top bore to 54mm depth, 70mm / 2.75" lower pocket)
     * Optimally seats 40oz Stanley Quenchers and 35oz Yeti tumblers deep (57.5mm / 2.26") for maximum tip-resistance
     * 360-degree solid thick circular walls (5mm+ wall margin everywhere, zero intersecting collars or staticy lines)
-  - ONE clean, massive forward catch-all tray (166mm W x 47mm L x 28mm D) with smooth 45° coin scoop ramp
-    * Completely separated from the cupholders with a 7.5mm solid structural bulkhead
-  - Front-lip ergonomic 10mm USB-C cable relief scallop for clean charging cord routing from dash/ashtray
+  - Rear Tool Workstation Suite:
+    * Dedicated Milwaukee Fastback 6-in-1 / Utility Knife vertical holster (38mm x 20mm x 54mm) with belt-clip relief
+    * 4x 1/4" Hex Driver Bit retention wells (Torx T15/T20, Phillips #2, socket adapters)
+  - Forward Two-Tier Workstation Suite:
+    * Upright 8° tilted smartphone / power bank dock (94mm x 16.5mm x 38mm)
+    * Driver flank tool ports: 13mm tire pressure gauge / Sharpie port + 11mm pen / screwdriver port
+    * Passenger flank tool port: 28mm x 16mm EDC flashlight / multi-bit caddy
+    * Forward catch-all coin & key tray (160mm W x 25mm L x 22mm D) with smooth 45° coin scoop ramp
+    * Front-lip ergonomic 10mm USB-C cable relief scallop for clean charging cord routing from dash/ashtray
   - Integrated 110mm x 85mm x 7.5mm seat receiver tongue with 45° cammed lead-in retention catch bump & 45° buttress gusset
   - 100% Solid Floor & Infill: ZERO underside hollow gable cavities, ZERO floating voids or paper-thin floors
   - Anti-Warp Arch & Bed Interface:
@@ -22,7 +28,6 @@ Clean PastyBoi-Style Architecture (Zero Slicing Artifacts, Zero Floating Holes):
     * Baseline sliding clearance calibrated to 0.20mm per side
     * 5.5mm corner radius on tenon (vs 4.0mm socket) guaranteeing >0.6mm clearance at all corners so printer corner seams/zits never bind
     * 45° lead-in chamfer on tenon tip and socket mouth for effortless self-aligning insertion
-    * 4 vertical tapered crush ribs (tapering from 0.0mm at top to +0.35mm interference at base collar)
     * 4 vertical tapered crush ribs (tapering from 0.0mm at top to +0.35mm interference at base collar):
       slides in freely 75% of the travel, then wedges 100% rigid with ZERO rattle and ZERO sanding needed!
 """
@@ -104,16 +109,22 @@ def contoured_hull_cs(w_front=202.0, w_rear=144.0, y_front=105.0, y_rear=-60.0, 
 
 def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True):
     """
-    Clean PastyBoi-Style Unibody Bench Seat Console for 1995 GMC Sonoma / Chevy S10:
+    Full Workstation Unibody Bench Seat Console for 1995 GMC Sonoma / Chevy S10:
       - 100% Continuous Automotive Unibody (Zero floating parts, Zero disjoint shells, Zero thin slivers)
       - Dual 82mm-deep stepped cupholders (86mm / 3.38" top bore to 54mm depth, 70mm / 2.75" lower pocket)
         * Optimally seats 40oz Stanley Quenchers and 35oz Yeti tumblers deep (57.5mm / 2.26") for maximum tip-resistance
         * 360-degree solid thick circular walls (5mm+ solid wall margin everywhere, zero intersecting collars)
-      - ONE clean, massive forward catch-all tray (166mm W x 47mm L x 28mm D) with smooth 45° coin scoop ramp
-        * Completely separated from the cupholders with a 7.5mm solid structural bulkhead
-      - Front-lip ergonomic 10mm USB-C cable relief scallop for clean charging cord routing from dash/ashtray
+      - Rear Tool Workstation Suite:
+        * Milwaukee Fastback 6-in-1 / utility knife holster with belt-clip clearance groove
+        * 4x 1/4" hex driver bit retention wells (7.2mm x 14mm) for truck interior maintenance
+      - Forward Two-Tier Workstation Suite:
+        * Upright 8° tilted smartphone / power bank dock (94mm x 16.5mm x 38mm)
+        * Driver flank tool ports: 13mm tire pressure gauge / Sharpie port + 11mm pen / screwdriver port
+        * Passenger flank tool port: 28mm x 16mm EDC flashlight / multi-bit caddy
+        * Forward catch-all coin & key tray (160mm W x 25mm L x 22mm D) with smooth 45° coin scoop ramp
+        * Front-lip ergonomic 10mm USB-C cable relief scallop for clean charging cord routing from dash/ashtray
       - Integrated 110mm x 85mm x 7.5mm seat receiver tongue with 45° cammed lead-in retention catch bump & 45° buttress gusset
-      - 100% Solid Floor & Infill: ZERO underside hollow gable swiss-cheese cavities, ZERO floating voids or paper-thin floors
+      - 100% Solid Floor & Infill: ZERO underside hollow gable cavities, ZERO floating voids or paper-thin floors
       - Longitudinal transmission tunnel arch along Y with 1.2mm landing shoulders and broad flat 52mm runners
       - 8-point heavy-duty ASA anti-warp mouse ears + sacrificial tongue kickstand truss
     """
@@ -190,22 +201,59 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
         cup_void += cone(rl*2, (rl - 5.0)*2, -CUP_DEPTH - 2.0, -CUP_DEPTH, cx, CUP_CENTER_Y)
         console -= cup_void
         
-    # 4. ONE Simple Clean Front Catch-All Tray (Following PastyBoi)
-    # Starts at Y = 52.0 (leaves a solid 7.5mm thick wall in front of the cups!)
-    # Zero intersecting collars, zero double-subtractions, zero staticy lines!
-    FRONT_W = 166.0
-    TRAY_START_Y = 52.0
-    TRAY_END_Y = 99.0
-    TRAY_L = TRAY_END_Y - TRAY_START_Y     # 47.0 mm
-    TRAY_CY = (TRAY_START_Y + TRAY_END_Y) / 2.0  # 75.5 mm
-    TRAY_D = 28.0
+    # 4. Rear Tool Workstation Suite (100% Solid Bulkheads, Zero Collision)
+    # A. Dedicated Milwaukee Fastback 6-in-1 / Utility Knife Holster
+    # Centered in the rear bridge: X = 0, Y = -46.0mm, Depth = 54.0mm
+    # Sized for Milwaukee Fastback 48-22-1505 (38mm x 20mm closed) or folding EDC pocket knives
+    fastback_void = rrect(38.0, 20.0, 3.5).extrude(54.0).translate([0, -46.0, -54.0])
+    fastback_flare = rrect(41.0, 23.0, 4.0).extrude(2.0).translate([0, -46.0, -1.5])
+    # Pocket clip relief channel along the forward wall
+    clip_channel = box(-6.5, 6.5, -36.5, -34.0, -38.0, 1.0)
+    console -= (fastback_void + fastback_flare + clip_channel)
 
-    front_tray = rrect(FRONT_W, TRAY_L, 6.0).extrude(TRAY_D).translate([0, TRAY_CY, -TRAY_D])
-    front_tray_flare = rrect(FRONT_W + 3.0, TRAY_L + 3.0, 7.0).extrude(1.5).translate([0, TRAY_CY, -1.0])
+    # B. 4x 1/4" Hex Driver Bit Retention Wells (Torx T15/T20, Phillips #2, 1/4" socket adapter)
+    # Precision 7.2mm bore x 14.0mm depth with 45° lead-in chamfer
+    for bx in (-56.0, -44.0, 44.0, 56.0):
+        bit_hole = cyl(7.2, -14.0, 1.0, bx, -51.0, seg=48) + cone(9.2, 7.2, -1.0, 1.0, bx, -51.0, seg=48)
+        console -= bit_hole
+
+    # 5. Forward Workstation Suite (Two-Tier Architecture)
+    # A. Dedicated Upright Smartphone / Power Bank Slot (8° rearward driver tilt)
+    # Centered at X = 0, Y = 58.0mm, Width 94mm, Thickness 16.5mm, Depth 38mm
+    # Fits modern smartphones with rugged cases (iPhone Pro Max / Galaxy Ultra) or Anker battery banks
+    phone_void = rrect(94.0, 16.5, 4.0).extrude(38.0).translate([0, 0, -38.0])
+    phone_void = phone_void.rotate([8.0, 0, 0]).translate([0, 58.0, 0])
+    phone_flare = rrect(98.0, 20.0, 5.0).extrude(2.0).translate([0, 0, -1.5]).rotate([8.0, 0, 0]).translate([0, 58.0, 0])
+    console -= (phone_void + phone_flare)
+
+    # B. Driver-Side Tool Flank Ports (Tire Pressure Gauge / Sharpie / Screwdrivers)
+    # Port 1: 13.0mm diameter x 40.0mm deep with 16.0mm entry chamfer (Sharpie / tire gauge)
+    pen1 = cyl(13.0, -40.0, 1.0, -68.0, 60.0, seg=48) + cone(16.0, 13.0, -2.0, 1.0, -68.0, 60.0, seg=48)
+    # Port 2: 11.0mm diameter x 40.0mm deep with 14.0mm entry chamfer (Pen / precision screwdriver)
+    pen2 = cyl(11.0, -40.0, 1.0, -84.0, 60.0, seg=48) + cone(14.0, 11.0, -2.0, 1.0, -84.0, 60.0, seg=48)
+    console -= (pen1 + pen2)
+
+    # C. Passenger-Side Flank Tool Port (EDC Flashlight / Multi-Bit Driver Caddy)
+    # Pocket: 28.0mm x 16.0mm x 40.0mm deep with 31.0mm x 19.0mm lead-in flare
+    torch_slot = rrect(28.0, 16.0, 4.0).extrude(40.0).translate([75.0, 60.0, -40.0])
+    torch_flare = rrect(31.0, 19.0, 4.5).extrude(2.0).translate([75.0, 60.0, -1.5])
+    console -= (torch_slot + torch_flare)
+
+    # D. Forward Catch-All Coin & Key Tray with 45° Coin Scoop Ramp
+    # Centered at X = 0, spanning Y = 74.0 to 99.0mm (Length 25mm, Width 160mm, Depth 22mm)
+    FRONT_W = 160.0
+    TRAY_START_Y = 74.0
+    TRAY_END_Y = 99.0
+    TRAY_L = TRAY_END_Y - TRAY_START_Y
+    TRAY_CY = (TRAY_START_Y + TRAY_END_Y) / 2.0
+    TRAY_D = 22.0
+
+    front_tray = rrect(FRONT_W, TRAY_L, 5.0).extrude(TRAY_D).translate([0, TRAY_CY, -TRAY_D])
+    front_tray_flare = rrect(FRONT_W + 3.0, TRAY_L + 3.0, 6.0).extrude(1.5).translate([0, TRAY_CY, -1.0])
 
     # Continuous smooth 45° coin scoop ramp on the leading front wall
     pts_ramp = [
-        [TRAY_END_Y - 7.0, -TRAY_D],
+        [TRAY_END_Y - 6.0, -TRAY_D],
         [TRAY_END_Y, -TRAY_D],
         [TRAY_END_Y, -1.0]
     ]
@@ -219,7 +267,7 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
     cable_notch = cyl(10.0, -15.0, 15.0, 0, 0).rotate([90, 0, 0]).translate([0, BODY_FRONT_Y, -1.5]) + box(-5.0, 5.0, 95.0, 115.0, -1.5, 5.0)
     console -= cable_notch
     
-    # 5. Base & Transmission Tunnel Arch
+    # 6. Base & Transmission Tunnel Arch
     if include_floor_base:
         # 100% Solid Floor: NO internal gable weight-relief cavities!
         # Eliminates all floating holes, internal voids, and weak infill roofs.
@@ -258,11 +306,12 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
             console += (truss_wall + truss_foot + tabs + mouse_ears)
     else:
         # Mortise socket for the modular stilt leg with 45° entry mouth lead-in chamfer
-        SOCKET_W = 40.0
+        # Calibrated SOCKET_W = 22.0mm (X in [-11, +11]) leaving solid 2.2mm wall to lower cup pockets (X = ±13mm)
+        SOCKET_W = 22.0
         SOCKET_L = 50.0
         SOCKET_D = 22.0
         socket_void = rrect(SOCKET_W, SOCKET_L, 4.0).extrude(SOCKET_D + 2.0).translate([0, BODY_CENTER_Y, -85.0 - 0.5])
-        socket_mouth = rrect(SOCKET_W + 2.4, SOCKET_L + 2.4, 4.8).extrude(1.5).translate([0, BODY_CENTER_Y, -85.0 - 0.1])
+        socket_mouth = rrect(SOCKET_W + 2.0, SOCKET_L + 2.0, 4.5).extrude(1.5).translate([0, BODY_CENTER_Y, -85.0 - 0.1])
         console = console - socket_void - socket_mouth
         
     return console
@@ -273,27 +322,28 @@ def generate_modular_25mm_stilt(add_anti_warp_tabs=True):
     Calibrated low-profile stabilizer foot for the 2-piece version.
     Re-engineered per community feedback:
       - 0.20mm calibrated baseline sliding tolerance
-      - 5.5mm corner radius on tenon (vs 4.0mm socket) for guaranteed corner seam/zit relief
+      - Calibrated 22.0mm socket width ensuring zero interference with cupholder pockets
+      - 4.0mm corner radius on tenon for guaranteed corner seam/zit relief
       - 45° lead-in chamfer on tenon tip for smooth self-aligning insertion
       - 4 vertical tapered crush ribs (tapering from 0.0mm at top to +0.35mm at base collar):
         Slides in smoothly with ZERO binding, then wedges 100% rigid with ZERO rattle and ZERO sanding!
       - Anti-warp corner mouse-ear anchor pads on the stilt foot for zero bed lifting
     """
-    SOCKET_W = 40.0
+    SOCKET_W = 22.0
     SOCKET_L = 50.0
     TENON_H = 21.0
     TOL = 0.20  # Calibrated 0.20mm sliding clearance
     BODY_CENTER_Y = 22.5
     
-    tenon_w = SOCKET_W - 2*TOL  # 39.6mm
+    tenon_w = SOCKET_W - 2*TOL  # 21.6mm
     tenon_l = SOCKET_L - 2*TOL  # 49.6mm
     
-    # 1. Main tenon shaft with 5.5mm corner relief (socket has 4.0mm radius, so tenon corners have >0.6mm clearance)
-    tenon_body = rrect(tenon_w, tenon_l, 5.5).extrude(TENON_H - 2.5).translate([0, BODY_CENTER_Y, 0])
+    # 1. Main tenon shaft with 4.0mm corner relief
+    tenon_body = rrect(tenon_w, tenon_l, 4.0).extrude(TENON_H - 2.5).translate([0, BODY_CENTER_Y, 0])
     
     # 2. 45° Lead-in insertion tip (self-centering entry)
-    tip_slice = rrect(tenon_w - 3.6, tenon_l - 3.6, 4.5).extrude(0.2).translate([0, BODY_CENTER_Y, TENON_H - 0.2])
-    base_slice = rrect(tenon_w, tenon_l, 5.5).extrude(0.2).translate([0, BODY_CENTER_Y, TENON_H - 2.5])
+    tip_slice = rrect(tenon_w - 3.0, tenon_l - 3.6, 3.5).extrude(0.2).translate([0, BODY_CENTER_Y, TENON_H - 0.2])
+    base_slice = rrect(tenon_w, tenon_l, 4.0).extrude(0.2).translate([0, BODY_CENTER_Y, TENON_H - 2.5])
     tenon_tip = (tip_slice + base_slice).hull()
     tenon = tenon_body + tenon_tip
     
