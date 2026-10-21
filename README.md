@@ -106,33 +106,72 @@ Upgrades the factory dash cavity into a deep, modular sunglasses vault with swap
 ### 4. Ashtray Conversions (Power & Storage)
 Located in [`stls/ashtray/`](stls/ashtray/)
 
-Replaces the unused factory cigarette ash bin with modern USB-C charging power or dedicated daily-carry storage:
+Replaces the unused factory cigarette ash bin with high-power USB-C charging stations, full slide-out cargo drawers, or dedicated EDC drop-in organizers:
 
 <p align="center">
-  <img src="images/cad_render_1995_ashtray.png" width="95%" alt="1995 GMC Sonoma Ashtray Drop-in Inserts CAD" />
+  <img src="images/cad_render_1995_ashtray_suite.png" width="98%" alt="1995 GMC Sonoma Ashtray Suite CAD: Vault Drawer, USB-C Charging Cockpit Plate, Stock Drop-In Organizer, and 12V Lighter Adapter" />
 </p>
 <p align="center">
-  <img src="images/cad_render_ashtray_mods.png" width="95%" alt="Chevy S10 Center Stack Ashtray Conversions" />
+  <em>Figure: 1995 GMC Sonoma lower dash ashtray suite: (1) Full Slide-Out Vault Drawer [Charcoal], (2) USB-C Fast-Charging Cockpit Faceplate [Blue], (3) Stock Drawer Drop-In Organizer [Green], and (4) 12V Cigarette Lighter USB-C Adapter Bushing [Amber].</em>
 </p>
 
-#### Dash Architecture by Model Year:
-* **1994–1997 Models (e.g. 1995 GMC Sonoma Lower Dash Pull-Out Drawer)**: 
-  * The factory pull-out drawer is located on the lower dashboard to the right of the cigarette lighter.
-  * **Drop-In Bucket Replacement Strategy:** The factory slide-out drawer mechanism and OEM exterior textured faceplate are retained 100% stock when closed. The inner metal cigarette bucket unclips and lifts out, allowing a custom 3D printed organizer pocket or USB-C fast-charging pod to drop directly into the sliding drawer frame!
-  * **`sonoma_1995_ashtray_usb_power.stl` (Flush USB-C Fast Charger Pod)**:
-    * Replaces the inner metal bucket with a flush top deck fitted with a standard **28.8mm (1-1/8") round mounting hole**.
-    * Fits universal automotive/marine dual USB-C Power Delivery (45W/65W) + QC3.0 chargers with LED voltmeters.
-    * Chamfered rear wire pass-through channel allows clean cable exit without pinching when sliding the drawer open and closed.
-  * **`sonoma_1995_ashtray_edc_pocket.stl` (Deep Everyday Carry Organizer)**:
-    * Dual-compartment organizer: deep flat-bottom cargo vault for keys/AirPods/toll badges + forward curved ramp pocket for sliding out coins/screws with your thumb.
-  * **`sonoma_1995_ashtray_combo_power.stl` (2-in-1 USB-C Power + Drop Pocket)**:
-    * Combines a driver-side 28.8mm USB-C socket with a passenger-side open utility drop pocket.
+#### 📐 1994–1997 Lower Dash Cavity & Cargo Capacity Breakdown
+Reverse-engineered directly from factory GM part **`15698461`** (`PP PF J3`) and calibrated against physical Milwaukee Fastback scale references:
 
-* **1998–2004 Models (Center Stack Below HVAC)**:
-  * Located in the center dash stack. Compatible with both drop-in bin inserts and flush delete pods:
-  * **`S10_ashtray_usb_power_panel.stl`**: Center-stack 28.8mm USB-C panel.
-  * **`S10_ashtray_deep_pocket.stl`**: Multi-compartment coin/key drop pocket.
-  * **`S10_ashtray_combo_power_pocket.stl`**: 2-in-1 hybrid power and storage bin.
+| Metric | Factory Ashtray Drawer (GM 15698461) | Full Slide-Out Vault Drawer (`sonoma_1995_ashtray_vault_drawer.stl`) |
+|---|---|---|
+| **Outer Faceplate** | $98.0\text{mm W} \times 50.0\text{mm H}$ (Textured OEM) | $98.0\text{mm W} \times 50.0\text{mm H} \times 5.0\text{mm T}$ with ergonomic finger pull & traction ribs |
+| **Drawer Track Span** | $76.5\text{mm}$ inside dash metal C-channels | $75.5\text{mm}$ dual horizontal guide rails ($0.5\text{mm}$ clearance/side) |
+| **Usable Internal Cargo Well** | Tiny metal ash cup ($55\text{mm} \times 52\text{mm} \times 32\text{mm}$) | **$157.0\text{mm L} \times 57.0\text{mm W} \times 43.0\text{mm D}$** |
+| **Usable Volume** | $\sim 85\text{ cm}^3$ (mostly wasted air behind bin) | **$\sim 380\text{ cm}^3$ (>4.4x cargo capacity!)** |
+| **Retaining System** | Stamped metal leaf spring on dash ceiling | Dual rear retention stop lugs preventing drawer from dumping on floor |
+
+##### 🧰 What Fits in the Vault Drawer vs. What Doesn't:
+* **✅ Fits Comfortably:**
+  * **Full-size folded sunglasses** (Ray-Ban Wayfarers/Aviators, Oakley Gascan, polarized driving glasses lay flat end-to-end).
+  * **Everyday carry pocket knives & utility cutters** (Milwaukee Fastback 6-in-1, Benchmade Bugout, Spyderco PM2 fit with room to spare).
+  * **Multi-tools** (Leatherman Wave+, Charge, SOG PowerPint).
+  * **Wireless earbud cases** (AirPods Pro, Galaxy Buds, Pixel Buds).
+  * **Key rings & garage door clickers** (Chamberlain/Genie remotes, fat GM chipped truck fobs).
+  * **Loose coins, folded cash, pens, tire pressure gauges, fuses**.
+* **❌ What Does NOT Fit:**
+  * **Modern smartphones** (iPhone 15/16 Pro Max = $77.6\text{mm}$ wide; standard iPhone/Pixel = $71.5\text{mm}$ wide). The physical dash opening between the structural metal slide rails is strictly $65.0\text{mm}$ wide, so smartphones physically cannot slide into the ashtray cavity. For phones, use the **Magnetic Cubby Phone Mount** (`S10_cubby_mag_phone_mount.stl`) right above!
+
+---
+
+#### 🛠️ The 1994–1997 Ashtray Suite Models:
+
+1. **`sonoma_1995_ashtray_vault_drawer.stl` (Full Slide-Out Vault Drawer)**:
+   * Completely replaces the factory drawer. Glides along the OEM dash metal C-channels.
+   * Maximum full-depth ($165\text{mm}$) storage hopper utilizing 100% of the available dash cavity depth right up to the rear HVAC box clearance.
+   * Features an integrated $45^\circ$ smooth coin scoop ramp at the front lip so coins and small items slide easily into your fingers.
+   * Dual side retention stops prevent the drawer from accidentally pulling out of the dash.
+
+2. **`sonoma_1995_ashtray_charging_plate.stl` (Heavy-Duty Dual USB-C Cockpit Faceplate)**:
+   * Deletes the sliding drawer in favor of a rigid, vibration-proof dash faceplate locked directly into the factory slide channels.
+   * **Left Socket:** Precision $28.8\text{mm}$ ($1\text{-}1/8"$) round socket for universal automotive/marine high-power Dual USB-C Power Delivery ($45\text{W}/65\text{W}$) + QuickCharge 3.0 chargers with integrated digital LED voltmeters.
+   * **Right Cutout:** Standard $21.0\text{mm} \times 36.8\text{mm}$ automotive rectangular rocker switch cutout (for auxiliary off-road lights, master USB power cutoff, air compressor, or dashcam bypass).
+   * Generous rear wire pass-through cavity directly accessing the factory $12\text{V}$ power harness.
+
+3. **`sonoma_1995_ashtray_stock_organizer.stl` (Stock Blue Drawer Drop-In Organizer)**:
+   * **Zero exterior modifications:** Keeps your $100\%$ original factory dark blue faceplate and sliding drawer intact.
+   * Unclip the factory sheet-metal cigarette snuffer flap and drop this dual-compartment organizer directly inside.
+   * **Front Compartment:** Smooth $45^\circ$ coin scoop ramp + key ring slot.
+   * **Rear Compartment:** Deep utility vault ($48\text{mm L} \times 53\text{mm W} \times 36\text{mm D}$) for AirPods, folded bills, USB flash drives, or security tokens.
+
+4. **`sonoma_1995_lighter_usbc_adapter.stl` (12V Cigarette Lighter to Dual USB-C Adapter Bushing)**:
+   * Precision collar that converts the factory round $12\text{V}$ cigarette lighter opening located directly to the right of the ashtray.
+   * **Cabin Facing:** $38.0\text{mm}$ outer diameter dash trim bezel with a $29.0\text{mm}$ inner bore ($22.0\text{mm}$ depth) to firmly house standard $1\text{-}1/8"$ marine USB-C fast chargers.
+   * **Dash Facing:** $21.5\text{mm}$ keyed cylindrical stem with anti-rotation lock flat that inserts directly into the factory GM $22\text{mm}$ dash hole without cutting, filing, or drilling the original dashboard!
+   * $14.0\text{mm}$ through-hole allows power/ground wires and spade terminals to pass freely to the factory harness.
+
+---
+
+#### 1998–2004 Models (Center Stack Below HVAC):
+Located in the center dash stack. Compatible with both drop-in bin inserts and flush delete pods:
+* **`S10_ashtray_usb_power_panel.stl`**: Center-stack 28.8mm USB-C panel.
+* **`S10_ashtray_deep_pocket.stl`**: Multi-compartment coin/key drop pocket.
+* **`S10_ashtray_combo_power_pocket.stl`**: 2-in-1 hybrid power and storage bin.
 
 ---
 
