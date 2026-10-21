@@ -122,11 +122,20 @@ Reverse-engineered directly from factory GM part **`15698461`** (`PP PF J3`) and
 |---|---|---|
 | **Outer Faceplate** | $90.5\text{mm W} \times 134.0\text{mm H}$ ($11.14^\circ$ rearward tilt) | **$90.5\text{mm W} \times 134.0\text{mm H} \times 4.5\text{mm T}$** ($11.14^\circ$ tilt, $5\text{mm}$ radiused corners) |
 | **Top Finger Pull** | Recessed ribbed scallop under top overhang lip | **Recessed $38\text{mm} \times 24\text{mm}$ thumb pocket with 8 vertical grip ribs** |
-| **Slide Rails (Ceiling)** | $60.0\text{mm}$ span across rails, $5.2\text{mm}$ thick, $138.0\text{mm}$ length | **$60.0\text{mm}$ rail width, $4.5\text{mm}$ overhang/side, $25^\circ$ lead-in chamfers** |
-| **Retaining System** | Stamped metal leaf spring clip ($28\text{mm}$ slot) | **Integrated 3D printed $30^\circ$ ramp / $90^\circ$ stop lugs + OEM metal clip slots** |
+| **Slide Rails (Ceiling)** | $60.0\text{mm}$ span across rails, $5.2\text{mm}$ thick, $138.0\text{mm}$ length | **$60.0\text{mm}$ rail width, $4.8\text{mm}$ thick ($0.4\text{mm}$ glide clearance), $23\text{mm}$ Easy-Slide funnel** |
+| **Self-Aligning Guidance** | Blunt ends (difficult to blind-mate in dash) | **$23\text{mm}$ horizontal tapers (narrows to $51\text{mm}$) + vertical ski-ramp tips (funnels right into tracks)** |
+| **Dash Spring Interface** | Flat rear shelf (can snag or stub) | **$15^\circ$ ceiling spring compression ramp + $40^\circ$ interior anti-snag transition ramp** |
+| **Retaining System** | Stamped metal leaf spring clip ($28\text{mm}$ slot) | **Integrated 3D printed $20^\circ$ ramp / $75^\circ$ stop lugs + OEM metal clip slots** |
 | **Body Width & Depth** | $51.0\text{mm}$ body width, drops $86.5\text{mm}$ at front | **$51.0\text{mm}$ outer body, $86.5\text{mm}$ max depth, $52\text{mm}$ flat floor** |
 | **HVAC Duct Clearance** | $47.3^\circ$ bottom upward wedge ramp to rear tip | **$47.3^\circ$ bottom slope with filleted transition ($R=18\text{mm}$)** |
-| **Internal Cargo Vault** | Snuffer plate & divider (effectively $\sim 40\text{ cm}^3$ usable) | **$44.6\text{mm W} \times 80.5\text{mm D} \times 105.0\text{mm L}$ open vault ($324\text{ cm}^3$, >8x volume!)** |
+| **Internal Cargo Vault** | Snuffer plate & divider (effectively $\sim 40\text{ cm}^3$ usable) | **Wide-open vault: $44.6\text{mm W} \times 80.5\text{mm D} \times 105.0\text{mm L}$ ($324\text{ cm}^3$, >8x volume!)** |
+
+<p align="center">
+  <img src="images/cad_render_1995_true_wedge_easyslide.png" width="60%" alt="Self-Aligning Easy-Slide Guidance System" />
+</p>
+<p align="center">
+  <em>Figure: Self-Aligning Easy-Slide System: (1) 23mm horizontal funnel narrowing the rail tips to 51mm, (2) vertical ski-ramp bevels preventing channel stubbing, (3) ceiling spring compression ramp, and (4) 40° interior anti-snag ramp.</em>
+</p>
 
 ##### 🧰 What Fits in the True Wedge Drawer:
 * **✅ Fits Comfortably:**
