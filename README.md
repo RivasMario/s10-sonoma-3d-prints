@@ -157,16 +157,16 @@ Replaces the stock GM blue cupholder console entirely as a **100% single, solid 
 
 * **`sonoma_1995_monolithic_console.stl`**:
   * **100% Space Utilization & Zero Waste:** Every cubic centimeter of available real estate has been converted into functional storage, eliminating solid plastic dead weight.
-  * **Dual 82mm-Deep Stepped Cupholders:** Over **2.3x deeper** than the stock 35mm GM wells! Complete 360° circular solid perimeter walls with a stepped bore (86mm / 3.38" top flare, 70mm / 2.75" lower pocket). Holds standard 12oz soda cans and water bottles firmly without rattle, while easily accommodating 30oz/40oz tumblers (Yeti, Stanley, Hydro Flask).
+  * **Dual 82mm-Deep Stepped Cupholders:** Over **2.3x deeper** than the stock 35mm GM wells! Complete 360° circular solid perimeter walls with a stepped bore (86mm / 3.38" top flare down to 54mm depth, 70mm / 2.75" lower pocket). Holds standard 12oz soda cans and water bottles firmly without rattle, while seating 30oz/40oz tumblers (Yeti, Stanley, Hydro Flask) deeply (57.5mm / 2.26" deep) for extreme tip-resistance under hard braking.
   * **Dedicated Milwaukee Fastback 6-in-1 Knife Holster:** Precision vertical slot (38mm × 20mm × 55mm deep) with an integrated pocket clip relief channel in the rear center bridge.
-  * **Dual Massive Open Rear Cargo Blocks:** Two giant, deep open vault pockets (**60mm W × 22mm L × 60mm D each**) on the driver and passenger rear wings—wide-open multipurpose bins to shove sunglasses, wallets, AirPods, knives, pens, lighters, or tools wherever you want without restrictive dividers.
-  * **Contour-Wrapped Forward Cargo Mega-Vault:** Sweeps around the front curves of both cupholders to capture all free space (**172mm W × 67mm L × 32mm D**) with a continuous 45° coin scoop ramp—a massive, deep open bay to shove wallets, sunglasses cases, phones, keys, cords, or tools without cramped slots or wasted plastic.
-  * **Reinforced Seat Receiver Tongue with 45° Buttress Gussets:** 
+  * **Dual Open Rear Cargo Blocks:** Two deep open vault pockets (**42mm W × 22mm L × 60mm D each**) on the driver and passenger rear wings—wide-open multipurpose bins contoured to the 144mm seat bolster taper for pens, flashlights, pocket knives, keys, or tools.
+  * **Contour-Wrapped Forward Cargo Mega-Vault with USB-C Cable Relief:** Sweeps around the front curves of both cupholders to capture all free space (**172mm W × 67mm L × 32mm D**) with a continuous 45° coin scoop ramp plus an ergonomic **10mm front-lip USB-C cable relief scallop** for clean charging cord exit from dashboard and ashtray power ports.
+  * **Reinforced Seat Receiver Tongue with 45° Cammed Retention Catch & Buttress Gussets:** 
     * Eliminates cantilever bending fatigue when resting heavy tumblers or leaning on the console.
     * Features a heavy-duty **45° triangular buttress gusset** underneath that tapers smoothly from $Y = -78\text{mm}$ down into the vertical rear body wall down to $Z = -77.5\text{mm}$.
     * Taper acts as a self-centering 45° lead-in shoe that slides effortlessly into the seat receiver slot without catching.
     * Features a **45° top transition fillet** that eliminates notch stress concentration where the tongue meets the console deck.
-    * Integrated retention catch bump locks securely into the factory GM receiver channel.
+    * Integrated retention catch bump features a **45° smooth cam lead-in ramp** on its leading edge, gliding effortlessly into the factory GM receiver channel like a door latch bolt without hanging up on bracket edges.
   * **Triple Self-Supporting 45° Gable Weight-Relief Coring (Zero Supports Needed):**
     * Hollows out **~500 cm³ of dead solid plastic mass (~620g solid plastic equivalent)** without sacrificing structural rigidity!
     * **Forward Gable Chamber:** $134\text{mm W} \times 46\text{mm L}$ with a 45° gable roof under the front mega-vault.

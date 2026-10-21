@@ -3,12 +3,14 @@
 Parametric CAD Generator for 1995 GMC Sonoma Monolithic Unibody Bench Seat Console
 Revised per Community Feedback (Anti-Warp Architecture & Zero-Rattle Calibrated Tolerance):
   - 100% Continuous Automotive Unibody (Zero floating parts, Zero disjoint shells, Zero thin slivers)
-  - Dual 82mm-deep stepped cupholders (86mm / 3.38" top bore, 70mm / 2.75" lower pocket)
+  - Dual 82mm-deep stepped cupholders (86mm / 3.38" top bore to 54mm depth, 70mm / 2.75" lower pocket)
+    * Optimally seats 40oz Stanley Quenchers and 35oz Yeti tumblers deep (57.5mm / 2.26") for maximum tip-resistance
   - Solid 360-degree perimeter walls on both cupholders (No wall-severing slots or razor edges)
   - Dedicated Milwaukee Fastback 6-in-1 (48-22-1505) vertical knife holster with clip relief
-  - Dual massive rear open cargo block vaults (60mm x 22mm x 60mm deep each) for glasses, tools, keys, phones
+  - Dual massive rear open cargo block vaults (42mm x 22mm x 60mm deep each) for glasses, tools, keys, phones
   - Massive forward open cargo vault (172mm W x 67mm L x 32mm D) with continuous 45° coin scoop ramp
-  - Integrated 110mm x 85mm x 7.5mm seat receiver tongue with retention catch bump & 45° buttress gusset
+  - Front-lip ergonomic 10mm USB-C cable relief scallop for clean charging cord routing from dash/ashtray
+  - Integrated 110mm x 85mm x 7.5mm seat receiver tongue with 45° cammed lead-in retention catch bump & 45° buttress gusset
   - Underside engineered weight-relief cavity: Saves ~450g of plastic, self-supporting 45° roof (Zero supports needed!)
   - [COMMUNITY REVISION 1] Anti-Warp Arch & Bed Interface:
     * Transmission tunnel arch runs longitudinally along Y (front to back) matching the truck's actual tunnel hump
@@ -124,7 +126,7 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
     CUP_TOP_D = 86.0        # 3.38" top bore (fits Yeti 30oz, Stanley 40oz base, Hydro Flask)
     CUP_LOW_D = 70.0        # 2.75" lower pocket (fits standard 12oz cans, soda bottles)
     CUP_DEPTH = 82.0        # mm total depth
-    UPPER_BORE_D = 42.0     # mm depth of upper bore
+    UPPER_BORE_D = 54.0     # mm depth of upper bore (allows 79mm Stanley 40oz to seat 57.5mm deep!)
     TRANSITION_H = 10.0     # mm depth of 45-degree transition bevel
     
     TOTAL_FLOOR_Z = -110.0 if include_floor_base else -85.0
@@ -145,6 +147,16 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
     
     tongue = rrect(TONGUE_W, TONGUE_L, 6.0).extrude(TONGUE_T).translate([0, tongue_start_y - TONGUE_L/2, tongue_z_bot])
     catch = rrect(20.0, 12.0, 3.0).extrude(2.5).translate([0, tongue_end_y + 18.0, tongue_z_top - 0.1])
+    
+    # 45° smooth cam lead-in ramp on leading (-Y) edge of retention bump for effortless insertion
+    pts_catch_ramp = [
+        [tongue_end_y + 10.0, tongue_z_top - 0.5],
+        [tongue_end_y + 15.5, tongue_z_top + 3.5],
+        [tongue_end_y + 10.0, tongue_z_top + 3.5]
+    ]
+    cs_catch_ramp = CrossSection([pts_catch_ramp])
+    ramp_cutter = cs_catch_ramp.extrude(30.0).rotate([90, 0, 90]).translate([-15.0, 0, 0])
+    catch = catch - ramp_cutter
     
     # Structural 45° buttress gusset under tongue
     pts_bot = [[tongue_start_y, tongue_z_bot], [tongue_start_y - 18.0, tongue_z_bot], [tongue_start_y, tongue_z_bot - 18.0]]
@@ -202,6 +214,11 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
     front_vault = (front_block + front_flare) - cup_l_collar - cup_r_collar
     console -= front_vault
     console -= coin_ramp
+    
+    # Ergonomic 10mm USB-C cable relief scallop on front lip
+    # Allows charging cords from lower dash/ashtray to enter the front vault without kinking or getting pinched
+    cable_notch = cyl(10.0, -15.0, 15.0, 0, 0).rotate([90, 0, 0]).translate([0, BODY_FRONT_Y, -1.5]) + box(-5.0, 5.0, 95.0, 115.0, -1.5, 5.0)
+    console -= cable_notch
     
     # 8. Underside Engineered Weight-Relief & Stash Cavities
     if include_floor_base:
