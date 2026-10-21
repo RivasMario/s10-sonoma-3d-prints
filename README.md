@@ -109,43 +109,45 @@ Located in [`stls/ashtray/`](stls/ashtray/)
 Replaces the unused factory cigarette ash bin with high-power USB-C charging stations, full slide-out cargo drawers, or dedicated EDC drop-in organizers:
 
 <p align="center">
-  <img src="images/cad_render_1995_ashtray_suite.png" width="98%" alt="1995 GMC Sonoma Ashtray Suite CAD: Vault Drawer, USB-C Charging Cockpit Plate, Stock Drop-In Organizer, and 12V Lighter Adapter" />
+  <img src="images/cad_render_1995_true_wedge_drawer.png" width="98%" alt="1994-1997 GMC Sonoma / Chevy S10 True Replacement Wedge Drawer CAD Showcase: 3/4 Isometric Perspective, Side Profile, and Underside Wedge" />
 </p>
 <p align="center">
-  <em>Figure: 1995 GMC Sonoma lower dash ashtray suite: (1) Full Slide-Out Vault Drawer [Charcoal], (2) USB-C Fast-Charging Cockpit Faceplate [Blue], (3) Stock Drawer Drop-In Organizer [Green], and (4) 12V Cigarette Lighter USB-C Adapter Bushing [Amber].</em>
+  <em>Figure: 1994–1997 GMC Sonoma / Chevy S10 True Replacement Wedge Drawer (GM Part # 15698461): (Left) 3/4 Isometric view showing the tall tilted faceplate with recessed 8-rib finger pull and deep 80mm cargo vault; (Center) True side profile showing the calibrated 11.14° rearward faceplate slant, top slide rails, and 47.3° upward wedge ramp clearing the lower HVAC duct; (Right) Underside 3/4 view showing the ceiling slide rails, lead-in chamfers, retention stop lugs, and bezel step.</em>
 </p>
 
-#### 📐 1994–1997 Lower Dash Cavity & Cargo Capacity Breakdown
-Reverse-engineered directly from factory GM part **`15698461`** (`PP PF J3`) and calibrated against physical Milwaukee Fastback scale references:
+#### 📐 1994–1997 Lower Dash Cavity & True Wedge Geometry
+Reverse-engineered directly from factory GM part **`15698461`** (`PP PF J3`) and calibrated using photogrammetry against physical Milwaukee Fastback scale references:
 
-| Metric | Factory Ashtray Drawer (GM 15698461) | Full Slide-Out Vault Drawer (`sonoma_1995_ashtray_vault_drawer.stl`) |
+| Metric | Factory Ashtray Drawer (GM 15698461) | True Replacement Wedge Drawer (`sonoma_1995_true_wedge_drawer.stl`) |
 |---|---|---|
-| **Outer Faceplate** | $98.0\text{mm W} \times 50.0\text{mm H}$ (Textured OEM) | $98.0\text{mm W} \times 50.0\text{mm H} \times 5.0\text{mm T}$ with ergonomic finger pull & traction ribs |
-| **Drawer Track Span** | $76.5\text{mm}$ inside dash metal C-channels | $75.5\text{mm}$ dual horizontal guide rails ($0.5\text{mm}$ clearance/side) |
-| **Usable Internal Cargo Well** | Tiny metal ash cup ($55\text{mm} \times 52\text{mm} \times 32\text{mm}$) | **$157.0\text{mm L} \times 57.0\text{mm W} \times 43.0\text{mm D}$** |
-| **Usable Volume** | $\sim 85\text{ cm}^3$ (mostly wasted air behind bin) | **$\sim 380\text{ cm}^3$ (>4.4x cargo capacity!)** |
-| **Retaining System** | Stamped metal leaf spring on dash ceiling | Dual rear retention stop lugs preventing drawer from dumping on floor |
+| **Outer Faceplate** | $90.5\text{mm W} \times 134.0\text{mm H}$ ($11.14^\circ$ rearward tilt) | **$90.5\text{mm W} \times 134.0\text{mm H} \times 4.5\text{mm T}$** ($11.14^\circ$ tilt, $5\text{mm}$ radiused corners) |
+| **Top Finger Pull** | Recessed ribbed scallop under top overhang lip | **Recessed $38\text{mm} \times 24\text{mm}$ thumb pocket with 8 vertical grip ribs** |
+| **Slide Rails (Ceiling)** | $60.0\text{mm}$ span across rails, $5.2\text{mm}$ thick, $138.0\text{mm}$ length | **$60.0\text{mm}$ rail width, $4.5\text{mm}$ overhang/side, $25^\circ$ lead-in chamfers** |
+| **Retaining System** | Stamped metal leaf spring clip ($28\text{mm}$ slot) | **Integrated 3D printed $30^\circ$ ramp / $90^\circ$ stop lugs + OEM metal clip slots** |
+| **Body Width & Depth** | $51.0\text{mm}$ body width, drops $86.5\text{mm}$ at front | **$51.0\text{mm}$ outer body, $86.5\text{mm}$ max depth, $52\text{mm}$ flat floor** |
+| **HVAC Duct Clearance** | $47.3^\circ$ bottom upward wedge ramp to rear tip | **$47.3^\circ$ bottom slope with filleted transition ($R=18\text{mm}$)** |
+| **Internal Cargo Vault** | Snuffer plate & divider (effectively $\sim 40\text{ cm}^3$ usable) | **$44.6\text{mm W} \times 80.5\text{mm D} \times 105.0\text{mm L}$ open vault ($324\text{ cm}^3$, >8x volume!)** |
 
-##### 🧰 What Fits in the Vault Drawer vs. What Doesn't:
+##### 🧰 What Fits in the True Wedge Drawer:
 * **✅ Fits Comfortably:**
-  * **Full-size folded sunglasses** (Ray-Ban Wayfarers/Aviators, Oakley Gascan, polarized driving glasses lay flat end-to-end).
-  * **Everyday carry pocket knives & utility cutters** (Milwaukee Fastback 6-in-1, Benchmade Bugout, Spyderco PM2 fit with room to spare).
+  * **Everyday carry pocket knives & utility cutters** (Milwaukee Fastback 6-in-1, Benchmade Bugout, Spyderco PM2 stand upright or lay flat).
+  * **Full-size folded sunglasses** (Ray-Ban Wayfarers/Aviators, Oakley Gascan slide directly into the rear sloped bay).
+  * **Smartphones tilted in front pocket** (Pixel, standard iPhone sit upright securely in the $80.5\text{mm}$ deep front pocket).
   * **Multi-tools** (Leatherman Wave+, Charge, SOG PowerPint).
   * **Wireless earbud cases** (AirPods Pro, Galaxy Buds, Pixel Buds).
-  * **Key rings & garage door clickers** (Chamberlain/Genie remotes, fat GM chipped truck fobs).
-  * **Loose coins, folded cash, pens, tire pressure gauges, fuses**.
-* **❌ What Does NOT Fit:**
-  * **Modern smartphones** (iPhone 15/16 Pro Max = $77.6\text{mm}$ wide; standard iPhone/Pixel = $71.5\text{mm}$ wide). The physical dash opening between the structural metal slide rails is strictly $65.0\text{mm}$ wide, so smartphones physically cannot slide into the ashtray cavity. For phones, use the **Magnetic Cubby Phone Mount** (`S10_cubby_mag_phone_mount.stl`) right above!
+  * **Key rings & garage clickers** (Chamberlain remotes, bulky GM truck fobs).
+  * **Loose coins & small hardware** (slides effortlessly into your fingers via the integrated $45^\circ$ front scoop ramp).
 
 ---
 
 #### 🛠️ The 1994–1997 Ashtray Suite Models:
 
-1. **`sonoma_1995_ashtray_vault_drawer.stl` (Full Slide-Out Vault Drawer)**:
-   * Completely replaces the factory drawer. Glides along the OEM dash metal C-channels.
-   * Maximum full-depth ($165\text{mm}$) storage hopper utilizing 100% of the available dash cavity depth right up to the rear HVAC box clearance.
-   * Features an integrated $45^\circ$ smooth coin scoop ramp at the front lip so coins and small items slide easily into your fingers.
-   * Dual side retention stops prevent the drawer from accidentally pulling out of the dash.
+1. **`sonoma_1995_true_wedge_drawer.stl` (True OEM Replacement Slide-Out Drawer)**:
+   * **100% physically accurate reproduction** of factory GM part `15698461`.
+   * Replaces broken, missing, or cigarette-ruined factory drawers with zero dash modifications.
+   * Slides directly into the factory ceiling metal C-channel tracks.
+   * Eliminates the dirty cigarette snuffer divider to create a massive single $324\text{ cm}^3$ cargo vault.
+   * Backwards-compatible duplicate exported as `sonoma_1995_ashtray_vault_drawer.stl`.
 
 2. **`sonoma_1995_ashtray_charging_plate.stl` (Heavy-Duty Dual USB-C Cockpit Faceplate)**:
    * Deletes the sliding drawer in favor of a rigid, vibration-proof dash faceplate locked directly into the factory slide channels.
