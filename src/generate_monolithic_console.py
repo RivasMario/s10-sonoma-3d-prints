@@ -6,15 +6,14 @@ Full Workstation Edition (Maximum EDC Utility, Zero Slicing Artifacts, Zero Floa
   - Dual 82mm-deep stepped cupholders (86mm / 3.38" top bore to 54mm depth, 70mm / 2.75" lower pocket)
     * Optimally seats 40oz Stanley Quenchers and 35oz Yeti tumblers deep (57.5mm / 2.26") for maximum tip-resistance
     * 360-degree solid thick circular walls (5mm+ wall margin everywhere, zero intersecting collars or staticy lines)
-  - Rear Tool Workstation Suite:
-    * Dedicated Milwaukee Fastback 6-in-1 / Utility Knife vertical holster (38mm x 20mm x 54mm) with belt-clip relief
-    * 4x 1/4" Hex Driver Bit retention wells (Torx T15/T20, Phillips #2, socket adapters)
-  - Forward Two-Tier Workstation Suite:
-    * Upright 8° tilted smartphone / power bank dock (94mm x 16.5mm x 38mm)
-    * Driver flank tool ports: 13mm tire pressure gauge / Sharpie port + 11mm pen / screwdriver port
-    * Passenger flank tool port: 28mm x 16mm EDC flashlight / multi-bit caddy
-    * Forward catch-all coin & key tray (160mm W x 25mm L x 22mm D) with smooth 45° coin scoop ramp
+  - Dual Big-Pocket Architecture (Massive Front Mega-Bay + Deep Rear Tool Vault):
+    * Deep Rear Utility Vault (52mm W x 22mm L x 55mm D) centered behind cupholders: holds multi-tools,
+      folding utility knives (Milwaukee Fastback), pliers, or flashlights standing upright with zero tip-over risk
+    * Massive Forward Cargo Mega-Bay (166mm W x 47mm L x 30mm D): wide-open cavernous tray holding
+      smartphones, wallets, sunglasses cases, tape measures, or large hand tools laying flat or angled
+    * Continuous 45° coin scoop ramp on the leading front wall for effortless coin & small item retrieval
     * Front-lip ergonomic 10mm USB-C cable relief scallop for clean charging cord routing from dash/ashtray
+    * Thick solid structural bulkheads (>7.5mm front, >4.0mm rear) and 100% solid floor
   - Integrated 110mm x 85mm x 7.5mm seat receiver tongue with 45° cammed lead-in retention catch bump & 45° buttress gusset
   - 100% Solid Floor & Infill: ZERO underside hollow gable cavities, ZERO floating voids or paper-thin floors
   - Anti-Warp Arch & Bed Interface:
@@ -201,59 +200,33 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
         cup_void += cone(rl*2, (rl - 5.0)*2, -CUP_DEPTH - 2.0, -CUP_DEPTH, cx, CUP_CENTER_Y)
         console -= cup_void
         
-    # 4. Rear Tool Workstation Suite (100% Solid Bulkheads, Zero Collision)
-    # A. Dedicated Milwaukee Fastback 6-in-1 / Utility Knife Holster
-    # Centered in the rear bridge: X = 0, Y = -46.0mm, Depth = 54.0mm
-    # Sized for Milwaukee Fastback 48-22-1505 (38mm x 20mm closed) or folding EDC pocket knives
-    fastback_void = rrect(38.0, 20.0, 3.5).extrude(54.0).translate([0, -46.0, -54.0])
-    fastback_flare = rrect(41.0, 23.0, 4.0).extrude(2.0).translate([0, -46.0, -1.5])
-    # Pocket clip relief channel along the forward wall
-    clip_channel = box(-6.5, 6.5, -36.5, -34.0, -38.0, 1.0)
-    console -= (fastback_void + fastback_flare + clip_channel)
+    # 4. Rear Deep Utility Vault (Clean, Generous Storage for Knives, Tools, Keys, EDC)
+    # Centered in the rear bridge: X = 0, Y = -46.0mm, Depth = 55.0mm
+    # Sized 52mm W x 22mm L x 55mm D to swallow multi-tools, pocket knives (Milwaukee Fastback),
+    # flashlights, pliers, or key sets standing upright with zero risk of tipping.
+    # Preserves thick >4.0mm solid bulkheads to cupholders and rear wall.
+    rear_vault = rrect(52.0, 22.0, 4.0).extrude(55.0).translate([0, -46.0, -55.0])
+    rear_flare = rrect(55.0, 25.0, 4.5).extrude(2.0).translate([0, -46.0, -1.5])
+    console -= (rear_vault + rear_flare)
 
-    # B. 4x 1/4" Hex Driver Bit Retention Wells (Torx T15/T20, Phillips #2, 1/4" socket adapter)
-    # Precision 7.2mm bore x 14.0mm depth with 45° lead-in chamfer
-    for bx in (-56.0, -44.0, 44.0, 56.0):
-        bit_hole = cyl(7.2, -14.0, 1.0, bx, -51.0, seg=48) + cone(9.2, 7.2, -1.0, 1.0, bx, -51.0, seg=48)
-        console -= bit_hole
-
-    # 5. Forward Workstation Suite (Two-Tier Architecture)
-    # A. Dedicated Upright Smartphone / Power Bank Slot (8° rearward driver tilt)
-    # Centered at X = 0, Y = 58.0mm, Width 94mm, Thickness 16.5mm, Depth 38mm
-    # Fits modern smartphones with rugged cases (iPhone Pro Max / Galaxy Ultra) or Anker battery banks
-    phone_void = rrect(94.0, 16.5, 4.0).extrude(38.0).translate([0, 0, -38.0])
-    phone_void = phone_void.rotate([8.0, 0, 0]).translate([0, 58.0, 0])
-    phone_flare = rrect(98.0, 20.0, 5.0).extrude(2.0).translate([0, 0, -1.5]).rotate([8.0, 0, 0]).translate([0, 58.0, 0])
-    console -= (phone_void + phone_flare)
-
-    # B. Driver-Side Tool Flank Ports (Tire Pressure Gauge / Sharpie / Screwdrivers)
-    # Port 1: 13.0mm diameter x 40.0mm deep with 16.0mm entry chamfer (Sharpie / tire gauge)
-    pen1 = cyl(13.0, -40.0, 1.0, -68.0, 60.0, seg=48) + cone(16.0, 13.0, -2.0, 1.0, -68.0, 60.0, seg=48)
-    # Port 2: 11.0mm diameter x 40.0mm deep with 14.0mm entry chamfer (Pen / precision screwdriver)
-    pen2 = cyl(11.0, -40.0, 1.0, -84.0, 60.0, seg=48) + cone(14.0, 11.0, -2.0, 1.0, -84.0, 60.0, seg=48)
-    console -= (pen1 + pen2)
-
-    # C. Passenger-Side Flank Tool Port (EDC Flashlight / Multi-Bit Driver Caddy)
-    # Pocket: 28.0mm x 16.0mm x 40.0mm deep with 31.0mm x 19.0mm lead-in flare
-    torch_slot = rrect(28.0, 16.0, 4.0).extrude(40.0).translate([75.0, 60.0, -40.0])
-    torch_flare = rrect(31.0, 19.0, 4.5).extrude(2.0).translate([75.0, 60.0, -1.5])
-    console -= (torch_slot + torch_flare)
-
-    # D. Forward Catch-All Coin & Key Tray with 45° Coin Scoop Ramp
-    # Centered at X = 0, spanning Y = 74.0 to 99.0mm (Length 25mm, Width 160mm, Depth 22mm)
-    FRONT_W = 160.0
-    TRAY_START_Y = 74.0
+    # 5. Massive Forward Cargo Mega-Bay (Wide-Open Storage for Phones, Wallets, Sunglasses, Tools)
+    # Spans X = -83 to +83mm (166mm W), Y = 52.0 to 99.0mm (47mm L), Depth = 30.0mm
+    # Completely open architecture (no tiny holes/dividers) allowing full-size smartphones,
+    # sunglasses cases, wallets, tape measures, or large hand tools to lay flat or angled.
+    # Separated from cupholders by a continuous 7.5mm thick solid structural bulkhead.
+    FRONT_W = 166.0
+    TRAY_START_Y = 52.0
     TRAY_END_Y = 99.0
-    TRAY_L = TRAY_END_Y - TRAY_START_Y
-    TRAY_CY = (TRAY_START_Y + TRAY_END_Y) / 2.0
-    TRAY_D = 22.0
+    TRAY_L = TRAY_END_Y - TRAY_START_Y     # 47.0 mm
+    TRAY_CY = (TRAY_START_Y + TRAY_END_Y) / 2.0  # 75.5 mm
+    TRAY_D = 30.0
 
-    front_tray = rrect(FRONT_W, TRAY_L, 5.0).extrude(TRAY_D).translate([0, TRAY_CY, -TRAY_D])
-    front_tray_flare = rrect(FRONT_W + 3.0, TRAY_L + 3.0, 6.0).extrude(1.5).translate([0, TRAY_CY, -1.0])
+    front_tray = rrect(FRONT_W, TRAY_L, 6.0).extrude(TRAY_D).translate([0, TRAY_CY, -TRAY_D])
+    front_tray_flare = rrect(FRONT_W + 3.0, TRAY_L + 3.0, 7.0).extrude(1.5).translate([0, TRAY_CY, -1.0])
 
     # Continuous smooth 45° coin scoop ramp on the leading front wall
     pts_ramp = [
-        [TRAY_END_Y - 6.0, -TRAY_D],
+        [TRAY_END_Y - 7.0, -TRAY_D],
         [TRAY_END_Y, -TRAY_D],
         [TRAY_END_Y, -1.0]
     ]

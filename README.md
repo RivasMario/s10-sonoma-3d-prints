@@ -152,19 +152,15 @@ Calibrated directly against real photos of the **1995 GMC Sonoma** dark blue int
 
 * **Real Floor Drop Clearance:** The distance from the seat receiver tongue down to the rubber transmission tunnel floor mat is only **50mm to 60mm (~2.0" to 2.4")**. The bottom of full-depth 82mm cups sits just ~25mm above the floor mat, making the support stilt leg extremely short, rigid, and rock-solid!
 
-#### 🚀 1. The Monolithic Unibody Console — Full Workstation Edition (Recommended)
-Replaces the stock GM blue cupholder console entirely as a **100% single, solid automotive unibody** maximizing tool utility and daily-carry organization without any floating voids or slicing artifacts:
+#### 🚀 1. The Monolithic Unibody Console — Dual Big-Pocket Edition (Recommended)
+Replaces the stock GM blue cupholder console entirely as a **100% single, solid automotive unibody** maximizing cargo volume and daily-carry utility with wide-open, deep storage pockets and zero slicing artifacts:
 
 * **`sonoma_1995_monolithic_console.stl`**:
   * **Dual 82mm-Deep Stepped Cupholders:** Over **2.3x deeper** than the stock 35mm GM wells! Complete 360° circular solid perimeter walls with a stepped bore (86mm / 3.38" top flare down to 54mm depth, 70mm / 2.75" lower pocket down to 82mm depth). Holds standard 12oz soda cans and water bottles firmly without rattle, while seating 30oz/40oz tumblers (Yeti 35oz, Stanley 40oz, Hydro Flask) deeply (57.5mm / 2.26" deep) for extreme tip-resistance under hard braking.
-  * **Rear Tool Workstation Suite (Bridge & Deck):**
-    * **Milwaukee Fastback 6-in-1 Holster:** Precision vertical slot ($38\text{mm} \times 20\text{mm} \times 54\text{mm}$ deep) with an integrated belt-clip relief channel in the rear center bridge. Sized specifically for the Milwaukee Fastback 48-22-1505 or standard folding utility knives.
-    * **4x 1/4" Hex Driver Bit Retention Wells:** Two on the driver side and two on the passenger side ($7.2\text{mm}$ bore $\times 14.0\text{mm}$ deep with $45^\circ$ lead-in chamfer) for keeping essential Torx T15/T20, Phillips #2, or socket driver bits immediately on hand for interior truck maintenance.
-  * **Forward Two-Tier Workstation Suite:**
-    * **Upright Smartphone / Power Bank Dock:** Centered dock ($94\text{mm} \times 16.5\text{mm} \times 38\text{mm}$ deep) tilted $8^\circ$ rearward toward the driver. Fits modern smartphones with protective cases (iPhone Pro Max, Galaxy Ultra) or portable battery banks.
-    * **Driver-Side Flank Tool Ports:** Dual vertical cylindrical ports ($13.0\text{mm}$ and $11.0\text{mm}$ bore $\times 40\text{mm}$ deep with $45^\circ$ lead-in chamfers) for tire pressure gauges, Sharpies, pens, or screwdrivers.
-    * **Passenger-Side Flank Tool Port:** Rectangular utility caddy ($28\text{mm} \times 16\text{mm} \times 40\text{mm}$ deep) for EDC pocket flashlights (Olight, Streamlight) or multi-bit driver sets.
-    * **Forward Catch-All Coin & Key Tray:** Full-width front tray ($160\text{mm} \text{W} \times 25\text{mm} \text{L} \times 22\text{mm} \text{D}$) with a continuous $45^\circ$ coin scoop ramp and an ergonomic **10mm front-lip USB-C cable relief scallop** for charging cord routing.
+  * **Deep Rear Utility Vault:** Precision cargo well ($52\text{mm W} \times 22\text{mm L} \times 55\text{mm D}$) centered in the rear bridge behind the cups. Sized generously to swallow multi-tools (Leatherman Wave/Surge), folding utility knives (Milwaukee Fastback 48-22-1505), pliers, EDC flashlights, or key rings standing upright with zero tipping risk, while preserving thick $>4.0\text{mm}$ solid bulkheads.
+  * **Massive Forward Cargo Mega-Bay:** Wide-open, cavernous storage bay ($166\text{mm W} \times 47\text{mm L} \times 30\text{mm D}$) spanning across the full forward console deck. Completely open unibody architecture (no tiny slots or restrictive dividers) designed to fit large smartphones (iPhone Pro Max, Galaxy Ultra) laying flat or propped at an angle, full-size sunglasses cases, wallets, tape measures, or large hand tools.
+  * **Continuous 45° Coin Scoop Ramp:** Full-width angled ramp integrated seamlessly along the leading front wall for effortless slide-out retrieval of coins, guitar picks, and small hardware.
+  * **Ergonomic Front-Lip USB-C Cable Scallop:** $10\text{mm}$ contoured cable relief notch centered on the forward lip for snag-free charging cord pass-through directly from the lower dash/ashtray USB ports.
   * **100% Solid Floor & Tunnel Arch (Zero Floating Holes):** Every tool well, pocket, and cup has thick solid plastic beneath it (15mm to 68mm solid floor margin to bed). No hollow coring cavities, no unsupported voids, and zero staticy collar lines.
   * **Reinforced Seat Receiver Tongue with 45° Cammed Retention Catch & Buttress Gusset:** 
     * Eliminates cantilever bending fatigue when resting heavy tumblers or leaning on the console.
@@ -182,7 +178,7 @@ Replaces the stock GM blue cupholder console entirely as a **100% single, solid 
 
 #### 🧩 2. The Modular 2-Piece Edition (Zero-Rattle & Anti-Binding Calibrated Fit):
 * **`sonoma_cupholder_1995_megadeck.stl`**:
-  * The same full workstation deck, stopping at $Z = -85\text{mm}$ with an underside calibrated mortise socket ($22\text{mm} \times 50\text{mm}$) ensuring zero interference with the lower cupholder pockets.
+  * The same dual big-pocket console deck, stopping at $Z = -85\text{mm}$ with an underside calibrated mortise socket ($22\text{mm} \times 50\text{mm}$) ensuring zero interference with the lower cupholder pockets.
   * **Self-Centering Socket Mouth:** Features a $1.5\text{mm}$ $45^\circ$ lead-in chamfer around the socket entrance for smooth tenon engagement.
 * **`sonoma_cupholder_1995_stilt_26mm.stl` (25mm Low-Profile Stabilizer Foot)**:
   * **Calibrated 0.20mm Sliding Tolerance:** Sized with exact $0.20\text{mm}$ per-side clearance based on real-world community testing ($21.6\text{mm} \times 49.6\text{mm}$ tenon).
