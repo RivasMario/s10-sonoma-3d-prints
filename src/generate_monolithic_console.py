@@ -1,28 +1,28 @@
 #!/usr/bin/env python3
 """
 Parametric CAD Generator for 1995 GMC Sonoma Monolithic Unibody Bench Seat Console
-Revised per Community Feedback (Anti-Warp Architecture & Zero-Rattle Calibrated Tolerance):
+Clean PastyBoi-Style Architecture (Zero Slicing Artifacts, Zero Floating Holes):
   - 100% Continuous Automotive Unibody (Zero floating parts, Zero disjoint shells, Zero thin slivers)
   - Dual 82mm-deep stepped cupholders (86mm / 3.38" top bore to 54mm depth, 70mm / 2.75" lower pocket)
     * Optimally seats 40oz Stanley Quenchers and 35oz Yeti tumblers deep (57.5mm / 2.26") for maximum tip-resistance
-  - Solid 360-degree perimeter walls on both cupholders (No wall-severing slots or razor edges)
-  - Dedicated Milwaukee Fastback 6-in-1 (48-22-1505) vertical knife holster with clip relief
-  - Dual massive rear open cargo block vaults (42mm x 22mm x 60mm deep each) for glasses, tools, keys, phones
-  - Massive forward open cargo vault (172mm W x 67mm L x 32mm D) with continuous 45° coin scoop ramp
+    * 360-degree solid thick circular walls (5mm+ wall margin everywhere, zero intersecting collars or staticy lines)
+  - ONE clean, massive forward catch-all tray (166mm W x 47mm L x 28mm D) with smooth 45° coin scoop ramp
+    * Completely separated from the cupholders with a 7.5mm solid structural bulkhead
   - Front-lip ergonomic 10mm USB-C cable relief scallop for clean charging cord routing from dash/ashtray
   - Integrated 110mm x 85mm x 7.5mm seat receiver tongue with 45° cammed lead-in retention catch bump & 45° buttress gusset
-  - Underside engineered weight-relief cavity: Saves ~450g of plastic, self-supporting 45° roof (Zero supports needed!)
-  - [COMMUNITY REVISION 1] Anti-Warp Arch & Bed Interface:
+  - 100% Solid Floor & Infill: ZERO underside hollow gable cavities, ZERO floating voids or paper-thin floors
+  - Anti-Warp Arch & Bed Interface:
     * Transmission tunnel arch runs longitudinally along Y (front to back) matching the truck's actual tunnel hump
-    * Arch curve is bounded (|X| <= 46mm) with a 1.2mm vertical landing shoulder, eliminating the 9° razor feather edge that peeled off print beds
+    * Arch curve is bounded (|X| <= 46mm) with a 1.2mm vertical landing shoulder, eliminating the 9° razor feather edge
     * Broad 52mm-wide flat landing runners on driver and passenger sides for rock-solid bed contact
     * Recessed 40mm anti-slip felt pad pockets centered on flat runners (X = ±68.0mm)
-    * 4 integrated sacrificial 28mm anti-warp corner mouse ears (0.45mm / 2-layer thick) preventing ASA corner lift during cooling
-    * Sacrificial breakaway tongue kickstand truss: anchors the 85mm cantilevered tongue to the bed during the 33-hour print with a 0.35mm breakaway gap
-  - [COMMUNITY REVISION 2] Modular 2-Piece Zero-Rattle & Anti-Binding Calibrated Fit:
+    * 6 integrated sacrificial anti-warp corner mouse ears (0.60mm / 3-layer thick) preventing corner lift during cooling
+    * Sacrificial breakaway tongue kickstand truss: anchors the 85mm cantilevered tongue to the bed with a 0.35mm breakaway gap
+  - Modular 2-Piece Zero-Rattle & Anti-Binding Calibrated Fit:
     * Baseline sliding clearance calibrated to 0.20mm per side
     * 5.5mm corner radius on tenon (vs 4.0mm socket) guaranteeing >0.6mm clearance at all corners so printer corner seams/zits never bind
     * 45° lead-in chamfer on tenon tip and socket mouth for effortless self-aligning insertion
+    * 4 vertical tapered crush ribs (tapering from 0.0mm at top to +0.35mm interference at base collar)
     * 4 vertical tapered crush ribs (tapering from 0.0mm at top to +0.35mm interference at base collar):
       slides in freely 75% of the travel, then wedges 100% rigid with ZERO rattle and ZERO sanding needed!
 """
@@ -104,8 +104,18 @@ def contoured_hull_cs(w_front=202.0, w_rear=144.0, y_front=105.0, y_rear=-60.0, 
 
 def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True):
     """
-    Generates a continuous, solid automotive unibody console.
-    Every zone of the console is utilized for smart EDC storage, phone charging, and weight reduction.
+    Clean PastyBoi-Style Unibody Bench Seat Console for 1995 GMC Sonoma / Chevy S10:
+      - 100% Continuous Automotive Unibody (Zero floating parts, Zero disjoint shells, Zero thin slivers)
+      - Dual 82mm-deep stepped cupholders (86mm / 3.38" top bore to 54mm depth, 70mm / 2.75" lower pocket)
+        * Optimally seats 40oz Stanley Quenchers and 35oz Yeti tumblers deep (57.5mm / 2.26") for maximum tip-resistance
+        * 360-degree solid thick circular walls (5mm+ solid wall margin everywhere, zero intersecting collars)
+      - ONE clean, massive forward catch-all tray (166mm W x 47mm L x 28mm D) with smooth 45° coin scoop ramp
+        * Completely separated from the cupholders with a 7.5mm solid structural bulkhead
+      - Front-lip ergonomic 10mm USB-C cable relief scallop for clean charging cord routing from dash/ashtray
+      - Integrated 110mm x 85mm x 7.5mm seat receiver tongue with 45° cammed lead-in retention catch bump & 45° buttress gusset
+      - 100% Solid Floor & Infill: ZERO underside hollow gable swiss-cheese cavities, ZERO floating voids or paper-thin floors
+      - Longitudinal transmission tunnel arch along Y with 1.2mm landing shoulders and broad flat 52mm runners
+      - 8-point heavy-duty ASA anti-warp mouse ears + sacrificial tongue kickstand truss
     """
     # Coordinate system:
     # Origin (0,0,0) is centered horizontally at the top deck surface.
@@ -122,7 +132,7 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
     BODY_CENTER_Y = (BODY_FRONT_Y + BODY_REAR_Y) / 2.0 # 22.5 mm
     
     CUP_SPACING_X = 96.0    # mm center-to-center distance (X = -48.0 and +48.0)
-    CUP_CENTER_Y = 10.0     # mm
+    CUP_CENTER_Y = 2.0      # mm center position
     CUP_TOP_D = 86.0        # 3.38" top bore (fits Yeti 30oz, Stanley 40oz base, Hydro Flask)
     CUP_LOW_D = 70.0        # 2.75" lower pocket (fits standard 12oz cans, soda bottles)
     CUP_DEPTH = 82.0        # mm total depth
@@ -170,72 +180,49 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
     
     console += tongue + catch + gusset_bot + gusset_top
     
-    # 3. Bore Dual Stepped Cupholders
+    # 3. Bore Dual Stepped Cupholders (Clean 360° solid circular wells)
     rf, rl = CUP_TOP_D / 2.0, CUP_LOW_D / 2.0
     for cx in (-CUP_SPACING_X / 2.0, CUP_SPACING_X / 2.0):
-        cup_void = cone(rf*2 + 4.0, rf*2, -3.0, 1.0, cx, CUP_CENTER_Y)
-        cup_void += cyl(rf*2, -UPPER_BORE_D, -3.0, cx, CUP_CENTER_Y)
+        cup_void = cone(rf*2 + 3.0, rf*2, -2.5, 1.0, cx, CUP_CENTER_Y)
+        cup_void += cyl(rf*2, -UPPER_BORE_D, -2.5, cx, CUP_CENTER_Y)
         cup_void += cone(rf*2, rl*2, -UPPER_BORE_D - TRANSITION_H, -UPPER_BORE_D, cx, CUP_CENTER_Y)
         cup_void += cyl(rl*2, -CUP_DEPTH, -UPPER_BORE_D - TRANSITION_H, cx, CUP_CENTER_Y)
         cup_void += cone(rl*2, (rl - 5.0)*2, -CUP_DEPTH - 2.0, -CUP_DEPTH, cx, CUP_CENTER_Y)
         console -= cup_void
         
-    # 4. Dedicated Milwaukee Fastback 6-in-1 Knife Holster
-    fastback_void = rrect(38.0, 20.0, 4.0).extrude(55.0).translate([0, -42.0, -55.0])
-    fastback_flare = rrect(42.0, 24.0, 5.0).extrude(2.0).translate([0, -42.0, -1.0])
-    clip_channel = box(-7.0, 7.0, -32.5, -30.0, -42.0, 2.0)
-    console -= (fastback_void + fastback_flare + clip_channel)
-    
-    # 5. Driver-Side Rear Wing: Open Cargo Block Vault (Contoured to 144mm Taper)
-    left_vault = rrect(42.0, 22.0, 4.0).extrude(60.0).translate([-47.0, -45.0, -60.0])
-    left_flare = rrect(46.0, 26.0, 5.0).extrude(2.0).translate([-47.0, -45.0, -1.0])
-    console -= (left_vault + left_flare)
-    
-    # 6. Passenger-Side Rear Wing: Open Cargo Block Vault (Contoured to 144mm Taper)
-    right_vault = rrect(42.0, 22.0, 4.0).extrude(60.0).translate([47.0, -45.0, -60.0])
-    right_flare = rrect(46.0, 26.0, 5.0).extrude(2.0).translate([47.0, -45.0, -1.0])
-    console -= (right_vault + right_flare)
-    
-    # 7. Contour-Wrapped Forward Cargo Mega-Vault with Continuous Coin Scoop Ramp
-    FRONT_W = 172.0
-    Y_START = 34.0
-    Y_END = 101.0
-    FRONT_L = Y_END - Y_START
-    CENTER_Y = (Y_START + Y_END) / 2.0
-    FRONT_D = 32.0
+    # 4. ONE Simple Clean Front Catch-All Tray (Following PastyBoi)
+    # Starts at Y = 52.0 (leaves a solid 7.5mm thick wall in front of the cups!)
+    # Zero intersecting collars, zero double-subtractions, zero staticy lines!
+    FRONT_W = 166.0
+    TRAY_START_Y = 52.0
+    TRAY_END_Y = 99.0
+    TRAY_L = TRAY_END_Y - TRAY_START_Y     # 47.0 mm
+    TRAY_CY = (TRAY_START_Y + TRAY_END_Y) / 2.0  # 75.5 mm
+    TRAY_D = 28.0
 
-    front_block = rrect(FRONT_W, FRONT_L, 6.0).extrude(FRONT_D).translate([0, CENTER_Y, -FRONT_D])
-    front_flare = rrect(FRONT_W + 4.0, FRONT_L + 4.0, 7.0).extrude(2.0).translate([0, CENTER_Y, -1.0])
+    front_tray = rrect(FRONT_W, TRAY_L, 6.0).extrude(TRAY_D).translate([0, TRAY_CY, -TRAY_D])
+    front_tray_flare = rrect(FRONT_W + 3.0, TRAY_L + 3.0, 7.0).extrude(1.5).translate([0, TRAY_CY, -1.0])
 
-    cup_l_collar = cyl(CUP_TOP_D + 9.0, -FRONT_D - 5.0, 5.0, -CUP_SPACING_X/2, CUP_CENTER_Y)
-    cup_r_collar = cyl(CUP_TOP_D + 9.0, -FRONT_D - 5.0, 5.0, +CUP_SPACING_X/2, CUP_CENTER_Y)
-    coin_ramp = box(-FRONT_W/2, FRONT_W/2, 94.0, 101.5, -FRONT_D, 1.0)
+    # Continuous smooth 45° coin scoop ramp on the leading front wall
+    pts_ramp = [
+        [TRAY_END_Y - 7.0, -TRAY_D],
+        [TRAY_END_Y, -TRAY_D],
+        [TRAY_END_Y, -1.0]
+    ]
+    cs_ramp = CrossSection([pts_ramp])
+    coin_ramp_solid = cs_ramp.extrude(FRONT_W - 8.0).rotate([90, 0, 90]).translate([-(FRONT_W - 8.0)/2, 0, 0])
 
-    front_vault = (front_block + front_flare) - cup_l_collar - cup_r_collar
-    console -= front_vault
-    console -= coin_ramp
-    
+    console -= (front_tray + front_tray_flare)
+    console += coin_ramp_solid
+
     # Ergonomic 10mm USB-C cable relief scallop on front lip
-    # Allows charging cords from lower dash/ashtray to enter the front vault without kinking or getting pinched
     cable_notch = cyl(10.0, -15.0, 15.0, 0, 0).rotate([90, 0, 0]).translate([0, BODY_FRONT_Y, -1.5]) + box(-5.0, 5.0, 95.0, 115.0, -1.5, 5.0)
     console -= cable_notch
     
-    # 8. Underside Engineered Weight-Relief & Stash Cavities
+    # 5. Base & Transmission Tunnel Arch
     if include_floor_base:
-        # A. Large forward gable chamber under front cargo mega-vault (45° roof along X)
-        v_front = gable_void_x(134.0, 46.0, TOTAL_FLOOR_Z - 1.0, -63.0, cy=71.0)
-        
-        # B. Rear gable chamber under rear vaults & bridge (45° roof along X)
-        v_rear = gable_void_x(92.0, 26.0, TOTAL_FLOOR_Z - 1.0, -80.0, cy=-40.0)
-        
-        # C. Central longitudinal arched spine between cupholder lower pockets (45° roof along Y)
-        v_tunnel = gable_void_y(18.0, 74.0, TOTAL_FLOOR_Z - 1.0, -63.0, cy=11.0)
-        
-        console -= (v_front + v_rear + v_tunnel)
-        
-        # D. Revised Transmission Tunnel Arch (Community Anti-Warp Architecture):
-        # Longitudinal arch aligned along Y axis (front to back) matching truck transmission tunnel hump
-        # Arch cutout bounded (|X| <= 46.0mm) with 1.2mm vertical landing shoulder to eliminate 9° feather edge
+        # 100% Solid Floor: NO internal gable weight-relief cavities!
+        # Eliminates all floating holes, internal voids, and weak infill roofs.
         R_CURVE = 320.0
         curve_cyl = cyl(R_CURVE*2, -BODY_L*2, BODY_L*2, 0, 0).rotate([90, 0, 0]).translate([0, 0, TOTAL_FLOOR_Z - R_CURVE + 4.0])
         arch_box = box(-46.0, 46.0, -BODY_L*2, BODY_L*2, TOTAL_FLOOR_Z - 2.0, TOTAL_FLOOR_Z + 10.0)
@@ -247,14 +234,9 @@ def generate_monolithic_console(include_floor_base=True, add_anti_warp_tabs=True
         console = console - arch_cutout - pad_l - pad_r
         
         if add_anti_warp_tabs:
-            # 8-Point Heavy-Duty ASA Anti-Warp Adhesion Grid (30mm diam x 0.60mm / 3 solid layers at 0.20mm)
-            # Engineered specifically for ASA high-shrinkage thermal contraction:
-            # Pins all 4 extreme corners, mid-span runners, and rear tongue kickstand flat to build plate.
-            # Snaps off cleanly by hand after cooling without leaving blemishes.
             PAD_R = 15.0
             PAD_H = 0.60
             mouse_ears = Manifold()
-            # 6 perimeter anchors on contoured main console runners (Front, Mid, Rear)
             for mx in (-BODY_W_FRONT/2 + 5.0, BODY_W_FRONT/2 - 5.0):
                 for my in (BODY_CENTER_Y, BODY_FRONT_Y - 5.0):
                     mouse_ears += cyl(PAD_R*2, TOTAL_FLOOR_Z, TOTAL_FLOOR_Z + PAD_H, mx, my)
