@@ -249,7 +249,30 @@ Replaces the stock GM blue cupholder console entirely as a **100% single, solid 
 
 ---
 
-### 6. 💡 Dashboard & Glove Box LED Bulb Upgrade Guide
+### 6. Tactical EDC Gear & Scan-Molded Accessories
+Located in [`stls/accessories/`](stls/accessories/)
+
+Custom accessories reverse-engineered and form-fitted directly around real-world 3D photogrammetric scans:
+
+<p align="center">
+  <img src="images/cad_render_stanley_sheath.png" width="98%" alt="Stanley 12-in-1 Multitool Tactical EDC Sheath 2x2 Studio CAD Showcase" />
+</p>
+<p align="center">
+  <em>Figure: Stanley 12-in-1 Multitool Tactical EDC Sheath: (Top-Left) 3/4 Front Isometric view showing the compliant cantilever spring finger with flush outer profile and lower 550 paracord loop; (Top-Right) Seated EDC Assembly showing the multitool locked inside with 33mm exposed handle for one-handed draw; (Bottom-Left) 3/4 Rear view showing the 1.75" heavy-duty belt clip with reinforcing bridge gusset, retention barb, and ski-ramp lead-in; (Bottom-Right) Underside view showing the 24mm x 10mm index-finger quick-draw push-up port and drainage slot.</em>
+</p>
+
+* **`stanley_multitool_tactical_sheath.stl` (Stanley 12-in-1 Tactical EDC Belt Sheath)**:
+  * **Photogrammetric Scan Reverse-Engineered:** Custom-molded from a 3D surface scan (`3DModel.obj`) of the Stanley 12-in-1 / 14-in-1 multi-tool.
+  * **Calibrated 0.6mm Glide Clearance:** Form-fitting $45.0\text{mm W} \times 19.6\text{mm T} \times 72.0\text{mm D}$ cavity holds the tool firmly with zero rattle while sliding smoothly without binding.
+  * **Active Cantilever Click-Lock Retention Detent:** An engineered $12\text{mm} \times 36\text{mm}$ flexible spring finger on the front face carries an inward hemispherical detent bead at $Z = 52\text{mm}$ that snaps into the multi-tool's skeletonized handle cutout with an audible, tactile click.
+  * **Snag-Free Flush Exterior:** The retention bead is clamped flush to the front wall, eliminating external bumps so the holster slips cleanly in and out of pockets.
+  * **Integrated 1.75" (45mm) Heavy-Duty Belt Clip:** Fits thick leather gun belts and tactical nylon webbing ($5.2\text{mm}$ clearance gap) with an inward retention barb to lock onto the belt bottom, an outward $45^\circ$ ski-ramp for easy one-handed clipping, and a $45^\circ$ triangular bridge gusset preventing delamination.
+  * **Index-Finger Quick-Draw Port & Drainage Slot:** Open $24\text{mm} \times 10\text{mm}$ floor cutout allows popping the tool up instantly with an index finger, while allowing dust, lint, and water to drain freely.
+  * **Lower Corner 550 Paracord Eyelet:** Reinforced $5.0\text{mm}$ horizontal through-hole at the base corner for tethering, carabiners, or dummy-cording without snagging draw access.
+
+---
+
+### 7. 💡 Dashboard & Glove Box LED Bulb Upgrade Guide
 
 The factory incandescent miniature wedge bulbs in the lower dash ashtray and the passenger glove box drawer often burn out or emit a dim yellow glow. Both can be easily upgraded to high-efficiency, bright LEDs.
 
@@ -345,6 +368,9 @@ If you want the charger and voltmeter display to shut off 100% when you turn off
 
 All parts were programmatically designed in Python using the modern `manifold3d` geometric modeling engine. Source scripts are in [`src/`](src/):
 * `src/generate_monolithic_console.py`: 1995 Sonoma Monolithic Unibody Console & 25mm stilt generator.
+* `src/generate_1995_true_wedge_drawer.py`: 1994–1997 True Wedge OEM replacement drawer generator.
+* `src/generate_stanley_multitool_sheath.py`: Stanley 12-in-1 Multitool Tactical EDC Sheath generator.
+* `src/render_stanley_sheath.py`: Multi-view studio CAD rendering pipeline for tactical sheath.
 * `src/generate_1995_sonoma_cupholder_console.py`: 1995 Sonoma Mega-Deck console & 26mm stabilizer stilt generator.
 * `src/generate_1995_sonoma_mods.py`: 1995 Sonoma ashtray drop-ins, tumbler sleeve, Fastback caddy, and 52mm stilt generator.
 * `src/generate_all_phone_mounts.py`: Parametric phone mount generator.
